@@ -51,7 +51,7 @@ app.use((req,res,next)=>{
 })
 // Session middleware
 const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/session-store',
+  uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
   collection: 'sessions'
 });
 
@@ -94,6 +94,9 @@ app.use(session({
   saveUninitialized: false,
   store: store,
 }));
+
+
+
 
 mongoose.connect('mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net/users?retryWrites=true&w=majority', {
   useNewUrlParser: true,
