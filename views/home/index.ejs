@@ -4507,14 +4507,14 @@ hr{
       <option value="Sanchez">Sanchez</option>
     </select>
     <label for="Reference-input2">Reference</label>
-    <input type="text" id="Reference-input2" name="Reference-input">
+    <input type="text" id="Reference-input2" name="Reference-input" required>
     <label for="Destination-input2">Destination</label>
-    <input type="text" id="Destination-input2" name="Destination-input">
+    <input type="text" id="Destination-input2" name="Destination-input" required>
     <label for="Payload-input2">Payload</label>
-    <input type="text" id="Payload-input2" name="Payload-input">
+    <input type="text" id="Payload-input2" name="Payload-input" required>
     <label for="TimeDate-input2">Date</label>
     <!-- <input type="text" id="TimeDate-input2" name="TimeDate-input"> -->
-    <input type="datetime-local" id="TimeDate-input2" name="TimeDate-input">
+    <input type="datetime-local" id="TimeDate-input2" name="TimeDate-input" required>
 
     <button type="submit">Submit</button>
   </form>
@@ -4804,7 +4804,7 @@ hr{
 
       // Get the form data
       const formData = new FormData(e.target);
-      const selectedLocations = formData.getAll('selectLocation1');
+      const selectedLocations = formData.getAll('selectLocation');
       const reference = formData.get('Reference-input');
       const payload = formData.get('Payload-input');
 
@@ -4875,7 +4875,7 @@ hr{
       // Clear the form fields
       spmtForm.reset();
     });
-    
+
     // create function getLocation fetch the endpoint
     function getLocation() {
       select.addEventListener('change', (event) => {
