@@ -1,5 +1,4 @@
 const PDFDocument = require('pdfkit');
-
 const path = require('path');
 const formsFilePath = path.join(__dirname, 'views/home/forms.json');
 const forms = require(formsFilePath);
@@ -10,19 +9,20 @@ const { google } = require('googleapis');
 const fs = require('fs');
 const ejs = require('ejs');
 const cors = require('cors');
+
+app.use(cors());
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-// const url_ngrok = "https://a13c-105-235-130-76.ngrok-free.app";
-const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
+const url_ngrok = "https://7428-105-235-128-44.ngrok-free.app";
+// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
 const fetch = require('isomorphic-fetch');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const server = require('http').createServer(app);
 const mongoose = require('mongoose');
-// const cors = require('cors');
 
 const io = require('socket.io')(server, {
   cors: {
@@ -41,24 +41,46 @@ const youtube = google.youtube({
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
-// Enable CORS middleware
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use((req,res,next)=>{
+  res.setHeader('Access-Control-Allow-Origin',"https://7428-105-235-128-44.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+  next(); 
+})
+// Session middleware
+const store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/session-store',
+  collection: 'sessions'
+});
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  store: store
+}));
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static('public'));
 
-// Configure session store
-const store = new MongoDBStore({
-  uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
-  collection: 'sessions',
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
 });
+
+// Rest of your code...
+
+
+// Configure session store
+// const store = new MongoDBStore({
+//   uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
+//   collection: 'sessions',
+// });
 
 // Catch errors in session store
 store.on('error', (error) => {
