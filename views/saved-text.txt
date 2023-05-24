@@ -1,0 +1,2649 @@
+    /* Text Area */
+    form textarea {
+      width: 480px;
+      transform: translatex(157px) translatey(83px);
+      top: -35px;
+    }
+
+    /* Input */
+    form input[type=file] {
+      width: 163px !important;
+    }
+
+
+    #player {
+      display: inline-block;
+      width: 39%;
+      position: relative;
+      left: 13px;
+    }
+
+    @media (max-width:768px) {
+
+      /* Player */
+      #player {
+        margin-right: 22px;
+        width: 498px;
+      }
+
+    }
+
+    @media (min-width:768px) {
+
+      /* Player */
+      #player {
+        width: 690px;
+        margin-bottom: 0px;
+        top: 19px;
+        left: 20px;
+        margin-right: 6px;
+      }
+
+      /* Image */
+      /* img{
+  display:inline-block;
+  transform:translatex(23px) translatey(22px);
+ } */
+
+      /* Heading */
+      h1 {
+        width: 84%;
+        transform: translatex(23px) translatey(30px);
+      }
+
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+
+    header {
+      background-color: #0c2461;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    img {
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 400px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button[type="submit"],
+    button {
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #0c2461;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover,
+    button:hover {
+      background-color: #084174;
+    }
+
+    label {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    hr {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid #f1f1f1;
+    }
+
+    textarea {
+      border: 1px solid #ccc;
+      font-size: 14px;
+      font-family: "Times New Roman", Times, serif;
+      padding: 10px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      width: 100%;
+      height: 400px;
+    }
+
+    textarea {
+      /* Adjust the size of the text area */
+      width: 25%;
+      height: 200px;
+
+      /* Add padding and border */
+      padding: 10px;
+      border: 1px solid #ccc;
+
+      /* Customize the font */
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+
+      /* Customize the background and text color */
+      background-color: #fff;
+      color: #333;
+
+      /* Add a resize handle to the bottom right corner */
+      resize: both;
+      overflow: auto;
+
+      /* Add a box shadow for a 3D effect */
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Text Area */
+    textarea {
+      transform: translatex(263px) translatey(73px);
+      min-height: 546px;
+      height: 750px;
+      width: 29%;
+      position: relative;
+      left: -23px;
+      top: -21px;
+    }
+
+    /* Button */
+    #speakerForm button {
+      width: 22%;
+      transform: translatex(314px) translatey(-49px);
+      position: relative;
+      left: 6px;
+    }
+
+    /* Speaker count */
+    #speakerCount {
+      width: 269px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #a69f9f;
+      transform: translatex(23px) translatey(0px);
+      position: relative;
+      left: 2px;
+    }
+
+    /* Speaker form */
+    #speakerForm {
+      transform: translatex(-15px) translatey(-307px);
+      width: 38%;
+      height: 54px;
+      position: relative;
+      top: -21px;
+    }
+
+    /* Num speakers */
+    #numSpeakers {
+      border-width: 1px;
+      border-color: #b1aeae;
+      margin-bottom: 1px;
+      border-style: solid;
+      width: 29px;
+      position: relative;
+      left: 14px;
+      transform: translatex(-165px) translatey(30px);
+      top: -365px;
+    }
+
+    /* Heading */
+    h1 {
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      font-weight: 500;
+      line-height: 1.13em;
+      border-left-width: 1px;
+    }
+
+    /* Image */
+    img {
+      display: inline-block;
+      transform: translatex(585px) translatey(-225px);
+      width: 120px;
+      max-width: 120px;
+      border-width: 3px;
+      border-color: #1abc9c;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      position: relative;
+      top: 2px;
+      left: -2px;
+      background-color: #faf9f9;
+      box-shadow: -3px 0px 3px 2px #d5d1d1;
+    }
+
+    /* Heading */
+    h1:nth-child(1) {
+      position: relative;
+      top: 16px;
+    }
+
+    /* Create buttons button */
+    #createButtonsButton {
+      position: relative;
+      left: 22px;
+      transform: translatex(-173px) translatey(-318px);
+      top: -17px;
+      width: 143px;
+    }
+
+    /* Label */
+    label {
+      position: relative;
+      left: 12px;
+      top: -371px;
+      width: 158px;
+      margin-bottom: 2px;
+    }
+
+    /* Heading */
+    h1:nth-child(7) {
+      position: relative;
+      top: -3px;
+    }
+
+    @media (min-width:768px) {
+
+      /* Heading */
+      h1 {
+        width: 497px;
+      }
+
+      /* Player */
+      #player {
+        left: -113px;
+        top: -340px;
+        position: relative;
+      }
+
+      /* Heading */
+      h1:nth-child(1) {
+        width: 685px;
+      }
+
+      /* Heading */
+      h1:nth-child(7) {
+        width: 329px;
+        transform: translatex(11px) translatey(-318px);
+      }
+
+    }
+
+    /* Label */
+    #buttons div:nth-child(1) label {
+      top: -1px !important;
+      bottom: auto !important;
+      left: -6px;
+    }
+
+    /* Division */
+    #buttons div:nth-child(1) {
+      transform: translatex(4px) translatey(7px);
+      display: inline-block;
+    }
+
+    /* Buttons */
+    #buttons {
+      transform: translatex(13px) translatey(-301px);
+      position: relative;
+      top: -21px;
+      left: 8px;
+      height: 148px;
+      padding-top: 28px;
+    }
+
+    /* Division */
+    #buttons>div {
+      transform: translatex(0px) translatey(7px) !important;
+      position: relative;
+      top: -23px;
+    }
+
+    /* Label */
+    #buttons div>label {
+      top: -337px !important;
+      bottom: auto !important;
+    }
+
+    /* Label */
+    #buttons div:nth-child(3) label {
+      top: 0px !important;
+      bottom: auto !important;
+      left: -4px;
+      line-height: 22px;
+    }
+
+    /* Label */
+    #buttons div>label {
+      top: 0px !important;
+      left: 0px !important;
+    }
+
+    /* Buttons */
+    #buttons {
+      min-height: 671px;
+      transform: translatex(3px) translatey(-312px);
+      height: 671px;
+      width: 55%;
+    }
+
+    /* Division */
+    #buttons div:nth-child(3) {
+      top: -52px;
+    }
+
+    /* Division */
+    #buttons div:nth-child(5) {
+      top: -81px;
+    }
+
+    /* Division */
+    #buttons div:nth-child(7) {
+      top: -111px;
+    }
+
+    /* Division */
+    #buttons div:nth-child(9) {
+      top: -148px;
+    }
+
+    /* Textarea */
+    #my-textarea {
+      transform: translatex(121px) translatey(41px);
+      width: 446px;
+      padding-right: 0px;
+    }
+
+    /* Image */
+    img {
+      top: 380px;
+    }
+
+    /* Heading */
+    h1 {
+      top: -491px !important;
+      bottom: auto !important;
+    }
+
+    /* Speaker form */
+    #speakerForm {
+      transform: translatex(5px) translatey(-795px);
+      width: 526px;
+    }
+
+    /* Speaker count */
+    #speakerCount {
+      left: -15px;
+    }
+
+    /* Button */
+    #speakerForm button {
+      left: -9px;
+    }
+
+    /* Label */
+    label {
+      top: -865px;
+    }
+
+    /* Create buttons button */
+    #createButtonsButton {
+      top: -895px;
+      transform: translatex(-173px) translatey(67px);
+    }
+
+    /* Num speakers */
+    #numSpeakers {
+      transform: translatex(-163px) translatey(-463px);
+      top: -366px;
+      left: 12px;
+    }
+
+    /* Buttons */
+    #buttons {
+      transform: translatex(-3px) translatey(-807px);
+    }
+
+    /* Button */
+    #my-form button {
+      width: 16%;
+      position: relative;
+      left: -385px;
+      transform: translatex(487px) translatey(8px);
+    }
+
+    /* Body */
+    body {
+      height: 1401px;
+    }
+
+    /* Form */
+    #my-form {
+      transform: translatex(1060px) translatey(-387px);
+      width: 563px;
+      position: relative;
+      left: 2px;
+    }
+
+    /* Heading */
+    h1:nth-child(1) {
+      top: -3px !important;
+    }
+
+    /* Player */
+    #player {
+      border-color: #0a0909;
+      border-width: 1px;
+    }
+
+    @media (min-width:768px) {
+
+      /* Player */
+      #player {
+        top: 38px;
+      }
+
+      /* Form Division */
+      form {
+        transform: translatex(649px) translatey(-489px);
+        position: relative;
+        right: -123px;
+      }
+
+      /* Speaker count */
+      #speakerCount {
+        transform: translatex(-828px) translatey(-357px);
+        left: 67px;
+        position: relative;
+        top: 20px;
+      }
+
+      /* Button */
+      #speakerForm button {
+        transform: translatex(-452px) translatey(-389px);
+      }
+
+
+
+      /* File name */
+      #fileName {
+        width: 240px;
+        transform: translatex(240px) translatey(48px);
+      }
+
+      /* Buttons */
+      #buttons {
+        transform: translatex(-3px) translatey(-783px);
+        width: 647px;
+        top: -38px;
+      }
+
+      /* File */
+      #myFile {
+        width: 28%;
+        position: relative;
+        left: 8px;
+        transform: translatex(236px) translatey(38px);
+        top: 3px;
+      }
+
+      /* Speaker form */
+      #speakerForm {
+        transform: translatex(649px) translatey(-489px) !important;
+      }
+
+      /* Body */
+      body {
+        width: 60%;
+      }
+
+      /* Form Division */
+      form:nth-child(6) {
+        width: 808px;
+        transform: translatex(1057px) translatey(-439px);
+      }
+
+      /* Text */
+      #text {
+        width: 480px !important;
+        padding-left: 11px;
+        padding-right: 20px;
+      }
+
+      /* Heading */
+      h1:nth-child(7) {
+        top: -501px !important;
+        bottom: auto !important;
+      }
+
+      @media (min-width:768px) {
+
+        /* Heading */
+        h1:nth-child(7) {
+          transform: translatex(11px) translatey(-345px);
+        }
+
+      }
+    }
+
+    @media (min-width:768px) {
+
+
+
+      /* File */
+      #myFile {
+        width: 250px;
+      }
+
+    }
+
+    .form-card {
+      width: 25rem;
+      gap: 1rem;
+      background-color: #ffffff;
+      border-radius: 0.3rem;
+      padding: 1.5rem;
+    }
+
+    /* Text */
+    #text {
+      background-color: #d8e6f2;
+      color: #0f0f0f;
+      font-style: normal;
+      box-shadow: -4px 1px 9px 2px rgba(18, 17, 17, 0.1);
+      border-style: solid;
+      border-color: #9d9494;
+    }
+
+    /* Form Division */
+    form {
+      background-color: transparent;
+    }
+
+    /* File */
+    #myFile {
+      min-height: 24px;
+      font-size: 17px;
+      background-color: transparent;
+    }
+
+    /* Save */
+    #saveBtn {
+      width: 7%;
+      position: relative;
+      left: 9px;
+      transform: translatex(236px) translatey(38px);
+    }
+
+    /* Save */
+    #saveBtn {
+      font-size: 17px;
+      background-color: #0c2461;
+      color: #ffffff;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      top: 2px;
+    }
+
+    /* Save */
+    #saveBtn {
+      width: 150px;
+    }
+
+    /* Save */
+    #saveBtn {
+      width: 128px;
+    }
+
+
+
+    /* Button */
+    #speakerForm button {
+      background-color: #0c2461;
+    }
+
+    @media (min-width:768px) {
+
+      /* File */
+      #myFile {
+        top: 5px;
+        width: 314px;
+      }
+
+
+
+      body {
+        width: 2047px;
+      }
+
+      /* Form Division */
+      form {
+        width: 35% !important;
+        left: 173px !important;
+      }
+
+      /* Form Division */
+      form:nth-child(6) {
+        left: 158px;
+        width: 38% !important;
+      }
+
+      /* Text */
+      #text {
+        left: -142px;
+      }
+
+      /* Form Division */
+      form:nth-child(7) {
+        left: 177px !important;
+      }
+
+      /* Heading */
+      h1 {
+        left: 28px;
+        top: -2px !important;
+        bottom: auto !important;
+        margin-bottom: 10px;
+      }
+
+      /* Create buttons button */
+      #createButtonsButton {
+        transform: translatex(-126px) translatey(-901px);
+        left: 29px;
+      }
+
+      /* Label */
+      label {
+        display: inline-block;
+        height: 46px;
+        transform: translatex(35px) translatey(-976px);
+      }
+
+      /* Num speakers */
+      #numSpeakers {
+        transform: translatex(-122px) translatey(-1426px);
+        left: 7px;
+        top: -370px;
+      }
+
+      /* Image */
+      img {
+        left: 31px;
+      }
+
+      /* Label */
+      #buttons div:nth-child(3) label {
+        transform: translatex(-4px) translatey(-20px);
+        left: 11px !important;
+        right: auto !important;
+        top: 11px !important;
+        bottom: auto !important;
+      }
+
+      /* Label */
+      #buttons div:nth-child(1) label {
+        transform: translatex(12px) translatey(-11px);
+      }
+
+      /* Heading */
+      h1:nth-child(8) {
+        min-height: 36px;
+        height: 36px;
+      }
+
+      @media (min-width:768px) {
+
+        /* Form Division */
+        form {
+          right: auto !important;
+        }
+
+        /* Form Division */
+        form:nth-child(6) {
+          transform: translatex(1299px) translatey(-394px);
+        }
+
+        /* Form Division */
+        form:nth-child(7) {
+          transform: translatex(579px) translatey(-1299px);
+          right: auto !important;
+        }
+
+        /* Speaker count */
+        #speakerCount {
+          transform: translatex(-842px) translatey(-1303px);
+        }
+
+        /* Button */
+        #speakerForm button {
+          transform: translatex(-452px) translatey(-1331px);
+        }
+
+        /* Player */
+        #player {
+          left: -77px;
+        }
+
+        /* Buttons */
+        #buttons {
+          transform: translatex(39px) translatey(-1761px);
+          top: -41px;
+        }
+
+        /* Heading */
+        h1:nth-child(8) {
+          transform: translatex(47px) translatey(-1777px);
+          width: 324px;
+        }
+
+        /* Body */
+        body {
+          width: 2122px;
+        }
+
+      }
+    }
+
+    @media (min-width:768px) {
+
+      /* Create buttons button */
+      #createButtonsButton {
+        transform: translatex(27px) translatey(-934px);
+      }
+
+      /* Num speakers */
+      #numSpeakers {
+        transform: translatex(36px) translatey(-1462px);
+      }
+
+      /* Form Division */
+      form {
+        transform: translatex(675px) translatey(-830px) !important;
+      }
+
+      /* Form Division */
+      form:nth-child(7) {
+        transform: translatex(1403px) translatey(-400px) !important;
+      }
+
+      /* Form Division */
+      form:nth-child(9) {
+        transform: translatex(623px) translatey(-1385px) !important;
+      }
+
+    }
+
+    /* Text */
+    #text {
+      background-color: #ccdeef;
+    }
+
+    /* Form Division */
+    form {
+      top: -8px !important;
+    }
+
+    /* Form Division */
+    form:nth-child(7) {
+      top: -36px !important;
+      bottom: auto !important;
+    }
+
+    /* Input */
+    form input {
+      width: 22% !important;
+      transform: translatex(134px) translatey(39px) !important;
+      font-size: 17px !important;
+    }
+
+    /* Input */
+    form:nth-child(9) input:nth-child(3) {
+      background-color: #0f355b;
+      color: #f9f9f9;
+    }
+
+    /* Speaker count */
+    #speakerCount {
+      display: none;
+    }
+
+    /* Button */
+    #speakerForm button {
+      display: none;
+    }
+
+    @media (min-width:768px) {
+
+      /* File */
+      #myFile {
+        transform: translatex(4px) translatey(39px);
+        left: 11px;
+        width: 43% !important;
+      }
+
+      /* File name */
+      #fileName {
+        transform: translatex(4px) translatey(39px);
+      }
+
+      /* Buttons */
+      #buttons {
+        transform: translatex(32px) translatey(-1883px);
+      }
+
+      /* Speaker count */
+      #speakerCount {
+        transform: translatex(-835px) translatey(-1313px) !important;
+      }
+
+      /* Button */
+      #speakerForm button {
+        transform: translatex(-835px) translatey(-1313px);
+      }
+
+      /* Heading */
+      h1 {
+        position: relative;
+        top: 10px !important;
+        bottom: auto !important;
+      }
+
+      /* Create buttons button */
+      #createButtonsButton {
+        transform: translatex(33px) translatey(-1045px);
+      }
+
+      /* Num speakers */
+      #numSpeakers {
+        transform: translatex(40px) translatey(-1572px);
+      }
+
+    }
+
+    /* Heading */
+    h1 {
+      padding-bottom: 15px;
+      height: 26px;
+    }
+
+    /* Buttons */
+    #buttons {
+      left: 55px;
+    }
+
+    /* Form Division */
+    form {
+      top: -18px !important;
+      bottom: auto !important;
+    }
+
+    @media (min-width:768px) {
+
+      body {
+        width: 2347px;
+      }
+
+      /* Form Division */
+      form {
+        transform: translatex(612px) translatey(-384px) !important;
+        width: 892px !important;
+      }
+
+      /* Form Division */
+      form:nth-child(8) {
+        left: 168px !important;
+        right: auto !important;
+        transform: translatex(1155px) translatey(-1348px) !important;
+      }
+
+      /* Heading */
+      h1 {
+        top: -200px !important;
+        transform: translatex(16px) translatey(-1651px) !important;
+        bottom: auto !important;
+      }
+
+    }
+    #Qbtn, #Abtn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: none;
+}
+
+    .tag-btn {
+      position: absolute;
+      display: none;
+    }
+  
+/* Qbtn */
+
+/* Abtn */
+#Abtn{
+ height:50px;
+ width:80px;
+ transform:translatex(-531px) translatey(14px);
+}
+
+/* Qbtn */
+#Qbtn{
+ top:23px !important;
+ bottom:auto !important;
+
+ left:-1px !important;
+ right:auto !important;
+ height:50px;
+ transform:translatex(1319px) translatey(134px);
+ width:80px;
+ 
+
+
+}
+
+/* Abtn */
+#Abtn{
+ top:1000px !important;
+ bottom:-158px;
+ left:-101px !important;
+ right:-173px;
+ max-width:24px;
+ min-width:99px;
+ transform:translatex(1419px) translatey(-790px);
+ width:931px;
+}
+  
+.tag {
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+    /* Tag */
+textarea#text .tag{
+ position:relative;
+ top:-6px;
+}
+#editor {
+			height: 200px;
+			width: 500px;
+			border: 1px solid black;
+			padding: 10px;
+		}
+/* Tag btn2 */
+.tag-btn2{
+ transform:translatex(1208px) translatey(-3116px);
+ position:relative;
+ top:-45px !important;
+ bottom:auto !important;
+ min-width:66px;
+ width:66px !important;
+ min-height:56px;
+}
+
+/* Tag btn2 */
+.tag-btn2:nth-child(18){
+ transform:translatex(1266px) translatey(-3077px);
+ top:4px;
+}
+
+/* Tag btn2 */
+.tag-btn2:nth-child(19){
+ transform:translatex(1201px) translatey(-3023px);
+ left:-5px;
+ top:-40px !important;
+ bottom:auto !important;
+}
+
+/* Abtn */
+#Abtn{
+ width:99px;
+ max-width:69px;
+ min-width:80px;
+}
+/* Select location */
+#selectLocation{
+ position:relative;
+ padding-bottom:3px;
+ left:-600px;
+ top:-2230px;
+ width:118px !important;
+ /* transform:translatex(-605px) translatey(-459px); */
+ /* transform:translatex(-298px) translatey(-463px); */
+ transform:translatex(-317px) translatey(-466px);
+
+
+}
+/* Hrdware */
+/* #Hrdware-btn{
+ transform:translatex(-541px) translatey(-2695px);
+} */
+
+/* Area */
+/* #Area-btn{
+ position:relative;
+ transform:translatex(-387px) translatey(-1793px);
+ left:-31px;
+ top:-994px;
+} */
+
+/* Evnt */
+/* #Evnt-btn{ */
+ /* position:relative; */
+ /* top:-1900px; */
+ /* left:416px; */
+ /* transform:translatex(-344px) translatey(-843px); */
+ /* transform:translatex(-743px) translatey(-1575px);
+ position:relative;
+ top:-1166px;
+ width:100px;
+} */
+
+/* Evnt input */
+/* #Evnt-input{
+ transform:translatex(-771px) translatey(-2745px);
+ width:98px;
+ position:relative;
+ left:-23px;
+ top:5px;
+} */
+
+/* Area input */
+/* #Area-input{
+ transform:translatex(-888px) translatey(-2786px);
+ width:98px;
+ position:relative;
+ left:-27px;
+} */
+
+/* Hrdware input */
+/* #Hrdware-input{
+ transform:translatex(-1031px) translatey(3px);
+ position:relative;
+ top:-2697px;
+ width:98px;
+ left:-9px;
+} */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.form-input label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-input input[type="text"] {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.form-select {
+  margin: 10px;
+}
+
+.form-select label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.form-select select {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-submit {
+  margin: 10px;
+}
+
+.form-submit input[type="submit"] {
+  width: 100px;
+  height: 30px;
+  background-color: #4CAF50;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-submit input[type="submit"]:hover {
+  background-color: #5d765e;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+/* Select location */
+#selectLocation{
+ top:5px;
+ left:-328px;
+ transform:translatex(462px) translatey(-33px);
+ width:134px !important;
+ height:40px !important;
+ border-style:solid !important;
+ border-width:1px !important;
+}
+
+/* Form */
+#myForm{
+ height:190px;
+ padding-left:24px;
+ top:-1991px !important;
+ bottom:auto !important;
+ border-width:1px;
+ border-style:solid;
+ border-color:#8d8181;
+ box-shadow:6px 1px 0px -5px #a29e9e;
+ background-color:#d8e2e8;
+}
+
+/* Button */
+#myForm button{
+ width:22%;
+ transform:translatex(258px) translatey(-262px);
+ height:39px !important;
+ min-height:110px;
+ box-shadow:0px 0px 1px 1px #070707;
+ position:relative;
+ left:15px;
+}
+
+/* Label */
+#myForm label{
+ left:34px !important;
+ width:129px;
+ top:-878px !important;
+ min-height:28px;
+ padding-left:1px;
+}
+
+/* Event input */
+#Event-input{
+ position:relative;
+ top:-17px;
+ transform:translatex(143px) translatey(-40px) !important;
+ width:104px !important;
+ left:-7px;
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Hardware input */
+#Hardware-input{
+ position:relative;
+ top:-1px;
+ left:4px;
+ transform:translatex(131px) translatey(-129px) !important;
+ width:104px !important;
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Label */
+#myForm label:nth-child(3){
+ left:30px !important;
+ right:auto !important;
+ top:-877px !important;
+ bottom:auto !important;
+}
+
+/* Area input */
+#Area-input{
+ transform:translatex(132px) translatey(-103px) !important;
+ position:relative;
+ left:4px;
+ width:104px !important;
+ top:9px;
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Label */
+#myForm label:nth-child(1){
+ top:-876px !important;
+ left:49px;
+ bottom:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(7){
+ left:27px !important;
+ right:auto !important;
+ top:-889px !important;
+ bottom:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(5){
+ left:32px !important;
+ right:auto !important;
+ top:-872px !important;
+ bottom:auto !important;
+}
+
+/* Text */
+#text{
+ height:576px;
+ top:-7px;
+ transform:translatex(157px) translatey(7px) !important;
+}
+
+/* Create buttons button */
+#createButtonsButton{
+ top:-893px;
+}
+
+/* Form Division */
+form{
+ top:19px !important;
+ bottom:auto !important;
+}
+
+/* Form Division */
+form:nth-child(6){
+ top:6px !important;
+ bottom:auto !important;
+ height:770px;
+}
+
+/* File name */
+#fileName{
+ position:relative;
+ left:-116px;
+ top:-45px;
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Save */
+#saveBtn{
+ left:-12px;
+ transform:translatex(32px) translatey(4px) !important;
+ width:150px !important;
+ top:-16px;
+}
+
+/* Text Area */
+form:nth-child(8) textarea{
+ left:-65px;
+ min-height:524px;
+ height:639px;
+}
+
+/* Tag btn2 */
+.tag-btn2{
+ top:-39px !important;
+ bottom:auto !important;
+ transform:translatex(1224px) translatey(-2896px) !important;
+ left:-21px;
+}
+
+/* Text Area */
+form textarea{
+ min-height:626px !important;
+ transform:translatex(118px) translatey(115px) !important;
+}
+
+/* Qbtn */
+#Qbtn{
+ width:59px;
+ left:-14px !important;
+ right:auto !important;
+ top:-3px !important;
+ bottom:auto !important;
+ transform:translatex(1323px) translatey(111px);
+}
+
+/* Abtn */
+#Abtn{
+ width:59px !important;
+ max-width:80px;
+ min-width:59px;
+ left:-117px !important;
+ right:auto !important;
+ transform:translatex(1427px) translatey(-826px);
+ top:995px !important;
+ bottom:auto !important;
+}
+
+/* Tag btn2 */
+.tag-btn2:nth-child(18){
+ width:59px !important;
+ min-width:53px;
+ left:-39px;
+}
+
+/* Tag btn2 */
+.tag-btn2:nth-child(19){
+ min-width:52px;
+ width:59px !important;
+ transform:translatex(1153px) translatey(-2829px) !important;
+ top:-45px !important;
+ bottom:auto !important;
+ left:-31px;
+}
+
+/* Input */
+form:nth-child(8) input:nth-child(3){
+ position:relative;
+ left:-7px;
+ transform:translatex(63px) translatey(56px) !important;
+ top:4px;
+}
+
+/* Input */
+form:nth-child(8) input[type=file]{
+ position:relative;
+ top:27px;
+ left:-76px;
+ width:307px !important;
+ max-width:302px;
+}
+
+/* Input */
+form:nth-child(8) input[type=text]{
+ position:relative;
+ top:26px;
+ transform:translatex(56px) translatey(40px) !important;
+ border-width:1px;
+ border-style:dotted;
+}
+
+/* Input */
+form input[type=text]{
+ border-style:solid;
+ border-width:0px;
+}
+
+/* Input */
+form input[type=file]{
+ width:160px !important;
+ max-width:242px;
+}
+
+@media (min-width:768px){
+
+ /* Form */
+ #myForm{
+  width:370px !important;
+  left:136px !important;
+  right:auto !important;
+  transform:translatex(644px) translatey(-228px) !important;
+ }
+ 
+ /* Label */
+ #myForm label{
+  transform:translatex(-38px) translatey(823px);
+  height:26px !important;
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(5){
+  transform:translatex(-40px) translatey(862px);
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(3){
+  transform:translatex(-38px) translatey(903px);
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(7){
+  transform:translatex(-34px) translatey(705px);
+ }
+ 
+ /* Buttons */
+ #buttons{
+  top:40px;
+  transform:translatex(-20px) translatey(-1769px);
+ }
+ 
+ /* Heading */
+ h1{
+  top:5px !important;
+  bottom:auto !important;
+ }
+ 
+ /* Num speakers */
+ #numSpeakers{
+  top:-356px;
+  transform:translatex(37px) translatey(-1393px);
+ }
+ 
+ /* Create buttons button */
+ #createButtonsButton{
+  transform:translatex(22px) translatey(-855px);
+ }
+ 
+ /* Form Division */
+ form{
+  width:743px !important;
+  transform:translatex(346px) translatey(86px) !important;
+ }
+ 
+ /* Form Division */
+ form:nth-child(6){
+  width:583px !important;
+  transform:translatex(602px) translatey(-409px) !important;
+ }
+ 
+ /* File */
+ #myFile{
+  left:-113px;
+  top:-46px;
+ }
+ 
+ /* File name */
+ #fileName{
+  width:150px !important;
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(1){
+  transform:translatex(-44px) translatey(890px);
+ }
+ 
+}
+/* Label */
+#myForm label:nth-child(5){
+ left:36px !important;
+ right:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(7){
+ left:30px !important;
+ right:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(3){
+ top:-873px !important;
+ bottom:auto !important;
+}
+
+@media (min-width:768px){
+
+ /* Label */
+ #myForm label:nth-child(7){
+  transform:translatex(-42px) translatey(799px);
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(3){
+  transform:translatex(-40px) translatey(855px);
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(5){
+  transform:translatex(-47px) translatey(819px);
+ }
+ 
+}
+
+.stream-deck {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  width: 400px;
+  height: 200px;
+  background-color: #333;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.stream-deck__key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.stream-deck__key:hover {
+  background-color: #555;
+}
+
+.stream-deck__key--1 {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--2 {
+  grid-column: 3 / span 2;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--3 {
+  grid-column: 5 / span 2;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--4 {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 1;
+}
+
+.stream-deck__key--5 {
+  grid-column: 3 / span 2;
+  grid-row: 2 / span 1;
+}
+
+.stream-deck__key--6 {
+  grid-column: 5 / span 2;
+  grid-row: 2 / span 1;
+}
+
+.stream-deck__key--7 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--8 {
+  grid-column: 6 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--9 {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.stream-deck__key--10 {
+  grid-column: 6 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.stream-deck__key--11 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key--12 {
+  grid-column: 5 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.stream-deck__key__label {
+  margin: auto;
+}
+
+
+/* Stream deck */
+.stream-deck{
+ transform:translatex(101px) translatey(47px);
+ min-height:246px;
+ width:559px;
+ position:relative;
+ left:-9px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(7){
+ width:49px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(11){
+ width:61px;
+ transform:translatex(23px) translatey(0px);
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(1){
+ width:58px;
+ transform:translatex(45px) translatey(3px);
+ position:relative;
+ left:10px;
+ top:-2px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(2){
+ transform:translatex(0px) translatey(0px);
+ width:82px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(9){
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(4){
+ width:88px;
+ transform:translatex(92px) translatey(0px);
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(3){
+ transform:translatex(-98px) translatey(4px);
+ width:89px;
+ position:relative;
+ top:-4px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(10){
+ transform:translatex(3px) translatey(-4px);
+ position:relative;
+ top:4px;
+ left:-4px;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key:nth-child(6){
+ width:83px;
+}
+
+/* Form */
+#myForm{
+ top:-2051px !important;
+ bottom:auto !important;
+ border-top-left-radius:10px;
+ border-bottom-right-radius:10px;
+ border-bottom-left-radius:10px;
+ border-top-right-radius:10px;
+ background-color:#313639;
+ color:#fcfcfc;
+}
+
+/* Stream deck */
+.stream-deck{
+ transform:translatex(1323px) translatey(-2212.5px);
+ top:-3px;
+}
+
+/* Button */
+#myForm button:hover{
+ background-color:#595959 !important;
+ border-color:#ffffff;
+ box-shadow:0px 0px 1px 1px #7a7a7a;
+}
+
+@media (min-width:768px){
+
+ /* Form */
+ #myForm{
+  transform:translatex(667px) translatey(-440px) !important;
+  left:131px !important;
+  right:auto !important;
+ }
+ 
+}
+/* Button */
+#myForm button{
+ background-color:#444444 !important;
+}
+
+/* Stream deck  key */
+.stream-deck .stream-deck__key{
+ background-color:#444444;
+}
+
+
+.play-button {
+  background-color: #4CAF50;
+}
+
+.pause-button {
+  background-color: #f44336;
+}
+/* Pause button */
+#pause-button{
+ transform:translatex(-214px) translatey(-2565px);
+ position:relative;
+ top:6px;
+}
+
+/* Play button */
+#play-button{
+ transform:translatex(-220px) translatey(-2566px);
+ position:relative;
+ top:6px;
+}
+
+#player {
+  pointer-events: none;
+}
+/* Control button */
+#controlButton{
+ transform:translatex(-458px) translatey(-2561px);
+ position:relative;
+ top:2px;
+ left:-4px;
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(790px) translatey(-1274px);
+ width:446px;
+ min-height:18px;
+ height:18px;
+ min-width:29px;
+}
+
+/* Button */
+button:nth-child(10){
+ transform:translatex(796px) translatey(-1305px);
+ position:relative;
+ top:31px;
+}
+
+
+#chatArea {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow-y: scroll;
+}
+/* Button */
+button:nth-child(11){
+ transform:translatex(807px) translatey(-1279px);
+}
+
+.floating-textarea {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+}
+/* Chat area */
+#chatArea{
+ transform:translatex(0px) translatey(-580px);
+ margin-left:0px;
+ width:174px !important;
+ padding-bottom:5px;
+}
+
+#chatArea {
+  height: 400px; /* Adjust the height to your desired value */
+  overflow-y: auto;
+  line-height: 16px;
+  word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Styles for screens up to 600px */
+@media (max-width: 600px) {
+  /* CSS rules for small screens */
+}
+
+/* Styles for screens between 601px and 1200px */
+@media (min-width: 601px) and (max-width: 1200px) {
+  /* CSS rules for medium screens */
+}
+
+/* Styles for screens above 1200px */
+@media (min-width: 1201px) {
+  /* CSS rules for large screens */
+}
+/* Message input */
+#messageInput{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+ border-style:solid;
+ border-width:1px;
+ border-color:#5d5959;
+}
+
+/* Chat area */
+#chatArea{
+ top:329px;
+ bottom:auto !important;
+ transform:translatex(-247px) translatey(162px);
+}
+/* 
+/* Text */
+/* Chat area */
+#chatArea{
+ transform:translatex(-683px) translatey(-433.4000244140625px);
+ left:1248px;
+ right:auto !important;
+ top:637px;
+ bottom:auto !important;
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(47px) translatey(-1654px);
+}
+
+/* Image */
+img{
+ transform:translatex(613px) translatey(-225px);
+}
+
+/* Control button */
+#controlButton{
+ top:12px;
+}
+
+/* Play button */
+#play-button{
+ top:16px;
+}
+
+/* Pause button */
+#pause-button{
+ top:14px;
+}
+
+/* Button */
+button{
+ position:relative !important;
+ top:6px !important;
+}
+
+/* Button */
+button:nth-child(11){
+ transform:translatex(72px) translatey(-1671px);
+ top:16px !important;
+ bottom:auto !important;
+}
+
+/* Paragraph */
+#chatArea p{
+ font-size:14px;
+ white-space:break-spaces;
+ font-weight:400;
+}
+
+a/* Chat area */
+#chatArea{
+ left:1482px;
+ right:auto !important;
+ top:551px;
+ width:221px !important;
+}
+/* Chat area */
+#chatArea{
+ left:1492px;
+ width:236px !important;
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(35px) translatey(-1807px);
+}
+
+/* Button */
+button:nth-child(12){
+ transform:translatex(47px) translatey(-1812px);
+}
+
+/* Video input */
+#videoIdInput{
+ position:relative;
+ left:478px;
+ transform:translatex(-720px) translatey(-794px) !important;
+}
+
+/* Button */
+form:nth-child(9) button{
+ transform:translatex(-749px) translatey(-849px);
+ width:67%;
+}
+
+/* Control button */
+#controlButton{
+ transform:translatex(-176px) translatey(-2682px);
+ width:119px;
+}
+
+/* Play button */
+#play-button{
+ transform:translatex(-56px) translatey(-2640px);
+}
+
+/* Pause button */
+#pause-button{
+ transform:translatex(-55px) translatey(-2640px);
+ top:6px;
+ bottom:auto !important;
+ left:-4px;
+}
+
+@media (min-width:768px){
+
+ /* Buttons */
+ #buttons{
+  transform:translatex(-30px) translatey(-1771px);
+ }
+ 
+ /* Create buttons button */
+ #createButtonsButton{
+  transform:translatex(19px) translatey(-1904px);
+ }
+ 
+ /* Heading */
+ h1:nth-child(13){
+  transform:translatex(16px) translatey(-1796px) !important;
+ }
+ 
+ /* Num speakers */
+ #numSpeakers{
+  transform:translatex(40px) translatey(-1542px);
+ }
+ 
+}
+
+/* Text Area */
+form textarea{
+ height:700px !important;
+ top:-92px !important;
+ bottom:auto !important;
+ transform:translatex(123px) translatey(97px) !important;
+}
+
+/* Text Area */
+form:nth-child(9) textarea{
+ top:-91px !important;
+ bottom:auto !important;
+}
+
+/* Text */
+#text{
+ top:-31px !important;
+ bottom:auto !important;
+ transform:translatex(29px) translatey(45px) !important;
+}
+
+/* Form */
+#myForm{
+ top:-2110px !important;
+ bottom:auto !important;
+}
+
+/* Input */
+form:nth-child(9) input[type=text]{
+ transform:translatex(95px) translatey(16px) !important;
+ position:relative;
+ left:-52px;
+ top:-6px;
+}
+
+/* Input */
+form:nth-child(9) input:nth-child(3){
+ transform:translatex(103px) translatey(16px) !important;
+ position:relative;
+ left:-58px;
+ top:-9px;
+}
+
+/* Input */
+form:nth-child(9) input[type=file]{
+ position:relative;
+ top:-27px;
+ left:-89px;
+}
+
+/* Save */
+#saveBtn{
+ transform:translatex(-113px) translatey(0px) !important;
+ left:2px;
+ top:-9px;
+}
+
+/* Input */
+form input[type=text]{
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Video input */
+#videoIdInput{
+ transform:translatex(-450px) translatey(-2421px) !important;
+ left:484px;
+ top:-1px;
+}
+
+/* Label */
+form label{
+ left:-16px !important;
+ top:-863px !important;
+ width:74px !important;
+}
+
+/* Button */
+form button{
+ width:55% !important;
+ transform:translatex(-472px) translatey(-2462px) !important;
+ top:-10px !important;
+ bottom:auto !important;
+}
+
+/* Button */
+button:nth-child(13){
+ transform:translatex(67px) translatey(-1953px);
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(47px) translatey(-1945px);
+}
+
+/* Heading */
+h1{
+ padding-top:8px;
+}
+
+/* Control button */
+#controlButton{
+ transform:translatex(-176px) translatey(-2839px);
+ top:4px !important;
+ bottom:auto !important;
+ left:-5px;
+}
+
+/* Play button */
+#play-button{
+ transform:translatex(-56px) translatey(-2790px);
+}
+
+/* Pause button */
+#pause-button{
+ transform:translatex(-51px) translatey(-2790px);
+ left:-5px;
+ top:7px !important;
+ bottom:auto !important;
+}
+
+/* Stream deck */
+.stream-deck{
+ transform:translatex(869px) translatey(-2452.5px);
+}
+
+/* Create buttons button */
+#createButtonsButton{
+ top:1px !important;
+ bottom:auto !important;
+}
+
+@media (min-width:768px){
+
+ /* Form */
+ #myForm{
+  left:160px !important;
+  right:auto !important;
+  transform:translatex(881px) translatey(-815px) !important;
+ }
+ 
+ /* File name */
+ #fileName{
+  transform:translatex(3px) translatey(43px) !important;
+ }
+ 
+ /* File */
+ #myFile{
+  top:-45px;
+  left:-243px;
+ }
+ 
+ /* Label */
+ form label{
+  transform:translatex(-27px) translatey(-1508px) !important;
+  height:40px !important;
+ }
+ 
+ /* Num speakers */
+ #numSpeakers{
+  transform:translatex(40px) translatey(-1663px);
+  top:-367px;
+ }
+ 
+ /* Heading */
+ h1{
+  top:-5px !important;
+  transform:translatex(19px) translatey(-1919px) !important;
+  bottom:auto !important;
+ }
+ 
+ /* Create buttons button */
+ #createButtonsButton{
+  transform:translatex(19px) translatey(-2028px);
+ }
+ 
+ /* Buttons */
+ #buttons{
+  transform:translatex(-26px) translatey(-2044px);
+ }
+ 
+}
+/* Text Area */
+form textarea{
+ height:695px !important;
+ top:-92px !important;
+ bottom:auto !important;
+}
+
+/* Text Area */
+form:nth-child(9) textarea{
+ top:-91px !important;
+ bottom:auto !important;
+}
+
+/* Text */
+#text{
+ top:-31px !important;
+ bottom:auto !important;
+ transform:translatex(29px) translatey(45px) !important;
+}
+
+/* Form */
+#myForm{
+ top:-2099px !important;
+ bottom:auto !important;
+}
+
+/* Input */
+form:nth-child(9) input[type=text]{
+ transform:translatex(95px) translatey(16px) !important;
+ position:relative;
+ left:-52px;
+ top:-6px;
+}
+
+/* Input */
+form:nth-child(9) input:nth-child(3){
+ transform:translatex(103px) translatey(16px) !important;
+ position:relative;
+ left:-58px;
+ top:-9px;
+}
+
+/* Input */
+form:nth-child(9) input[type=file]{
+ position:relative;
+ top:-27px;
+ left:-89px;
+}
+
+/* Save */
+#saveBtn{
+ transform:translatex(-113px) translatey(0px) !important;
+ left:2px;
+ top:-9px;
+}
+
+/* Input */
+form input[type=text]{
+ border-style:dotted;
+ border-width:1px;
+}
+
+/* Video input */
+#videoIdInput{
+ top:-789px;
+ transform:translatex(-399px) translatey(-1612px) !important;
+ left:435px;
+}
+
+/* Stream deck */
+.stream-deck{
+ transform:translatex(867px) translatey(-2445.5px);
+}
+
+/* Label */
+form:nth-child(10) label{
+ width:82px;
+ left:-5px;
+ top:-853px !important;
+ bottom:auto !important;
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(44px) translatey(-1957px);
+ position:relative;
+ top:11px;
+}
+
+/* Button */
+button:nth-child(13){
+ transform:translatex(63px) translatey(-1966px);
+ top:20px !important;
+ bottom:auto !important;
+}
+
+/* Label */
+form label{
+ top:-858px !important;
+}
+
+/* Control button */
+#controlButton{
+ transform:translatex(-175px) translatey(-2813px);
+}
+
+/* Play button */
+#play-button{
+ transform:translatex(-56px) translatey(-2769px);
+}
+
+/* Pause button */
+#pause-button{
+ transform:translatex(-51px) translatey(-2771px);
+ top:9px !important;
+ bottom:auto !important;
+}
+
+/* Button */
+form button{
+ transform:translatex(-475px) translatey(-2450px) !important;
+ width:56% !important;
+}
+
+/* Tag btn2 */
+.tag-btn2{
+ transform:translatex(1056px) translatey(-3266px) !important;
+}
+
+@media (min-width:768px){
+
+ /* Form */
+ #myForm{
+  left:160px !important;
+  right:auto !important;
+  transform:translatex(881px) translatey(-815px) !important;
+ }
+ 
+ /* File name */
+ #fileName{
+  transform:translatex(3px) translatey(43px) !important;
+ }
+ 
+ /* File */
+ #myFile{
+  top:-45px;
+  left:-243px;
+ }
+ 
+ /* Label */
+ form:nth-child(10) label{
+  transform:translatex(-35px) translatey(-1492px);
+ }
+ 
+ /* Heading */
+ h1{
+  transform:translatex(16px) translatey(-1933px) !important;
+ }
+ 
+ /* Num speakers */
+ #numSpeakers{
+  transform:translatex(37px) translatey(-1678px);
+ }
+ 
+ /* Create buttons button */
+ #createButtonsButton{
+  transform:translatex(16px) translatey(-2041px);
+ }
+ 
+ /* Buttons */
+ #buttons{
+  transform:translatex(-32px) translatey(-2036px);
+ }
+ 
+}
+
+
+
+
+
+
+
+
+
+/* Body */
+body{
+ position:fixed;
+ left:2px;
+ top:835px;
+ min-height:1548px;
+ height:1669px !important;
+ margin-top:3px;
+ bottom:10px;
+}
+
+/* Heading */
+h1{
+ display:none;
+}
+
+/* Label */
+#myForm label{
+ top:-877px !important;
+ position:relative;
+ bottom:auto !important;
+ width:35% !important;
+}
+
+/* Button */
+#myForm button{
+ min-height:110px;
+ height:110px !important;
+ width:88px !important;
+ left:20px;
+ transform:translatex(251px) translatey(-280px) !important;
+ top:10px !important;
+ bottom:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(7){
+ top:-897px !important;
+ bottom:auto !important;
+ left:29px !important;
+ right:auto !important;
+}
+
+/* Label */
+#myForm label:nth-child(3){
+ top:-916px !important;
+ bottom:auto !important;
+}
+
+/* Stream deck */
+.stream-deck{
+ top:56px;
+ left:-8px;
+ transform:translatex(762px) translatey(-3120.5px);
+}
+
+/* Form */
+#myForm{
+ top:-2134px !important;
+ bottom:auto !important;
+}
+
+/* Chat area */
+#chatArea{
+ transform:translatex(-940px) translatey(880.6px);
+ top:-465px;
+ left:1728px;
+}
+
+/* Video input */
+#videoIdInput{
+ top:-72px;
+ left:417px;
+ transform:translatex(-1280px) translatey(-1907px) !important;
+}
+
+/* Button */
+form button{
+ transform:translatex(-279px) translatey(-1594px) !important;
+}
+
+/* Label */
+form:nth-child(10) label{
+ left:-57px !important;
+ right:auto !important;
+ top:-844px !important;
+ bottom:auto !important;
+}
+
+/* Message input */
+#messageInput{
+ transform:translatex(44px) translatey(-2612px);
+}
+
+/* Button */
+button:nth-child(13){
+ transform:translatex(68px) translatey(-2622px);
+}
+
+/* Create buttons button */
+#createButtonsButton{
+ top:4px !important;
+ bottom:auto !important;
+}
+
+/* Image */
+img{
+ transform:translatex(591px) translatey(-997px);
+}
+
+/* Control button */
+#controlButton{
+ transform:translatex(-197px) translatey(-3424px);
+ left:-8px;
+}
+
+/* Form Division */
+form{
+ top:-640px !important;
+ bottom:auto !important;
+}
+
+/* Text */
+#text{
+ transform:translatex(138px) translatey(47px) !important;
+}
+
+/* File name */
+#fileName{
+ left:58px;
+ top:-39px;
+}
+
+/* Save */
+#saveBtn{
+ left:175px;
+ top:-2px;
+}
+
+/* Input */
+form:nth-child(9) input[type=text]{
+ transform:translatex(153px) translatey(3px) !important;
+ left:-88px;
+}
+
+/* Input */
+form:nth-child(9) input:nth-child(3){
+ transform:translatex(159px) translatey(4px) !important;
+ top:-14px;
+ left:-72px;
+}
+
+/* Input */
+form:nth-child(9) input[type=file]{
+ top:-45px;
+ left:-43px;
+}
+
+/* Label */
+#myForm label:nth-child(5){
+ top:-889px !important;
+ bottom:auto !important;
+}
+
+/* Play button */
+#play-button{
+ transform:translatex(-80px) translatey(-3379px);
+}
+
+/* Pause button */
+#pause-button{
+ transform:translatex(-74px) translatey(-3381px);
+}
+
+/* Button */
+form:nth-child(10) button{
+ transform:translatex(-1369px) translatey(-2018px) !important;
+}
+
+@media (min-width:768px){
+
+ /* Label */
+ #myForm label{
+  transform:translatex(-25px) translatey(894px) !important;
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(5){
+  transform:translatex(-27px) translatey(831px) !important;
+ }
+ 
+ /* Label */
+ #myForm label:nth-child(7){
+  transform:translatex(-22px) translatey(807px) !important;
+ }
+ 
+ /* Form */
+ #myForm{
+  left:147px !important;
+  right:auto !important;
+  transform:translatex(784px) translatey(-1409px) !important;
+ }
+ 
+ /* Body */
+ body{
+  height:1426px;
+ }
+ 
+ /* Player */
+ #player{
+  top:-737px;
+ }
+ 
+ /* Speaker form */
+ #speakerForm{
+  transform:translatex(568px) translatey(-528px) !important;
+ }
+ 
+ /* Label */
+ form:nth-child(10) label{
+  transform:translatex(-881px) translatey(-1086px) !important;
+ }
+ 
+ /* Num speakers */
+ #numSpeakers{
+  transform:translatex(40px) translatey(-2286px);
+ }
+ 
+ /* Create buttons button */
+ #createButtonsButton{
+  transform:translatex(32px) translatey(-2657px);
+  left:15px;
+ }
+ 
+ /* Image */
+ img{
+  left:29px;
+ }
+ 
+ /* Form Division */
+ form{
+  left:53px !important;
+  transform:translatex(1365px) translatey(-980px) !important;
+ }
+ 
+ /* Text */
+ #text{
+  left:-78px;
+ }
+ 
+ /* Form Division */
+ form:nth-child(7){
+  transform:translatex(1426px) translatey(-1129px) !important;
+  left:-142px !important;
+  right:auto !important;
+ }
+ 
+ /* File */
+ #myFile{
+  left:-72px;
+  top:-38px;
+ }
+ 
+ /* Buttons */
+ #buttons{
+  transform:translatex(-42px) translatey(-2652px);
+ }
+ 
+ /* Form Division */
+ form:nth-child(10){
+  position:sticky;
+ }
+ 
+}

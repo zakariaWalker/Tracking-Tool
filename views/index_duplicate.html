@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bold Textarea</title>
+	<style>
+		#editor {
+			height: 200px;
+			width: 500px;
+			border: 1px solid black;
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="editor" contenteditable="true"></div>
+	<button onclick="makeBold()">Bold</button>
+
+	<script>
+		function makeBold() {
+			document.execCommand('bold', false, null);
+		}
+	</script>
+</body>
+</html>
