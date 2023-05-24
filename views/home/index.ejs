@@ -4795,6 +4795,87 @@ hr{
       cranForm.reset();
     });
 
+
+
+    
+    const spmtForm = document.getElementById('form2');
+    spmtForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // prevent the default form submission behavior
+
+      // Get the form data
+      const formData = new FormData(e.target);
+      const selectedLocations = formData.getAll('selectLocation1');
+      const reference = formData.get('Reference-input');
+      const payload = formData.get('Payload-input');
+
+      const destination = formData.get('Destination-input');
+      const timedate = formData.get('TimeDate-input');
+
+      // Define the IDs for each selected location
+      const locationIds = {
+        'Launch Site': '6463c7a53891bb7657896097',
+        'Production Site': '6463c7a1eea8aa72b220e2b4',
+        "Massey's": '6463c7ab54ea793ebdf38087',
+        'Sanchez': '6463c7b1cda50c8450a81fe8'
+      };
+
+      // Retrieve the username from the session
+      try {
+        const username = await getSessionUsername();
+        console.log(username);
+
+        // Emit the form data to the server for each selected location
+        selectedLocations.forEach(async (selectedLocation) => {
+          const id = locationIds[selectedLocation];
+          socket.emit('formSubmit', { id, selectedLocation, reference, payload, username, timedate, destination });
+
+          // Send POST requests to the three routes concurrently for each selected location
+          const apiResponse = await fetch(`/api/${selectedLocation}/${videoId}/${username}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, selectedLocation, reference, payload, username, timedate, destination })
+          });
+
+          const pipedreamResponse = await fetch('https://eoall44frtd3und.m.pipedream.net', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, selectedLocation, reference, payload, username, timedate, destination })
+          });
+
+          const cardResponse = await fetch('/api/create-card', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, selectedLocation, reference, payload, timedate, destination })
+          });
+
+
+          // Wait for all three requests to complete for each selected location
+          const [apiData, pipedreamData, cardData] = await Promise.all([
+            Promise.resolve(apiResponse).then(res => res.json()),
+            Promise.resolve(pipedreamResponse).then(res => res.json()),
+            Promise.resolve(cardResponse).then(res => res.json())
+          ]);
+
+
+          // Handle the responses for each selected location
+          createTrelloCard(cardData);
+          console.log(`API Response for ${selectedLocation}:`, apiData);
+          console.log(`Pipedream Response for ${selectedLocation}:`, pipedreamData);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
+      // Clear the form fields
+      spmtForm.reset();
+    });
+    
     // create function getLocation fetch the endpoint
     function getLocation() {
       select.addEventListener('change', (event) => {
