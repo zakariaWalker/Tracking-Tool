@@ -15,8 +15,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-// const url_ngrok = "https://7428-105-235-128-44.ngrok-free.app";
-const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
+const url_ngrok = "https://a691-105-102-127-58.ngrok-free.app";
+// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
 const fetch = require('isomorphic-fetch');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -26,7 +26,7 @@ const mongoose = require('mongoose');
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: "*"
+    origin: "https://a691-105-102-127-58.ngrok-free.app"
   }
 });
 
@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://7428-105-235-128-44.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Origin',"https://a691-105-102-127-58.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -113,6 +113,93 @@ mongoose.connect('mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.n
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+
+// Create a schema for component counts
+const componentCountsSchema = new mongoose.Schema({
+  structuralColumns: Number,
+  beams: Number,
+  exteriorRidges: Number,
+  claddingSupports: Number,
+  claddingPanels: Number,
+  flooringSystems: Number,
+  roofingSystem: Number,
+  hvacSystems: Number,
+  electricalSystems: Number,
+  plumbingSystems: Number,
+  fireProtectionSystems: Number,
+  elevatorsEscalators: Number
+});
+
+// Create a model for component counts
+const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema);
+// Save component counts to MongoDB
+
+// app.post('/save-component-counts', async (req, res) => {
+//   const { username, componentCounts } = req.body;
+// console.log(username);
+//   try {
+//     // Find the user by username
+//     const user = await User.findOne({ username }).maxTimeMS(20000); // Increase the timeout to 20 seconds (20000ms)
+
+//     if (user) {
+//       // Set the componentCounts field of the user with the received component counts
+//       user.componentCounts = componentCounts || {};
+
+//       // Save the user with the updated componentCounts field
+//       await user.save();
+//       console.log('Component counts saved to user account successfully');
+//       res.sendStatus(200);
+//     } else {
+//       return res.status(404).send('User not found');
+//     }
+//   } catch (error) {
+//     console.error('Failed to save component counts to user account:', error);
+//     res.status(500).send('An error occurred while saving component counts');
+//   }
+// });
+
+
+
+
+app.post('/save-component-counts', async (req, res) => {
+  const { componentCounts } = req.body;
+
+  try {
+    // Create a new ComponentCounts document with the received component counts
+    const counts = new ComponentCounts(componentCounts);
+
+    // Save the component counts document
+    await counts.save();
+
+    console.log('Component counts saved successfully');
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Failed to save component counts:', error);
+    res.status(500).send('An error occurred while saving component counts');
+  }
+});
+
+// Retrieve component counts from MongoDB
+app.get('/get-component-counts', async (req, res) => {
+  try {
+    // Find the latest component counts document
+    const counts = await ComponentCounts.findOne({}, {}, { sort: { _id: -1 } });
+
+    if (counts) {
+      // Component counts found, send as JSON response
+      res.json(counts);
+    } else {
+      // No component counts found
+      res.status(404).send('Component counts not found');
+    }
+  } catch (error) {
+    console.error('Failed to retrieve component counts:', error);
+    res.status(500).send('An error occurred while retrieving component counts');
+  }
+});
+
+
 app.get('/api/getSessionUsername', (req, res) => {
   const username = req.session.user; // Assuming the session stores the username
 
@@ -163,15 +250,18 @@ app.get('/main', async (req, res) => {
   }
 });
 
+
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, equipment } = req.body;
 
   try {
     const user = await User.findOne({ username }).maxTimeMS(20000); // Increase the timeout to 20 seconds (20000ms)
 
     if (user && user.password === password) {
+      user.equipment = equipment || ''; // Set the equipment field with a default value if not provided
       req.session.user = username;
       io.emit('login', username);
+      await user.save(); // Save the user with the updated equipment field
       res.redirect('/main'); // Redirect to '/main'
     } else {
       return res.status(401).send('Invalid username or password');
@@ -182,15 +272,17 @@ app.post('/login', async (req, res) => {
   }
 });
 
-async function getSessionUsername() {
+
+async function getSessionUsername(req) {
+  const sessionId = req.session.user;
   try {
-    const response = await fetch(`${url_ngrok}/api/getSessionUsername`, {
+    const response = await fetch('https://a691-105-102-127-58.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();
     const username = data.username;
-    console.log('Session username:', username);
-    return username;
+    console.log('Session username:', sessionId);
+    return sessionId;
   } catch (error) {
     console.error('Error retrieving session username:', error);
     return null;
@@ -208,7 +300,7 @@ const userSchema = new mongoose.Schema({
   },
   equipment: {
     type: String,
-    required: true
+    required: false
   },
   dynamicFields: {
     type: mongoose.Schema.Types.Mixed
@@ -221,6 +313,8 @@ const User = mongoose.model('User', userSchema);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
 
 // Handle registration form submission
 app.post('/register', async (req, res) => {
