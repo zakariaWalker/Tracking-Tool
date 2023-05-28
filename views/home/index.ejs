@@ -5832,7 +5832,7 @@ Megabay 2
 <script>
  async function getSessionUsername() {
   try {
-    const response = await fetch(`https://0215-105-235-130-222.ngrok-free.app/api/getSessionUsername`);
+    const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
     const data = await response.json();
     const username = data.username;
     console.log('Session username retrieved:', username);
@@ -5933,7 +5933,7 @@ getSessionUsername().then((username) => {
     // });
 
 
-    const url_ngrok = "https://0215-105-235-130-222.ngrok-free.app/"
+    const url_ngrok = "https://starbase-tracking-tool.onrender.com/"
     // const url_ngrok = "https://starbase-tracking-tool.onrender.com"
     // Connect to the Socket.IO server
     // const socket = io.connect(url_ngrok);
@@ -6034,7 +6034,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = await getSessionUsername();
 console.log(username);
     var videoId = event.target.parentElement.getAttribute('data-video-id');
-    fetch(`https://0215-105-235-130-222.ngrok-free.app/main/${videoId}`)
+    fetch(`https://starbase-tracking-tool.onrender.com/main/${videoId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -6108,7 +6108,7 @@ console.log(username);
 
     async function getSessionUsername() {
       try {
-        const response = await fetch(`https://0215-105-235-130-222.ngrok-free.app/api/getSessionUsername`);
+        const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
         const data = await response.json();
         const username = data.username;
         console.log('Session username retrieved:', username);
