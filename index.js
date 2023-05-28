@@ -4,6 +4,8 @@ const formsFilePath = path.join(__dirname, 'views/home/forms.json');
 const forms = require(formsFilePath);
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
+const session = require('express-session');
+
 const app = express();
 const { google } = require('googleapis');
 const fs = require('fs');
@@ -15,10 +17,28 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://a691-105-102-127-58.ngrok-free.app";
+const url_ngrok = "https://b791-105-235-128-55.ngrok-free.app";
 // const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
 const fetch = require('isomorphic-fetch');
-const session = require('express-session');
+
+const sessionMiddleware = session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+});
+
+app.use(sessionMiddleware);
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Rest of your code...
+
+// Define your routes and handlers below the session middleware
+
+
+// Socket.io event handling
+
+// app.use(sessionMiddleware);
+
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const server = require('http').createServer(app);
@@ -26,7 +46,7 @@ const mongoose = require('mongoose');
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: "https://a691-105-102-127-58.ngrok-free.app"
+    origin: "https://b791-105-235-128-55.ngrok-free.app"
   }
 });
 
@@ -44,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://a691-105-102-127-58.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Origin',"https://b791-105-235-128-55.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -55,12 +75,6 @@ const store = new MongoDBStore({
   collection: 'sessions'
 });
 
-app.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true,
-  store: store
-}));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -73,27 +87,11 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
-// Rest of your code...
-
-
-// Configure session store
-// const store = new MongoDBStore({
-//   uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
-//   collection: 'sessions',
-// });
 
 // Catch errors in session store
 store.on('error', (error) => {
   console.error('Session store error:', error);
 });
-
-
-app.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: false,
-  store: store,
-}));
 
 
 
@@ -115,24 +113,24 @@ app.use(express.json());
 
 
 
-// Create a schema for component counts
 const componentCountsSchema = new mongoose.Schema({
-  structuralColumns: Number,
-  beams: Number,
-  exteriorRidges: Number,
-  claddingSupports: Number,
-  claddingPanels: Number,
-  flooringSystems: Number,
-  roofingSystem: Number,
-  hvacSystems: Number,
-  electricalSystems: Number,
-  plumbingSystems: Number,
-  fireProtectionSystems: Number,
-  elevatorsEscalators: Number
+  username: String,
+  structuralColumns: { type: Number, default: 0 },
+  beams: { type: Number, default: 0 },
+  exteriorRidges: { type: Number, default: 0 },
+  claddingSupports: { type: Number, default: 0 },
+  claddingPanels: { type: Number, default: 0 },
+  flooringSystems: { type: Number, default: 0 },
+  roofingSystem: { type: Number, default: 0 },
+  hvacSystems: { type: Number, default: 0 },
+  electricalSystems: { type: Number, default: 0 },
+  plumbingSystems: { type: Number, default: 0 },
+  fireProtectionSystems: { type: Number, default: 0 },
+  elevatorsEscalators: { type: Number, default: 0 }
 });
 
-// Create a model for component counts
 const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema);
+
 // Save component counts to MongoDB
 
 // app.post('/save-component-counts', async (req, res) => {
@@ -158,18 +156,24 @@ const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema)
 //     res.status(500).send('An error occurred while saving component counts');
 //   }
 // });
-
-
-
-
 app.post('/save-component-counts', async (req, res) => {
-  const { componentCounts } = req.body;
+  const { username, componentCounts } = req.body;
 
   try {
-    // Create a new ComponentCounts document with the received component counts
-    const counts = new ComponentCounts(componentCounts);
+    let counts = await ComponentCounts.findOne({ username });
 
-    // Save the component counts document
+    if (!counts) {
+      counts = new ComponentCounts({ username });
+    }
+
+    // Update the component counts
+    for (const key in componentCounts) {
+      if (key in counts) {
+        counts[key] = componentCounts[key];
+      }
+    }
+
+    // Save the counts document
     await counts.save();
 
     console.log('Component counts saved successfully');
@@ -180,17 +184,15 @@ app.post('/save-component-counts', async (req, res) => {
   }
 });
 
-// Retrieve component counts from MongoDB
 app.get('/get-component-counts', async (req, res) => {
+  const { username } = req.query;
+
   try {
-    // Find the latest component counts document
-    const counts = await ComponentCounts.findOne({}, {}, { sort: { _id: -1 } });
+    const counts = await ComponentCounts.findOne({ username });
 
     if (counts) {
-      // Component counts found, send as JSON response
       res.json(counts);
     } else {
-      // No component counts found
       res.status(404).send('Component counts not found');
     }
   } catch (error) {
@@ -210,48 +212,68 @@ app.get('/api/getSessionUsername', (req, res) => {
   }
 });
 
-app.get('/main', async (req, res) => {
+app.get('/main/:videoId/:username', async (req, res) => {
+  const videoId = req.params.videoId || 'Rg7kw-KLDL8';
+  const username = req.params.username || 'zhoudache';
+
   try {
-    const videoId = req.query.videoId || "TycPQNfZOlc"; // Read videoId from query parameters or use default value
     const { data } = await youtube.videos.list({
       id: videoId,
       part: 'snippet'
     });
-    const video = data.items[0];
-    const title = video.snippet.title;
-    const thumbnailUrl = video.snippet.thumbnails.default.url;
-    const selectedEquipment = req.session.selectedEquipment; // Retrieve the selected equipment from the session or any other source
 
-    if (req.session.user) {
-      let formToRender;
+    if (data.items && data.items.length > 0) {
+      const video = data.items[0];
+      const title = video.snippet.title;
+      const thumbnailUrl = video.snippet.thumbnails.default.url;
 
-      // Determine the equipment type
-      const equipment = req.session.user.equipment;
-
-      // Choose the form based on the equipment type
-      if (equipment === 'SPMT') {
-        formToRender = forms.form1;
-      } else if (equipment === 'cranes') {
-        formToRender = forms.form2;
-      } else {
-        // Set a default form or handle other cases
-        formToRender = {}; // Set an empty form or default form object
-      }
-
-      // Send the rendered template as the response
-      return res.render('home/index', { videoId, title, thumbnailUrl, selectedEquipment, formToRender });
+      res.render('home/index', { videoId, title, thumbnailUrl, username }); // Pass the username to the template
     } else {
-      // Redirect to the root URL if the user is not logged in
-      return res.redirect('/');
+      throw new Error('Video not found');
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).send('Error getting video information from YouTube API');
+    res.status(500).send('Error getting video information from YouTube API');
   }
 });
 
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// Socket.io event handling
+io.on('connection', (socket) => {
+  if (!socket.request.session.connectedOnce) {
+    console.log('user connected ' + socket.id);
+    socket.request.session.connectedOnce = true;
+  }
+
+  socket.on('joining msg', (username) => {
+    console.log('--- ' + username + ' joined the chat ---');
+    socket.username = username;
+    io.emit('chat message', `--- ${username} joined the chat ---`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected ' + socket.id);
+    const username = socket.username;
+    if (username) {
+      io.emit('chat message', `--- ${username} left the chat ---`);
+    }
+  });
+
+  socket.on('chat message', (msg) => {
+    const username = socket.username;
+    io.emit('chat message', `${username}: ${msg}`);
+  });
+});
 
 app.post('/login', async (req, res) => {
+
+  // const sessionId = req.session.user;
+
+  // const username2 = await getSessionUsername(sessionId);
+  // const userN = req.params.username;
   const { username, password, equipment } = req.body;
 
   try {
@@ -261,9 +283,11 @@ app.post('/login', async (req, res) => {
       user.equipment = equipment || ''; // Set the equipment field with a default value if not provided
       req.session.user = username;
       io.emit('login', username);
+      console.log(req.session.user);
       await user.save(); // Save the user with the updated equipment field
-      res.redirect('/main'); // Redirect to '/main'
+      res.redirect(`/main/tS2PHJmvJzo/${username}`); // Redirect to '/main'
     } else {
+      // res.redirect(`/main/tS2PHJmvJzo/${username}`)
       return res.status(401).send('Invalid username or password');
     }
   } catch (error) {
@@ -276,7 +300,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://a691-105-102-127-58.ngrok-free.app/api/getSessionUsername', {
+    const response = await fetch('https://b791-105-235-128-55.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();
@@ -304,7 +328,13 @@ const userSchema = new mongoose.Schema({
   },
   dynamicFields: {
     type: mongoose.Schema.Types.Mixed
-  }
+  },
+  componentCounts: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  chatMessages: [{ username: String, message: String }]
+
 });
 
 
@@ -375,53 +405,116 @@ app.post('/createTest', async (req, res) => {
 
 const chatMessages = [];
 
-io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`);
+// io.on('connection', (socket) => {
+//   console.log(`User connected: ${socket.id}`);
+//     // Handle 'video ID' event
+//     socket.on('video ID', (data) => {
+//       const { videoId } = data;
+//       console.log('Received video ID:', videoId);
+  
+//       // Broadcast the video ID to all connected clients
+//       io.emit('new video ID', { videoId });
+//     });
+  
 
-  socket.on('login', (username) => {
-    console.log(`User ${username} connected`);
-    console.log('A user connected:', socket.id);
-    socket.username = username;
+//   socket.on('login', (username) => {
+//     // console.log(`User ${username} connected`);
+
+
+//     console.log(`User ${username} connected`);
+//     console.log('A user connected:', socket.id);
+//     socket.username = username;
+//     User.findOne({ username: socket.username })
+//     .then((user) => {
+//       if (!user) {
+//         console.error('User not found:', socket.username);
+//         return;
+//       }
   
-    // Emit the chat messages to the client after login
-    socket.emit('chat messages', chatMessages.map((message) => message.message));
-  });
+//       // Retrieve the chat messages from the user's chatMessages array
+//       const chatMessages = user.chatMessages.map((message) => message.message);
   
-  socket.on('chat message', (message) => {
-    console.log('Message received:', message);
-    const messageObject = {
-      username: socket.username,
-      message: message,
-    };
-    chatMessages.push(messageObject);
-    io.emit('chat message', { text: message });
-  });
+//       socket.emit('chat messages', chatMessages);
+//     })
+//     .catch((error) => {
+//       console.error('Failed to find user:', error);
+//     });
   
-  socket.emit('playerStateChange', { state: getPlayerState() });
+     
+
+//     // console.log('A user connected:', socket.id);
+//     // socket.username = username;
   
-  socket.on('playerStateChange', (data) => {
-    setPlayerState(data.state);
-    io.emit('playerStateChange', { state: getPlayerState() });
-  });
+//     // // Emit the chat messages to the client after login
+//     // socket.emit('chat messages', chatMessages.map((message) => message.message));
+//   });
   
-  socket.on('message', (data) => {
-    if (data.type === 'file') {
-      socket.broadcast.emit('message', {
-        type: 'file',
-        content: data.content,
-      });
-    } else if (data.type === 'file2') {
-      socket.broadcast.emit('message', {
-        type: 'file2',
-        content: data.content,
-      });
-    }
-  });
+
+
+
+
+//   socket.on('chat message',async  (message) => {
+//     console.log('Message received:', message);
+//     const messageObject = {
+//       username: socket.username,
+//       message: message,
+//     };
   
-  socket.on('disconnect', () => {
-    console.log('A user disconnected:', socket.id);
-  });
-});
+//     try {
+//       // Find the user in the database
+//       const user = await User.findOne({ username: socket.username });
+  
+//       if (!user) {
+//         console.error('User not found');
+//         return;
+//       }
+  
+//       // Add the chat message to the user's chatMessages array
+//       user.chatMessages.push(messageObject);
+  
+//       // Save the updated user document
+//       await user.save();
+  
+//       console.log('Chat message saved to user document');
+//     } catch (error) {
+//       console.error('Failed to save user:', error);
+//     }
+  
+//     io.emit('chat message', { text: message });
+//     // console.log('Message received:', message);
+//     // const messageObject = {
+//     //   username: socket.username,
+//     //   message: message,
+//     // };
+//     // chatMessages.push(messageObject);
+//     // io.emit('chat message', { text: message });
+//   });
+  
+//   socket.emit('playerStateChange', { state: getPlayerState() });
+  
+//   socket.on('playerStateChange', (data) => {
+//     setPlayerState(data.state);
+//     io.emit('playerStateChange', { state: getPlayerState() });
+//   });
+  
+//   socket.on('message', (data) => {
+//     if (data.type === 'file') {
+//       socket.broadcast.emit('message', {
+//         type: 'file',
+//         content: data.content,
+//       });
+//     } else if (data.type === 'file2') {
+//       socket.broadcast.emit('message', {
+//         type: 'file2',
+//         content: data.content,
+//       });
+//     }
+//   });
+  
+//   socket.on('disconnect', () => {
+//     console.log('A user disconnected:', socket.id);
+//   });
+// });
 
 let playerState = 'unknown';
 
@@ -433,9 +526,13 @@ function setPlayerState(state) {
   playerState = state;
 }
 
+
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/home/login.html'));
 });
+
+
 
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/home/register.html'));
@@ -939,6 +1036,40 @@ function createTimestampsFile(timestampFile, folder) {
   }
 }
 
+// const Message = mongoose.model('Message', {
+//   content: String,
+//   createdAt: { type: Date, default: Date.now },
+// });
+
+
+const messageSchema = new mongoose.Schema({
+  sender: String,
+  content: String,
+  timestamp: { type: Date, default: Date.now }
+});
+const Message = mongoose.model('Message', messageSchema);
+
+// // Socket.io event handling
+// var name;
+
+// io.on('connection', (socket) => {
+//   console.log('new user connected');
+  
+//   socket.on('joining msg', (username) => {
+//   	name = username;
+//   	io.emit('chat message', `---${name} joined the chat---`);
+//   });
+  
+//   socket.on('disconnect', () => {
+//     console.log('user disconnected');
+//     io.emit('chat message', `---${name} left the chat---`);
+    
+//   });
+//   socket.on('chat message', (msg) => {
+//     socket.broadcast.emit('chat message', msg);         //sending message to all except the sender
+//   });
+// });
+// ...
 
 // Start the server
 server.listen(5000, () => {
@@ -948,3 +1079,9 @@ server.listen(5000, () => {
     console.log("user cnctd" + socket.id)
   })
 });
+
+// ...
+// ...
+
+
+// ...

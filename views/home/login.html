@@ -120,6 +120,7 @@ loginForm.addEventListener('submit', async (event) => {
       },
       body: JSON.stringify({ username, password }),
     });
+    console.log(response);
 
     if (response.ok) {
       console.log(response);
@@ -128,7 +129,8 @@ loginForm.addEventListener('submit', async (event) => {
 
       if (sessionUsername) {
         socket.emit('login', sessionUsername); // Pass the username to the server when emitting the login event
-        window.location.href = '/main';
+        console.log(username);
+        window.location.href = `/main/tS2PHJmvJzo/${username}`;
       } else {
         console.error('Session username not found');
       }
