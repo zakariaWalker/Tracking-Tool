@@ -5480,9 +5480,37 @@ form button{
  transform:translatex(-1145px) translatey(-1495px) !important;
 }
 
+/* Video button */
+.video-buttons .video-button{
+ min-height:105px;
+ height:105px;
+}
+
+/* Zoom out */
+#zoomOutBtn{
+ transform:translatex(-303px) translatey(-2977px) !important;
+}
+
+/* Screenshot */
+#screenshotBtn{
+ transform:translatex(-86px) translatey(-2893px) !important;
+ top:805px !important;
+ bottom:auto !important;
+ left:-12px;
+}
+
+/* Zoom */
+#zoomInBtn{
+ transform:translatex(-220px) translatey(-2928px) !important;
+ left:9px;
+}
+
+
 
   </style>
 </head>
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <!-- <link rel="stylesheet" type="text/css" href="views/home/forms.css"> -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5815,9 +5843,23 @@ Megabay 2
   <button class="video-button" data-video-id="A8QLrVAOE1k">
     <img src="https://i.ytimg.com/vi/A8QLrVAOE1k/hqdefault_live.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCHgis4qaAhPyE8vseBurVjHQmArg" alt="Video 2">
   </button>
-</div>
+  <button class="video-button" data-video-id="Rg7kw-KLDL8">
+    <img src="https://i.ytimg.com/vi/Rg7kw-KLDL8/hqdefault_live.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyb7sN-wKj_sCp8siYjjObNMSWSg" alt="Video 2">
+  </button>
+  <button class="video-button" data-video-id="IQV0DlS1Ew0">
+    <img src="https://i.ytimg.com/vi/IQV0DlS1Ew0/hqdefault_live.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCyZX7NsQ2ggYLEJsqsWK_HAPkQ8A" alt="Video 2">
+  </button>
 
+  <button class="video-button" data-video-id="7SOJCiT42H0">
+    <img src="https://i.ytimg.com/vi/7SOJCiT42H0/hqdefault_live.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDvU-Y-4zVc9jLs9OXCw92F8UP7_A" alt="Video 2">
+  </button>
+</div>
 <div id="player"></div>
+<button id="screenshotBtn">Take Screenshot</button>
+<button id="zoomInBtn">Zoom In</button>
+<button id="zoomOutBtn">Zoom Out</button>
+
+
 <div id="intro"></div>
 
 <ul id="messages" class="message-list"></ul>
@@ -5832,7 +5874,7 @@ Megabay 2
 <script>
  async function getSessionUsername() {
   try {
-    const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
+    const response = await fetch(`https://0215-105-235-130-222.ngrok-free.app/api/getSessionUsername`);
     const data = await response.json();
     const username = data.username;
     console.log('Session username retrieved:', username);
@@ -5933,17 +5975,17 @@ getSessionUsername().then((username) => {
     // });
 
 
-    const url_ngrok = "https://starbase-tracking-tool.onrender.com/"
+    const url_ngrok = "https://0215-105-235-130-222.ngrok-free.app/"
     // const url_ngrok = "https://starbase-tracking-tool.onrender.com"
     // Connect to the Socket.IO server
-    // const socket = io.connect(url_ngrok);
-    // // Your code here    
-    // const CONTROLLER_NAME = 'zack';
-    // // Connect to the server with the user's name as a query parameter
-    // const sockett = io.connect(url_ngrok, { query: { name: CONTROLLER_NAME } });
-    // socket.on('connect', () => {
-    //   console.log('Connected to server:', sockett.id);
-    // });
+    const socket = io.connect(url_ngrok);
+    // Your code here    
+    const CONTROLLER_NAME = 'zack';
+    // Connect to the server with the user's name as a query parameter
+    const sockett = io.connect(url_ngrok, { query: { name: CONTROLLER_NAME } });
+    socket.on('connect', () => {
+      console.log('Connected to server:', sockett.id);
+    });
 
     // const chatArea = document.getElementById('chatArea');
     // const messageInput = document.getElementById('messageInput');
@@ -6010,13 +6052,26 @@ getSessionUsername().then((username) => {
     // myForm.addEventListener('submit', postEvent);
 //     var videoIdInput = document.getElementById('selectVideo');
 // var videoId = videoIdInput.value;
-var videoButtons = document.getElementsByClassName('video-button');
-for (var i = 0; i < videoButtons.length; i++) {
-  videoButtons[i].addEventListener('click', function(event) {
-    var videoId = event.currentTarget.getAttribute('data-video-id');
-    window.location.href = '/main/' + videoId + username;
+
+
+getSessionUsername()
+  .then((username) => {
+    var videoButtons = document.getElementsByClassName('video-button');
+    for (var i = 0; i < videoButtons.length; i++) {
+      videoButtons[i].addEventListener('click', function(event) {
+        event.preventDefault(); // prevent the default form submission behavior
+
+        var videoId = event.currentTarget.getAttribute('data-video-id');
+        window.location.href = '/main/' + videoId + `/${username}`;
+      });
+    }
+    // Use the retrieved username here
+    console.log(username);
+  })
+  .catch((error) => {
+    console.error('Error retrieving session username:', error);
   });
-}
+
 
 
 // Load the YouTube Player API script// JavaScript
@@ -6034,7 +6089,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = await getSessionUsername();
 console.log(username);
     var videoId = event.target.parentElement.getAttribute('data-video-id');
-    fetch(`https://starbase-tracking-tool.onrender.com/main/${videoId}`)
+    fetch(`https://0215-105-235-130-222.ngrok-free.app/main/${videoId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -6045,6 +6100,7 @@ console.log(username);
         console.error(error);
       });
   }
+});
 
   async function onYouTubeIframeAPIReady () {
     
@@ -6064,26 +6120,38 @@ console.log(username);
       }
     });
   }
-});
-
-
-    // Function that gets called when the player is ready
-    function onPlayerReady(event) {
-      // Mute the player
+  function onPlayerReady(event) {
       event.target.mute();
 
-      // Add event listeners for the play and pause buttons
-      var playButton = document.getElementById('play-button');
-      var pauseButton = document.getElementById('pause-button');
-      playButton.addEventListener('click', function () {
-        console.log('play');
-        player.playVideo();
-      });
-      pauseButton.addEventListener('click', function () {
-        player.pauseVideo();
-      });
+      $('#screenshotBtn').click(takeScreenshot);
+      $('#zoomInBtn').click(zoomIn);
+      $('#zoomOutBtn').click(zoomOut);
     }
 
+    function takeScreenshot() {
+      var videoFrame = player.getIframe();
+      var canvas = document.createElement('canvas');
+      canvas.width = videoFrame.clientWidth;
+      canvas.height = videoFrame.clientHeight;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(videoFrame, 0, 0, canvas.width, canvas.height);
+      var screenshotUrl = canvas.toDataURL('image/png');
+
+      var screenshotWindow = window.open();
+      screenshotWindow.document.write('<img src="' + screenshotUrl + '" alt="Screenshot">');
+    }
+
+    function zoomIn() {
+      var currentScale = player.getPlaybackRate();
+      var newScale = currentScale + 0.1;
+      player.setPlaybackRate(newScale);
+    }
+
+    function zoomOut() {
+      var currentScale = player.getPlaybackRate();
+      var newScale = currentScale - 0.1;
+      player.setPlaybackRate(newScale);
+    }
     // Handle player state change events and emit the state to the server using Socket.IO
     function onPlayerStateChange(event) {
       var state;
@@ -6108,7 +6176,7 @@ console.log(username);
 
     async function getSessionUsername() {
       try {
-        const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
+        const response = await fetch(`https://0215-105-235-130-222.ngrok-free.app/api/getSessionUsername`);
         const data = await response.json();
         const username = data.username;
         console.log('Session username retrieved:', username);
@@ -6505,6 +6573,8 @@ trackingForm.addEventListener("submit", handleSubmit);
 
 
   </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
 </body>
 
 </html>
