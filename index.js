@@ -306,9 +306,9 @@ app.get('/main/:videoId/:username', async (req, res) => {
 io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
-const connectedUsers = new Set();
 
-io.onconst connectedUsers = new Set();
+
+
 
 io.on('connection', (socket) => {
   console.log('user connected ' + socket.id);
