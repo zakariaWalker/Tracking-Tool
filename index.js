@@ -17,8 +17,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app";
-// const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app/";
+const url_ngrok = "https://6baa-105-235-130-61.ngrok-free.app";
+// const url_ngrok = "https://6baa-105-235-130-61.ngrok-free.app/";
 const fetch = require('isomorphic-fetch');
 
 const sessionMiddleware = session({
@@ -64,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://c0fb-197-204-237-209.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Origin',"https://6baa-105-235-130-61.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -306,17 +306,15 @@ app.get('/main/:videoId/:username', async (req, res) => {
 io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
+const connectedUsers = new Set();
 
-// Socket.io event handling
 io.on('connection', (socket) => {
-  if (!socket.request.session.connectedOnce) {
-    console.log('user connected ' + socket.id);
-    socket.request.session.connectedOnce = true;
-  }
-
+  console.log('user connected ' + socket.id);
+  
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
+    connectedUsers.add(username);
 
     // Retrieve chat history from the database
     User.findOne({ username })
@@ -332,39 +330,41 @@ io.on('connection', (socket) => {
         console.error('Error retrieving chat history:', error);
       });
 
-    socket.emit('chat message', `--- ${username} joined the chat ---`);
+    io.emit('chat message', { sender: 'Server', text: `--- ${username} joined the chat ---` });
   });
 
   socket.on('disconnect', () => {
     console.log('user disconnected ' + socket.id);
     const username = socket.username;
     if (username) {
-      io.emit('chat message', `--- ${username} left the chat ---`);
+      connectedUsers.delete(username);
+      io.emit('chat message', { sender: 'Server', text: `--- ${username} left the chat ---` });
     }
   });
 
   socket.on('chat message', (msg) => {
     const username = socket.username;
-    io.emit('chat message', { sender: username, text: msg });
 
     // Save the message to the database
-    if (msg) {
-      // Ensure the message is not empty
+    if (msg && username) {
       const newMessage = { username, message: msg };
       User.findOneAndUpdate(
         { username },
         { $push: { chatMessages: newMessage } },
         { new: true, runValidators: true }
       )
+        .then(() => {
+          io.emit('chat message', { sender: username, text: msg });
+        })
         .catch((error) => {
           console.error('Error saving message:', error);
         });
     } else {
-      console.warn('Empty message received. Skipping saving to the database.');
+      console.warn('Empty message or username received. Skipping saving to the database.');
     }
   });
-
 });
+
 
 
 
@@ -400,7 +400,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername', {
+    const response = await fetch('https://6baa-105-235-130-61.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();

@@ -5549,7 +5549,7 @@ body{
 
   </style>
 </head>
-<!-- <script src="https://www.youtube.com/iframe_api"></script> -->
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <!-- <link rel="stylesheet" type="text/css" href="views/home/forms.css"> -->
 
@@ -5946,7 +5946,7 @@ Megabay 2
   
   async function getSessionUsername() {
   try {
-    const response = await fetch(`https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername`);
+    const response = await fetch(`https://6baa-105-235-130-61.ngrok-free.app/api/getSessionUsername`);
     const data = await response.json();
     const username = data.username;
     console.log('Session username retrieved:', username);
@@ -5955,89 +5955,77 @@ Megabay 2
     console.error('Error retrieving session username:', error);
     return null;
   }
-}
+}getSessionUsername()
+  .then((username) => {
+    console.log(username);
+    const socket = io();
 
-getSessionUsername().then((username) => {
-  console.log(username)
-  const socket = io();
+    socket.emit('joining msg', username);
 
-socket.emit('joining msg', username);
+    $(document).ready(function() {
+      // Handle receiving chat history
+      socket.on('chat history', function(messages) {
+        messages.forEach(function(message) {
+          const sender = message.username;
+          const text = message.message;
+          console.log("chat history", sender, message);
 
-  $(document).ready(function() {
-//// Handle receiving chat history
-socket.on('chat history', function(messages) {
-  messages.forEach(function(message) {
-    const sender = message.username; // Update the property name to 'username'
-    const text = message.message; // Update the property name to 'message'
-    console.log("chat history", sender, message);
-
-    $('#messages').append($('<li>').text(`${sender}: ${text}`));
-  });
-  scrollToBottom();
-});
-
-
-// Handle receiving new messages
-socket.on('chat message', function(message) {
-  console.log("username", username);
-  const sender = message.sender;
-  const text = message.text;
-
-  if (username === username) {
-    $('#messages').append($('<li>').text(`${username}: has joined`));
-
-    // Joining or leaving message
-    console.log(text); // Log the joining/leaving message
-  } else {
-    // Regular chat message
-    console.log("chat", message); // Log the received message object
-    $('#messages').append($('<li>').text(`${sender}: ${text}`));
-    scrollToBottom();
-  }
-});
-
-    // Handle sending messages
-    $('#m').keyup(function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        socket.emit('chat message', $(this).val());
-        $(this).val('');
+          $('#messages').append($('<li>').text(`${sender}: ${text}`));
+        });
         scrollToBottom();
+      });
+
+      // Handle receiving new messages
+      socket.on('chat message', function(message) {
+        const sender = message.sender;
+        const text = message.text;
+
+        console.log("chat", message);
+        $('#messages').append($('<li>').text(`${sender}: ${text}`));
+        scrollToBottom();
+      });
+
+      // Handle sending messages
+      $('#m').keyup(function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const msg = $(this).val().trim(); // Trim the message to remove leading/trailing white spaces
+          if (msg !== '') { // Check if the message is not empty
+            socket.emit('chat message', msg);
+            $(this).val('');
+            scrollToBottom();
+          }
+          return false;
+        }
+      });
+
+      $('#btn-sdn').click(function(e) {
+        e.preventDefault();
+        const msg = $('#m').val().trim(); // Trim the message to remove leading/trailing white spaces
+        if (msg !== '') { // Check if the message is not empty
+          socket.emit('chat message', msg);
+          $('#m').val('');
+          scrollToBottom();
+        }
         return false;
-      }
+      });
     });
 
-    $('#btn-sdn').click(function(e) {
-      e.preventDefault();
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      scrollToBottom();
-      return false;
-    });
+    function scrollToBottom() {
+      var messageList = document.getElementById('messages');
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    var heading = document.createElement('h1');
+    heading.textContent = 'ChatRoom';
+    var introDiv = document.getElementById('intro');
+    introDiv.appendChild(heading);
+
+    console.log(username);
+  })
+  .catch((error) => {
+    console.error('Error retrieving session username:', error);
   });
-
-  function scrollToBottom() {
-    var messageList = document.getElementById('messages');
-    messageList.scrollTop = messageList.scrollHeight;
-  }
-
-  // Create an h1 element
-  var heading = document.createElement('h1');
-
-  // Set the text content of the h1 element
-  heading.textContent = 'ChatRoom';
-
-  // Get the intro div element
-  var introDiv = document.getElementById('intro');
-
-  // Append the h1 element to the intro div
-  introDiv.appendChild(heading);
-
-  // Use the retrieved username here
-  console.log(username);
-}).catch((error) => {
-  console.error('Error retrieving session username:', error);
-});
 
 </script>
 
@@ -6070,8 +6058,8 @@ socket.on('chat message', function(message) {
     // });
 
 
-    const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app/"
-    // const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app"
+    const url_ngrok = "https://6baa-105-235-130-61.ngrok-free.app/"
+    // const url_ngrok = "https://6baa-105-235-130-61.ngrok-free.app"
     // Connect to the Socket.IO server
     const socket = io.connect(url_ngrok);
     // Your code here    
@@ -6186,7 +6174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = await getSessionUsername();
 console.log(username);
     var videoId = event.target.parentElement.getAttribute('data-video-id');
-    fetch(`https://c0fb-197-204-237-209.ngrok-free.app/main/${videoId}`)
+    fetch(`https://6baa-105-235-130-61.ngrok-free.app/main/${videoId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -6252,7 +6240,7 @@ console.log(username);
 
     async function getSessionUsername() {
       try {
-        const response = await fetch(`https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername`);
+        const response = await fetch(`https://6baa-105-235-130-61.ngrok-free.app/api/getSessionUsername`);
         const data = await response.json();
         const username = data.username;
         console.log('Session username retrieved:', username);
