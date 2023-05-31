@@ -17,8 +17,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://starbase-tracking-tool.onrender.com";
-// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
+const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app";
+// const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app/";
 const fetch = require('isomorphic-fetch');
 
 const sessionMiddleware = session({
@@ -46,7 +46,7 @@ const mongoose = require('mongoose');
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: "https://starbase-tracking-tool.onrender.com"
+    origin: ""
   }
 });
 
@@ -64,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://starbase-tracking-tool.onrender.com");
+  res.setHeader('Access-Control-Allow-Origin',"https://c0fb-197-204-237-209.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -113,23 +113,23 @@ app.use(express.json());
 
 
 
-const componentCountsSchema = new mongoose.Schema({
-  username: String,
-  structuralColumns: { type: Number, default: 0 },
-  beams: { type: Number, default: 0 },
-  exteriorRidges: { type: Number, default: 0 },
-  claddingSupports: { type: Number, default: 0 },
-  claddingPanels: { type: Number, default: 0 },
-  flooringSystems: { type: Number, default: 0 },
-  roofingSystem: { type: Number, default: 0 },
-  hvacSystems: { type: Number, default: 0 },
-  electricalSystems: { type: Number, default: 0 },
-  plumbingSystems: { type: Number, default: 0 },
-  fireProtectionSystems: { type: Number, default: 0 },
-  elevatorsEscalators: { type: Number, default: 0 }
-});
+// const componentCountsSchema = new mongoose.Schema({
+//   username: String,
+//   structuralColumns: { type: Number, default: 0 },
+//   beams: { type: Number, default: 0 },
+//   exteriorRidges: { type: Number, default: 0 },
+//   claddingSupports: { type: Number, default: 0 },
+//   claddingPanels: { type: Number, default: 0 },
+//   flooringSystems: { type: Number, default: 0 },
+//   roofingSystem: { type: Number, default: 0 },
+//   hvacSystems: { type: Number, default: 0 },
+//   electricalSystems: { type: Number, default: 0 },
+//   plumbingSystems: { type: Number, default: 0 },
+//   fireProtectionSystems: { type: Number, default: 0 },
+//   elevatorsEscalators: { type: Number, default: 0 }
+// });
 
-const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema);
+// const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema);
 
 // Save component counts to MongoDB
 
@@ -156,31 +156,93 @@ const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema)
 //     res.status(500).send('An error occurred while saving component counts');
 //   }
 // });
+
+
+const messageSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  message: {
+    type: String,
+    required: false
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const componentCountsSchema = new mongoose.Schema({
+  structuralColumns: { type: Number, default: 0 },
+  beams: { type: Number, default: 0 },
+  exteriorRidges: { type: Number, default: 0 },
+  claddingSupports: { type: Number, default: 0 },
+  claddingPanels: { type: Number, default: 0 },
+  flooringSystems: { type: Number, default: 0 },
+  roofingSystem: { type: Number, default: 0 },
+  hvacSystems: { type: Number, default: 0 },
+  electricalSystems: { type: Number, default: 0 },
+  plumbingSystems: { type: Number, default: 0 },
+  fireProtectionSystems: { type: Number, default: 0 },
+  elevatorsEscalators: { type: Number, default: 0 }
+});
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  equipment: {
+    type: String,
+    required: false
+  },
+  dynamicFields: {
+    type: mongoose.Schema.Types.Mixed
+  },
+  componentCounts: {
+    type: componentCountsSchema,
+    default: {}
+  },
+  chatMessages: [messageSchema],
+  CC: [componentCountsSchema]
+});
+
+// const User = mongoose.model('User', userSchema);
+
+// Rest of the code remains the same...
+
+const User = mongoose.model('User', userSchema);
+
 app.post('/save-component-counts', async (req, res) => {
   const { username, componentCounts } = req.body;
 
   try {
-    let counts = await ComponentCounts.findOne({ username });
+    let user = await User.findOne({ username });
 
-    if (!counts) {
-      counts = new ComponentCounts({ username });
+    if (!user) {
+      user = new User({ username });
     }
 
     // Update the component counts
     for (const key in componentCounts) {
-      if (key in counts) {
-        counts[key] = componentCounts[key];
+      if (key in user.componentCounts) {
+        user.componentCounts[key] = componentCounts[key];
       }
     }
 
-    // Save the counts document
-    await counts.save();
+    // Save the user document
+    await user.save();
 
     console.log('Component counts saved successfully');
     res.sendStatus(200);
   } catch (error) {
     console.error('Failed to save component counts:', error);
-    res.status(500).send('An error occurred while saving component counts');
+    res.status(500).send('Failed to save component counts');
   }
 });
 
@@ -188,16 +250,20 @@ app.get('/get-component-counts', async (req, res) => {
   const { username } = req.query;
 
   try {
-    const counts = await ComponentCounts.findOne({ username });
+    const user = await User.findOne({ username });
 
-    if (counts) {
-      res.json(counts);
+    if (user) {
+      console.log('Component counts retrieved successfully');
+      const { componentCounts } = user;
+      componentCounts.username = user.username; // Set the username field in componentCounts
+      res.json(componentCounts);
     } else {
-      res.status(404).send('Component counts not found');
+      console.error('User not found');
+      res.status(404).send('User not found');
     }
   } catch (error) {
     console.error('Failed to retrieve component counts:', error);
-    res.status(500).send('An error occurred while retrieving component counts');
+    res.status(500).send('Failed to retrieve component counts');
   }
 });
 
@@ -251,7 +317,22 @@ io.on('connection', (socket) => {
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
-    io.emit('chat message', `--- ${username} joined the chat ---`);
+
+    // Retrieve chat history from the database
+    User.findOne({ username })
+      .exec()
+      .then((user) => {
+        if (user) {
+          // Send chat history to the newly connected client
+          const chatHistory = user.chatMessages;
+          socket.emit('chat history', chatHistory);
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving chat history:', error);
+      });
+
+    socket.emit('chat message', `--- ${username} joined the chat ---`);
   });
 
   socket.on('disconnect', () => {
@@ -264,9 +345,28 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg) => {
     const username = socket.username;
-    io.emit('chat message', `${username}: ${msg}`);
+    io.emit('chat message', { sender: username, text: msg });
+
+    // Save the message to the database
+    if (msg) {
+      // Ensure the message is not empty
+      const newMessage = { username, message: msg };
+      User.findOneAndUpdate(
+        { username },
+        { $push: { chatMessages: newMessage } },
+        { new: true, runValidators: true }
+      )
+        .catch((error) => {
+          console.error('Error saving message:', error);
+        });
+    } else {
+      console.warn('Empty message received. Skipping saving to the database.');
+    }
   });
+
 });
+
+
 
 app.post('/login', async (req, res) => {
 
@@ -300,7 +400,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://starbase-tracking-tool.onrender.com/api/getSessionUsername', {
+    const response = await fetch('https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();
@@ -313,33 +413,6 @@ async function getSessionUsername(req) {
   }
 }
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  equipment: {
-    type: String,
-    required: false
-  },
-  dynamicFields: {
-    type: mongoose.Schema.Types.Mixed
-  },
-  componentCounts: {
-    type: mongoose.Schema.Types.Mixed,
-    default: {}
-  },
-  chatMessages: [{ username: String, message: String }]
-
-});
-
-
-// Create a user model
-const User = mongoose.model('User', userSchema);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -1041,14 +1114,6 @@ function createTimestampsFile(timestampFile, folder) {
 //   createdAt: { type: Date, default: Date.now },
 // });
 
-
-const messageSchema = new mongoose.Schema({
-  sender: String,
-  content: String,
-  timestamp: { type: Date, default: Date.now }
-});
-const Message = mongoose.model('Message', messageSchema);
-
 // // Socket.io event handling
 // var name;
 
@@ -1070,6 +1135,9 @@ const Message = mongoose.model('Message', messageSchema);
 //   });
 // });
 // ...
+
+
+module.exports = User;
 
 // Start the server
 server.listen(5000, () => {

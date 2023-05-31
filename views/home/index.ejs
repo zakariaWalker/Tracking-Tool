@@ -5545,6 +5545,32 @@ body{
  font-weight:700;
 }
 
+/* Sidebar */
+#sidebar{
+ position:relative;
+ top:-183px;
+}
+
+/* Button */
+#sidebar button{
+ transform:translatex(440px) translatey(-3018px) !important;
+ top:801px !important;
+ bottom:auto !important;
+ left:-15px;
+}
+
+#player-container {
+  width: 640px; /* Set the initial width of the player */
+  height: 360px; /* Set the initial height of the player */
+  overflow: hidden;
+}
+
+#player {
+  width: 100%;
+  height: 100%;
+}
+
+
 
   </style>
 </head>
@@ -5573,7 +5599,8 @@ body{
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
+<link href="https://vjs.zencdn.net/7.15.0/video-js.min.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/7.15.0/video.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 <!-- Include the CSS file -->
@@ -5632,7 +5659,8 @@ body{
     Buttons</button> -->
 
   <div id="buttons"></div>
-  <!-- <div id="player"></div> -->
+  <div id="player"></div>
+
   <!-- <button id="play-button" >Play</button>
   <button id="pause-button">Pause</button> -->
 
@@ -5893,10 +5921,26 @@ Megabay 2
     <img src="https://i.ytimg.com/vi/7SOJCiT42H0/hqdefault_live.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDvU-Y-4zVc9jLs9OXCw92F8UP7_A" alt="Video 2">
   </button>
 </div>
-<div id="player"></div>
-<button id="screenshotBtn">Take Screenshot</button>
+<!-- <div id="player"></div> -->
+<!-- 
+<div id="sidebar">
+  <button onclick="zoomIn()">Zoom In</button>
+  <button onclick="zoomOut()">Zoom Out</button>
+</div> -->
+
+<div id="player-container">
+  <div id="player"></div>
+</div>
+<div id="sidebar">
+  <button onclick="zoomIn()">Zoom In</button>
+  <button onclick="zoomOut()">Zoom Out</button>
+</div>
+
+
+
+<!-- <button id="screenshotBtn">Take Screenshot</button>
 <button id="zoomInBtn">Zoom In</button>
-<button id="zoomOutBtn">Zoom Out</button>
+<button id="zoomOutBtn">Zoom Out</button>  -->
 
 
 <div id="intro"></div>
@@ -5915,9 +5959,11 @@ Megabay 2
 <!-- </form> -->
 
 <script>
- async function getSessionUsername() {
+
+  
+  async function getSessionUsername() {
   try {
-    const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
+    const response = await fetch(`https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername`);
     const data = await response.json();
     const username = data.username;
     console.log('Session username retrieved:', username);
@@ -5929,39 +5975,62 @@ Megabay 2
 }
 
 getSessionUsername().then((username) => {
+  console.log(username)
   const socket = io();
 
-  socket.emit('joining msg', username);
-  $(document).ready(function() {
-  $('#m').keyup(function(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      socket.emit('chat message', $(this).val());
-      // $('#messages').append($('<li id="list">').text('You: ' + $(this).val()));
-      $(this).val('');
-      scrollToBottom();
-      return false;
-    }
-  });
+socket.emit('joining msg', username);
 
-  $('#btn-sdn').click(function (e) {
-    e.preventDefault();
-    socket.emit('chat message', $('#m').val());
-    // $('#messages').append($('<li id="list">').text('You: ' + $('#m').val()));
-    $('#m').val('');
-    scrollToBottom();
-    return false;
+  $(document).ready(function() {
+//// Handle receiving chat history
+socket.on('chat history', function(messages) {
+  messages.forEach(function(message) {
+    const sender = message.username; // Update the property name to 'username'
+    const text = message.message; // Update the property name to 'message'
+    console.log("chat history", sender, message);
+
+    $('#messages').append($('<li>').text(`${sender}: ${text}`));
   });
+  scrollToBottom();
 });
 
 
+// Handle receiving new messages
+socket.on('chat message', function(message) {
+  console.log("username", username);
+  const sender = message.sender;
+  const text = message.text;
 
-  socket.on('chat message', function (msg) {
-    const sender = msg.substring(0, msg.indexOf(':'));
-    const message = msg.substring(msg.indexOf(':') + 1).trim();
+  if (username === username) {
+    $('#messages').append($('<li>').text(`${username}: has joined`));
 
-    $('#messages').append($('<li>').text(`${sender}: ${message}`));
+    // Joining or leaving message
+    console.log(text); // Log the joining/leaving message
+  } else {
+    // Regular chat message
+    console.log("chat", message); // Log the received message object
+    $('#messages').append($('<li>').text(`${sender}: ${text}`));
     scrollToBottom();
+  }
+});
+
+    // Handle sending messages
+    $('#m').keyup(function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        socket.emit('chat message', $(this).val());
+        $(this).val('');
+        scrollToBottom();
+        return false;
+      }
+    });
+
+    $('#btn-sdn').click(function(e) {
+      e.preventDefault();
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      scrollToBottom();
+      return false;
+    });
   });
 
   function scrollToBottom() {
@@ -6018,8 +6087,8 @@ getSessionUsername().then((username) => {
     // });
 
 
-    const url_ngrok = "https://starbase-tracking-tool.onrender.com/"
-    // const url_ngrok = "https://starbase-tracking-tool.onrender.com"
+    const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app/"
+    // const url_ngrok = "https://c0fb-197-204-237-209.ngrok-free.app"
     // Connect to the Socket.IO server
     const socket = io.connect(url_ngrok);
     // Your code here    
@@ -6125,6 +6194,8 @@ document.addEventListener('DOMContentLoaded', () => {
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+  // var zoomLevel = 100; // Initial zoom level
+
   var player;
 
   // Function to handle button click event
@@ -6132,7 +6203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = await getSessionUsername();
 console.log(username);
     var videoId = event.target.parentElement.getAttribute('data-video-id');
-    fetch(`https://starbase-tracking-tool.onrender.com/main/${videoId}`)
+    fetch(`https://c0fb-197-204-237-209.ngrok-free.app/main/${videoId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -6164,14 +6235,38 @@ console.log(username);
     });
   }
   function onPlayerReady(event) {
+    document.getElementById('sidebar').style.display = 'block';
+
       event.target.mute();
 
-      $('#screenshotBtn').click(takeScreenshot);
-      $('#zoomInBtn').click(zoomIn);
-      $('#zoomOutBtn').click(zoomOut);
+      // $('#screenshotBtn').click(takeScreenshot);
+      // $('#zoomInBtn').click(zoomIn);
+      // $('#zoomOutBtn').click(zoomOut);
     }
 
-    function takeScreenshot() {
+// Variables
+var zoomLevel = 100; // Initial zoom level
+
+// Zoom In function
+function zoomIn() {
+  zoomLevel += 10;
+  setZoom();
+}
+
+// Zoom Out function
+function zoomOut() {
+  zoomLevel -= 10;
+  setZoom();
+}
+
+// Set the zoom level
+function setZoom() {
+  var player = document.getElementById('player');
+  player.style.transform = 'scale(' + (zoomLevel / 100) + ')';
+}
+
+
+function takeScreenshot() {
       var videoFrame = player.getIframe();
       var canvas = document.createElement('canvas');
       canvas.width = videoFrame.clientWidth;
@@ -6219,7 +6314,7 @@ console.log(username);
 
     async function getSessionUsername() {
       try {
-        const response = await fetch(`https://starbase-tracking-tool.onrender.com/api/getSessionUsername`);
+        const response = await fetch(`https://c0fb-197-204-237-209.ngrok-free.app/api/getSessionUsername`);
         const data = await response.json();
         const username = data.username;
         console.log('Session username retrieved:', username);
@@ -6433,7 +6528,6 @@ console.log(username);
       console.log(location);
     });
 
-
 // Initialize count values for each component
 var componentCounts = {
   structuralColumns: 0,
@@ -6449,6 +6543,7 @@ var componentCounts = {
   fireProtectionSystems: 0,
   elevatorsEscalators: 0
 };
+
 // Function to increment the count of a component
 function incrementCount(componentName) {
   // Get the count element
@@ -6514,8 +6609,9 @@ async function retrieveDataFromMongoDB() {
     console.error('An error occurred while retrieving component counts:', error);
   }
 }
-// Function to populate a table with component counts
-function populateTable(counts) {
+async function populateTable(counts) {
+  const username = await getSessionUsername();
+
   // Get the table body element
   var tableBody = document.getElementById("componentCountsBody");
 
@@ -6527,7 +6623,7 @@ function populateTable(counts) {
   tableFooter.innerHTML = '';
 
   // Exclude fields _id and __v
-  var excludedFields = ['_id', '__v','username'];
+  var excludedFields = ['_id', '__v', 'username'];
 
   // Loop through the counts and create table rows
   for (var componentName in counts) {
@@ -6565,7 +6661,7 @@ function populateTable(counts) {
 
   // Set the cell content for the username row
   usernameLabelCell.innerText = "Username:";
-  usernameValueCell.innerText = counts.username;
+  usernameValueCell.innerText = username;
 
   // Append cells to the username row
   usernameRow.appendChild(usernameLabelCell);
@@ -6574,7 +6670,6 @@ function populateTable(counts) {
   // Append the username row to the table footer
   tableFooter.appendChild(usernameRow);
 }
-
 
 
 // Function to handle form submission
@@ -6591,7 +6686,7 @@ function handleSubmit(event) {
 }
 
 // Load the component counts from MongoDB on page load
-window.addEventListener('DOMContentLoaded', retrieveDataFromMongoDB); // Use DOMContentLoaded event instead of load event
+window.addEventListener('DOMContentLoaded', retrieveDataFromMongoDB);
 
 // Get the tracking form element
 var trackingForm = document.getElementById("trackingForm");
