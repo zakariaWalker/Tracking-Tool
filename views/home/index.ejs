@@ -5574,7 +5574,7 @@ body{
 
   </style>
 </head>
-<script src="https://www.youtube.com/iframe_api"></script>
+<!-- <script src="https://www.youtube.com/iframe_api"></script> -->
 
 <!-- <link rel="stylesheet" type="text/css" href="views/home/forms.css"> -->
 
@@ -5599,8 +5599,16 @@ body{
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
+
+
+<script src="content.js"></script>
+
+
+
+
 <link href="https://vjs.zencdn.net/7.15.0/video-js.min.css" rel="stylesheet">
 <script src="https://vjs.zencdn.net/7.15.0/video.min.js"></script>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 <!-- Include the CSS file -->
@@ -6235,7 +6243,6 @@ console.log(username);
     });
   }
   function onPlayerReady(event) {
-    document.getElementById('sidebar').style.display = 'block';
 
       event.target.mute();
 
@@ -6244,52 +6251,8 @@ console.log(username);
       // $('#zoomOutBtn').click(zoomOut);
     }
 
-// Variables
-var zoomLevel = 100; // Initial zoom level
-
-// Zoom In function
-function zoomIn() {
-  zoomLevel += 10;
-  setZoom();
-}
-
-// Zoom Out function
-function zoomOut() {
-  zoomLevel -= 10;
-  setZoom();
-}
-
-// Set the zoom level
-function setZoom() {
-  var player = document.getElementById('player');
-  player.style.transform = 'scale(' + (zoomLevel / 100) + ')';
-}
 
 
-function takeScreenshot() {
-      var videoFrame = player.getIframe();
-      var canvas = document.createElement('canvas');
-      canvas.width = videoFrame.clientWidth;
-      canvas.height = videoFrame.clientHeight;
-      var ctx = canvas.getContext('2d');
-      ctx.drawImage(videoFrame, 0, 0, canvas.width, canvas.height);
-      var screenshotUrl = canvas.toDataURL('image/png');
-
-      var screenshotWindow = window.open();
-      screenshotWindow.document.write('<img src="' + screenshotUrl + '" alt="Screenshot">');
-    }
-
-    function zoomIn() {
-      var currentScale = player.getPlaybackRate();
-      var newScale = currentScale + 0.1;
-      player.setPlaybackRate(newScale);
-    }
-
-    function zoomOut() {
-      var currentScale = player.getPlaybackRate();
-      var newScale = currentScale - 0.1;
-      player.setPlaybackRate(newScale);
-    }
     // Handle player state change events and emit the state to the server using Socket.IO
     function onPlayerStateChange(event) {
       var state;
