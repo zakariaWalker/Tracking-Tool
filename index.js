@@ -309,7 +309,7 @@ io.use((socket, next) => {
 const connectedUsers = new Set();
 io.on('connection', (socket) => {
   console.log('user connected ' + socket.id);
-
+  
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
