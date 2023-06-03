@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Player</title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <style>
+   .video-container {
+  position: relative;
+  width: 640px;
+  height: 360px;
+  overflow: hidden;
+}
+
+#video-content-1,
+#video-content-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#video-overlay-1,
+#video-overlay-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screenshot-button {
+  margin-top: 10px;
+}
+
+.zoom-controls {
+  margin-top: 10px;
+}
+
+.zoom-controls button {
+  margin-right: 5px;
+}
+.zoom-button {
+  display: inline-block;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.zoom-button:hover {
+  background-color: #2980b9;
+}
+
+.zoom-button:active {
+  background-color: #1c638f;
+}
+
+#zoom-in-1 {
+  margin-right: 10px;
+  
+}
+
+#zoom-out-1 {
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.player {
+  width: 640px;
+  height: 360px;
+  margin: 10px;
+}
+/* Division */
+body > div:nth-child(8){
+ transform:translatex(737px) translatey(-1153px);
+}
+
+/* Division */
+body div:nth-child(7){
+ min-height:29px;
+ transform:translatex(737px) translatey(-1153px);
+ width:7% !important;
+}
+
+/* Division */
+body > div:nth-child(10){
+ transform:translatex(738px) translatey(-1156px);
+ display:inline-block;
+}
+
+/* Division */
+body > div:nth-child(12){
+ transform:translatex(744px) translatey(-1134px);
+}
+
+/* Division */
+body div:nth-child(11){
+ position:relative;
+ top:-49px;
+ min-height:41px;
+ transform:translatex(747px) translatey(-1071px);
+}
+
+/* Division */
+body div:nth-child(18){
+ transform:translatex(1530px) translatey(-2283px);
+}
+
+/* Division */
+body div:nth-child(16){
+ transform:translatex(1524px) translatey(-2317px);
+}
+
+/* Division */
+body div:nth-child(14){
+ transform:translatex(1092px) translatey(-789px);
+ display:inline-block;
+}
+
+/* Video container */
+div:nth-child(14) .video-container{
+ transform:translatex(426px) translatey(-1544px);
+ top:-18px !important;
+ bottom:auto !important;
+}
+
+/* Division */
+body div:nth-child(17){
+ min-height:47px;
+ transform:translatex(1524px) translatey(-3117px);
+ position:relative;
+ top:-34px;
+}
+
+/* Division */
+body div:nth-child(15){
+ min-height:56px;
+ transform:translatex(1530px) translatey(-2309px);
+ position:relative;
+ top:-27px;
+}
+
+/* Video container */
+div .video-container{
+ position:relative;
+ top:0px !important;
+ bottom:auto !important;
+}
+
+/* Video container */
+div:nth-child(6) .video-container{
+ top:42px !important;
+ bottom:auto !important;
+}
+
+/* Video container */
+div:nth-child(18) .video-container{
+ transform:translatex(0px) translatey(-34px);
+ top:-59px !important;
+ bottom:auto !important;
+}
+
+/* Division */
+body div:nth-child(13){
+ min-height:37px;
+ transform:translatex(1530px) translatey(-1483px);
+ position:relative;
+ top:-51px;
+}
+
+/* Division */
+body div:nth-child(9){
+ min-height:35px;
+ transform:translatex(737px) translatey(-1142px);
+}
+
+/* Division */
+body div:nth-child(5){
+ min-height:23px;
+ position:relative;
+ top:34px;
+}
+
+/* Video container */
+div:nth-child(4) .video-container{
+ top:26px !important;
+ bottom:auto !important;
+}
+
+/* Division */
+body div:nth-child(3){
+ position:relative;
+ top:13px;
+}
+
+/* Video container */
+div:nth-child(16) .video-container{
+ top:-49px !important;
+ bottom:auto !important;
+}
+
+
+  </style>
+</head>
+<body>
+<!-- HTML markup for the zoom controls and screenshot button -->
+<div>
+  <button id="zoom-in-1">Zoom In</button>
+  <button id="zoom-out-1">Zoom Out</button>
+  <!-- <button id="take-screenshot-1" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 1 -->
+<div id="player-1">
+  <div class="video-container">
+    <div id="video-content-1"></div>
+    <canvas id="video-overlay-1"></canvas>
+  </div>
+</div>
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-2">Zoom In</button>
+  <button id="zoom-out-2">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-2">
+  <div class="video-container">
+    <div id="video-content-2"></div>
+    <canvas id="video-overlay-2"></canvas>
+  </div>
+</div>
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-3">Zoom In</button>
+  <button id="zoom-out-3">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-3">
+  <div class="video-container">
+    <div id="video-content-3"></div>
+    <canvas id="video-overlay-3"></canvas>
+  </div>
+</div>
+
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-4">Zoom In</button>
+  <button id="zoom-out-4">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-4">
+  <div class="video-container">
+    <div id="video-content-4"></div>
+    <canvas id="video-overlay-4"></canvas>
+  </div>
+</div>
+
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-5">Zoom In</button>
+  <button id="zoom-out-5">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-5">
+  <div class="video-container">
+    <div id="video-content-5"></div>
+    <canvas id="video-overlay-5"></canvas>
+  </div>
+</div>
+
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-6">Zoom In</button>
+  <button id="zoom-out-6">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-6">
+  <div class="video-container">
+    <div id="video-content-6"></div>
+    <canvas id="video-overlay-6"></canvas>
+  </div>
+</div>
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-7">Zoom In</button>
+  <button id="zoom-out-7">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-7">
+  <div class="video-container">
+    <div id="video-content-7"></div>
+    <canvas id="video-overlay-7"></canvas>
+  </div>
+</div>
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-8">Zoom In</button>
+  <button id="zoom-out-8">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-8">
+  <div class="video-container">
+    <div id="video-content-8"></div>
+    <canvas id="video-overlay-8"></canvas>
+  </div>
+</div>
+
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-9">Zoom In</button>
+  <button id="zoom-out-9">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
+
+<!-- YouTube iframe element for player 2 -->
+<div id="player-9">
+  <div class="video-container">
+    <div id="video-content-9"></div>
+    <canvas id="video-overlay-9"></canvas>
+  </div>
+</div>
+
+
+
+<!-- JavaScript code -->
+<script>
+  function zoomIn(playerNum) {
+  const newScale = getPlayerCurrentScale(playerNum) + zoomStep;
+  if (newScale <= 2) {
+    setZoom(playerNum, newScale);
+    document.getElementById(`zoom-out-${playerNum}`).disabled = false;
+  } else {
+    document.getElementById(`zoom-in-${playerNum}`).disabled = true;
+  }
+}
+
+function zoomOut(playerNum) {
+  const newScale = getPlayerCurrentScale(playerNum) - zoomStep;
+  if (newScale >= 1) {
+    setZoom(playerNum, newScale);
+    document.getElementById(`zoom-in-${playerNum}`).disabled = false;
+  } else {
+    document.getElementById(`zoom-out-${playerNum}`).disabled = true;
+  }
+}
+
+function setZoom(playerNum, scale) {
+  const videoContainer = document.getElementById(`video-content-${playerNum}`);
+  videoContainer.style.transform = `scale(${scale})`;
+  setCurrentScale(playerNum, scale);
+}
+
+function getPlayerCurrentScale(playerNum) {
+  return window['currentScale' + playerNum];
+}
+
+function setCurrentScale(playerNum, scale) {
+  window['currentScale' + playerNum] = scale;
+}
+
+// Initialize the players and their scales
+let player1, player2, player3, player4, player5, player6, player7, player8, player9;
+setCurrentScale(1, 1);
+setCurrentScale(2, 1);
+setCurrentScale(3, 1);
+setCurrentScale(4, 1);
+setCurrentScale(5, 1);
+setCurrentScale(6, 1);
+setCurrentScale(7, 1);
+setCurrentScale(8, 1);
+setCurrentScale(9, 1);
+
+let defaultScale1 = 1, defaultScale2 = 1, defaultScale3 = 1, defaultScale4 = 1, defaultScale5 = 1, defaultScale6 = 1, defaultScale7 = 1, defaultScale8 = 1, defaultScale9 = 1;
+const zoomStep = 0.1;
+
+window.onYouTubeIframeAPIReady = () => {
+  player1 = new YT.Player('video-content-1', {
+    height: '360',
+    width: '640',
+    videoId: 'tS2PHJmvJzo',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-1').addEventListener('click', () => zoomIn(1));
+        document.getElementById('zoom-out-1').addEventListener('click', () => zoomOut(1));
+
+        defaultScale1 = player1.getIframe().offsetWidth / player1.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(1) <= defaultScale1) {
+          document.getElementById('zoom-out-1').disabled = true;
+        }
+      }
+    }
+  });
+
+  player2 = new YT.Player('video-content-2', {
+    height: '360',
+    width: '640',
+    videoId: 'A8QLrVAOE1k',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-2').addEventListener('click', () => zoomIn(2));
+        document.getElementById('zoom-out-2').addEventListener('click', () => zoomOut(2));
+
+        defaultScale2 = player2.getIframe().offsetWidth / player2.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(2) <= defaultScale2) {
+          document.getElementById('zoom-out-2').disabled = true;
+        }
+      }
+    }
+  });
+
+  player3 = new YT.Player('video-content-3', {
+    height: '360',
+    width: '640',
+    videoId: 'Rg7kw-KLDL8',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-3').addEventListener('click', () => zoomIn(3));
+        document.getElementById('zoom-out-3').addEventListener('click', () => zoomOut(3));
+
+        defaultScale3 = player3.getIframe().offsetWidth / player3.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(3) <= defaultScale3) {
+          document.getElementById('zoom-out-3').disabled = true;
+        }
+      }
+    }
+  });
+
+  player4 = new YT.Player('video-content-4', {
+    height: '360',
+    width: '640',
+    videoId: 'IQV0DlS1Ew0',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-4').addEventListener('click', () => zoomIn(4));
+        document.getElementById('zoom-out-4').addEventListener('click', () => zoomOut(4));
+
+        defaultScale4 = player4.getIframe().offsetWidth / player4.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(4) <= defaultScale4) {
+          document.getElementById('zoom-out-4').disabled = true;
+        }
+      }
+    }
+  });
+
+  player5 = new YT.Player('video-content-5', {
+    height: '360',
+    width: '640',
+    videoId: '7SOJCiT42H0',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-5').addEventListener('click', () => zoomIn(5));
+        document.getElementById('zoom-out-5').addEventListener('click', () => zoomOut(5));
+
+        defaultScale5 = player5.getIframe().offsetWidth / player5.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(5) <= defaultScale5) {
+          document.getElementById('zoom-out-5').disabled = true;
+        }
+      }
+    }
+  });
+
+  player6 = new YT.Player('video-content-6', {
+    height: '360',
+    width: '640',
+    videoId: 'SXM0DgLbC1U',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-6').addEventListener('click', () => zoomIn(6));
+        document.getElementById('zoom-out-6').addEventListener('click', () => zoomOut(6));
+
+        defaultScale6 = player6.getIframe().offsetWidth / player6.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(6) <= defaultScale6) {
+          document.getElementById('zoom-out-6').disabled = true;
+        }
+      }
+    }
+  });
+
+  player7 = new YT.Player('video-content-7', {
+    height: '360',
+    width: '640',
+    videoId: 'iJ0ntGBjsPk',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-7').addEventListener('click', () => zoomIn(7));
+        document.getElementById('zoom-out-7').addEventListener('click', () => zoomOut(7));
+
+        defaultScale7 = player7.getIframe().offsetWidth / player7.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(7) <= defaultScale7) {
+          document.getElementById('zoom-out-7').disabled = true;
+        }
+      }
+    }
+  });
+
+  player8 = new YT.Player('video-content-8', {
+    height: '360',
+    width: '640',
+    videoId: 'mhJRzQsLZGg',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-8').addEventListener('click', () => zoomIn(8));
+        document.getElementById('zoom-out-8').addEventListener('click', () => zoomOut(8));
+
+        defaultScale8 = player8.getIframe().offsetWidth / player8.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(8) <= defaultScale8) {
+          document.getElementById('zoom-out-8').disabled = true;
+        }
+      }
+    }
+  });
+
+  player9 = new YT.Player('video-content-9', {
+    height: '360',
+    width: '640',
+    videoId: 'ZzM2XkOhXus',
+    playerVars: {
+      controls: 0,
+      disablekb: 1,
+    },
+    events: {
+      onReady: () => {
+        document.getElementById('zoom-in-9').addEventListener('click', () => zoomIn(9));
+        document.getElementById('zoom-out-9').addEventListener('click', () => zoomOut(9));
+
+        defaultScale9 = player9.getIframe().offsetWidth / player9.getIframe().offsetHeight;
+
+        if (getPlayerCurrentScale(9) <= defaultScale9) {
+          document.getElementById('zoom-out-9').disabled = true;
+        }
+      }
+    }
+  });
+};
+// Screenshot(playerNum) {
+  //   const videoContainer = document.getElementById(`video-container-${playerNum}`);
+  //   const videoOverlay = document.getElementById(`video-overlay-${playerNum}`);
+  //   const context = videoOverlay.getContext('2d');
+  //   const videoPlayer = playerNum === 1 ? player1.getIframe() : player2.getIframe();
+
+  //   videoOverlay.width = videoPlayer.offsetWidth;
+  //   videoOverlay.height = videoPlayer.offsetHeight;
+
+  //   // Create a temporary video element
+  //   const videoElement = document.createElement('video');
+  //   const videoId = playerNum === 1 ? 'VIDEO_ID_1' : 'VIDEO_ID_2'; // Replace with your YouTube video ID for the respective player
+  //   videoElement.src = `https://www.youtube.com/embed/${videoId}?controls=0&disablekb=1`;
+  //   videoElement.crossOrigin = 'anonymous';
+
+  //   videoElement.onloadedmetadata = function() {
+  //     context.drawImage(videoElement, 0, 0, videoOverlay.width, videoOverlay.height);
+  //     const dataURL = videoOverlay.toDataURL();
+  //     // You can now use the dataURL to display or save the screenshot
+  //     console.log(dataURL);
+
+  //     // Clean up the temporary video element
+  //     URL.revokeObjectURL(videoElement.src);
+  //     videoElement.remove();
+  //   };
+  // }
+</script>
+
+  </script>
+</body>
+</html>

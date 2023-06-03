@@ -5576,7 +5576,7 @@ body{
 
 
 
-<script src="content.js"></script>
+<script type="text/javascript" src="./content.js"></script>
 
 
 
@@ -5955,8 +5955,9 @@ Megabay 2
     console.error('Error retrieving session username:', error);
     return null;
   }
-}getSessionUsername()
-  .then((username) => {
+}
+getSessionUsername()
+.then((username) => {
     console.log(username);
     const socket = io();
 
@@ -5965,13 +5966,18 @@ Megabay 2
     $(document).ready(function() {
       // Handle receiving chat history
       socket.on('chat history', function(messages) {
+        // Clear existing messages
+        $('#messages').empty();
+
+        // Display chat history as a conversation
         messages.forEach(function(message) {
-          const sender = message.username;
-          const text = message.message;
+          const sender = message.sender;
+          const text = message.text;
           console.log("chat history", sender, message);
 
           $('#messages').append($('<li>').text(`${sender}: ${text}`));
         });
+
         scrollToBottom();
       });
 
@@ -6026,7 +6032,6 @@ Megabay 2
   .catch((error) => {
     console.error('Error retrieving session username:', error);
   });
-
 </script>
 
 

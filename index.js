@@ -5,13 +5,13 @@ const forms = require(formsFilePath);
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const session = require('express-session');
+const content = require('D:\\knbase characters\\views\\home\\content.js'); // Import your module here
 
 const app = express();
 const { google } = require('googleapis');
 const fs = require('fs');
 const ejs = require('ejs');
 const cors = require('cors');
-
 app.use(cors());
 const bodyParser = require('body-parser');
 const multer = require('multer');
@@ -293,7 +293,7 @@ app.get('/main/:videoId/:username', async (req, res) => {
       const title = video.snippet.title;
       const thumbnailUrl = video.snippet.thumbnails.default.url;
 
-      res.render('home/index', { videoId, title, thumbnailUrl, username }); // Pass the username to the template
+      res.render('home/index', { videoId, title, thumbnailUrl, username , ...content}); // Pass the username to the template
     } else {
       throw new Error('Video not found');
     }
@@ -307,38 +307,47 @@ io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
 const connectedUsers = new Set();
-
 io.on('connection', (socket) => {
   console.log('user connected ' + socket.id);
-  
+
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
     connectedUsers.add(username);
-
-    // Retrieve chat history from the database
+  
+    // Retrieve chat history for the specific user from the database
     User.findOne({ username })
-      .exec()
       .then((user) => {
         if (user) {
-          // Send chat history to the newly connected client
           const chatHistory = user.chatMessages;
+          console.log('Chat history retrieved:', chatHistory);
+  
+          // Send chat history to the newly connected client
           socket.emit('chat history', chatHistory);
+        } else {
+          console.log('User not found:', username);
         }
       })
       .catch((error) => {
         console.error('Error retrieving chat history:', error);
       });
-
-    io.emit('chat message', { sender: 'Server', text: `--- ${username} joined the chat ---` });
+  
+    io.emit('chat message', {
+      sender: 'Server',
+      text: `--- ${username} joined the chat ---`,
+    });
   });
+  
 
   socket.on('disconnect', () => {
     console.log('user disconnected ' + socket.id);
     const username = socket.username;
     if (username) {
       connectedUsers.delete(username);
-      io.emit('chat message', { sender: 'Server', text: `--- ${username} left the chat ---` });
+      io.emit('chat message', {
+        sender: 'Server',
+        text: `--- ${username} left the chat ---`,
+      });
     }
   });
 
@@ -347,7 +356,7 @@ io.on('connection', (socket) => {
 
     // Save the message to the database
     if (msg && username) {
-      const newMessage = { username, message: msg };
+      const newMessage = { username: username, message: msg };
       User.findOneAndUpdate(
         { username },
         { $push: { chatMessages: newMessage } },
@@ -364,6 +373,7 @@ io.on('connection', (socket) => {
     }
   });
 });
+
 
 
 
@@ -603,6 +613,11 @@ function setPlayerState(state) {
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/home/login.html'));
+});
+
+
+app.get('/test', (req, res) => {
+  res.sendFile(path.join(__dirname, '/views/home/index.html'));
 });
 
 
