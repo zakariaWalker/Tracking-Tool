@@ -5,7 +5,7 @@ const forms = require(formsFilePath);
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const session = require('express-session');
-const content = require('D:\\knbase characters\\views\\home\\content.js'); // Import your module here
+// const content = require('D:\\knbase characters\\views\\home\\content.js'); // Import your module here
 
 const app = express();
 const { google } = require('googleapis');
@@ -293,7 +293,7 @@ app.get('/main/:videoId/:username', async (req, res) => {
       const title = video.snippet.title;
       const thumbnailUrl = video.snippet.thumbnails.default.url;
 
-      res.render('home/index', { videoId, title, thumbnailUrl, username , ...content}); // Pass the username to the template
+      res.render('home/index', { videoId, title, thumbnailUrl, username }); // Pass the username to the template
     } else {
       throw new Error('Video not found');
     }

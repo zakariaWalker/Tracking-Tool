@@ -5955,8 +5955,9 @@ Megabay 2
     console.error('Error retrieving session username:', error);
     return null;
   }
-}getSessionUsername()
-  .then((username) => {
+}
+getSessionUsername()
+.then((username) => {
     console.log(username);
     const socket = io();
 
@@ -6006,8 +6007,20 @@ Megabay 2
 
       $('#btn-sdn').click(function(e) {
         e.preventDefault();
-        const msg = $('#m').
+        const msg = $('#m').val().trim(); // Trim the message to remove leading/trailing white spaces
+        if (msg !== '') { // Check if the message is not empty
+          socket.emit('chat message', msg);
+          $('#m').val('');
+          scrollToBottom();
+        }
+        return false;
+      });
+    });
 
+    function scrollToBottom() {
+      var messageList = document.getElementById('messages');
+      messageList.scrollTop = messageList.scrollHeight;
+    }
 
     var heading = document.createElement('h1');
     heading.textContent = 'ChatRoom';
@@ -6019,7 +6032,6 @@ Megabay 2
   .catch((error) => {
     console.error('Error retrieving session username:', error);
   });
-
 </script>
 
 
