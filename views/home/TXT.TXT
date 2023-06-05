@@ -1,135 +1,14 @@
-var getData(function(response) {
-var autoplay = response.autoplay;
-var eastereggs = response.eastereggs;
-var shortcutlight = response.shortcutlight;
-var eyen = response.eyen;
-var eyea = response.eyea;
-var eyealist = response.eyealist;
-var contextmenus = response.contextmenus;
-var excludedDomains = response.excludedDomains;
-var nighttime = response.nighttime;
-var begintime = response.begintime;
-var endtime = response.endtime;
-var ambilight = response.ambilight;
-var ambilightrangeblurradius = response.ambilightrangeblurradius;
-var ambilightrangespreadradius = response.ambilightrangespreadradius;
-var ambilightfixcolor = response.ambilightfixcolor;
-var ambilightvarcolor = response.ambilightvarcolor;
-var ambilightcolorhex = response.ambilightcolorhex;
-if (ambilightcolorhex == null) ambilightcolorhex = '#47C2FF';
-var ambilight4color = response.ambilight4color;
-var ambilight1colorhex = response.ambilight1colorhex;
-if (ambilight1colorhex == null) ambilight1colorhex = '#FF0000';
-var ambilight2colorhex = response.ambilight2colorhex;
-if (ambilight2colorhex == null) ambilight2colorhex = '#FFEE00';
-var ambilight3colorhex = response.ambilight3colorhex;
-if (ambilight3colorhex == null) ambilight3colorhex = '#00FF00';
-var ambilight4colorhex = response.ambilight4colorhex;
-if (ambilight4colorhex == null) ambilight4colorhex = '#0000FF';
-var ecosaver = response.ecosaver;
-var ecosavertime = response.ecosavertime;
-var autoplayonly = response.autoplayonly;
-var autoplayDomains = response.autoplayDomains;
-var interval = response.interval;
-var maxquality = response.maxquality;
-var autowidthyoutube = response.autowidthyoutube;
-var customqualityyoutube = response.customqualityyoutube;
-var atmosphereonly = response.atmosphereonly;
-var atmosphereDomains = response.atmosphereDomains;
-var nighttheme = response.nighttheme;
-var nightonly = response.nightonly;
-var nightDomains = response.nightDomains;
-var nightenabletheme = response.nightenabletheme;
-var autoplaydelay = response.autoplaydelay;
-var autoplaydelaytime = response.autoplaydelaytime;
-var atmosvivid = response.atmosvivid;
-var autoplaychecklistwhite = response.autoplaychecklistwhite;
-var autoplaychecklistblack = response.autoplaychecklistblack;
-var nighthover = response.nighthover;
-var nightactivetime = response.nightactivetime;
-var nmbegintime = response.nmbegintime;
-var nmendtime = response.nmendtime;
-var nightmodechecklistblack = response.nightmodechecklistblack;
-var nightmodechecklistwhite = response.nightmodechecklistwhite;
-var nmtopleft = response.nmtopleft;
-var nmtopright = response.nmtopright;
-var nmbottomright = response.nmbottomright;
-var nmbottomleft = response.nmbottomleft;
-var nmcustom = response.nmcustom;
-var nmcustomx = response.nmcustomx;
-if (nmcustomx == null) nmcustomx = '25px';
-var nmcustomy = response.nmcustomy;
-if (nmcustomy == null) nmcustomy = '25px';
-var lampandnightmode = response.lampandnightmode;
-var autostop = response.autostop;
-var autostoponly = response.autostoponly;
-var autostopDomains = response.autostopDomains;
-var autostopchecklistwhite = response.autostopchecklistwhite;
-var autostopchecklistblack = response.autostopchecklistblack;
-var eyechecklistwhite = response.eyechecklistwhite;
-var eyechecklistblack = response.eyechecklistblack;
-var nightmodebck = response.nightmodebck;
-if (nightmodebck == null) nightmodebck = '#1e1e1e';
-var nightmodetxt = response.nightmodetxt;
-if (nightmodetxt == null) nightmodetxt = '#ffffff';
-var no360youtube = response.no360youtube;
-var videotool = response.videotool;
-var reflection = response.reflection;
-var reflectionamount = response.reflectionamount;
-var videotoolonly = response.videotoolonly;
-var videotoolDomains = response.videotoolDomains;
-var videotoolchecklistwhite = response.videotoolchecklistwhite;
-var videotoolchecklistblack = response.videotoolchecklistblack;
-var nightmodehyperlink = response.nightmodehyperlink;
-if (nightmodehyperlink == null) nightmodehyperlink = '#ffffff';
-var videovolume = response.videovolume;
-var videovolumecolor = response.videovolumecolor;
-if (videovolumecolor == null) videovolumecolor = '#167ac6';
-var videovolumesteps = response.videovolumesteps;
-if (videovolumesteps == null) videovolumesteps = 5;
-var videovolumelabel = response.videovolumelabel;
-if (videovolumelabel == null) response.videovolumelabel = true;
-var visopacity = response.visopacity;
-if (visopacity == null) visopacity = '80';
-var videotoolcolor = response.videotoolcolor;
-if (videotoolcolor == null) videotoolcolor = '#000000';
-var hovervideo = response.hovervideo;
-var hovervideoamount = response.hovervideoamount;
-if (hovervideoamount == null) hovervideoamount = '3';
-var mousespotlights = response.mousespotlights;
-var screenshader = response.screenshader;
-var drawatmosfps = response.drawatmosfps;
-if (drawatmosfps == null) drawatmosfps = '12';
-var aplay = response.aplay;
-if (aplay == null) response.aplay = true;
-var apause = response.apause;
-if (apause == null) response.apause = true;
-var astop = response.astop;
-if (astop == null) response.astop = true;
-var videozoom = response.videozoom;
-var playrate = response.playrate;
-var playrateamount = response.playrateamount;
-if (playrateamount == null) playrateamount = '1';
-var speedtoolbar = response.speedtoolbar;
-var atmosontotlmode = response.atmosontotlmode;
-var vpause = response.vpause;
-var videovolumeposa = response.videovolumeposa;
-var videovolumeposb = response.videovolumeposb;
-var videovolumeposc = response.videovolumeposc;
-var videovolumehold = response.videovolumehold;
-var videovolumealt = response.videovolumealt;
-var nightmodebydomain = response.nightmodebydomain;
-if (nightmodebydomain == null) response.nightmodebydomain = true;
-var nightmodebypage = response.nightmodebypage;
-if (nightmodebypage == null) response.nightmodebypage = false;
-var nightmodegesture = response.nightmodegesture;
-var nightmodeswitchhide = response.nightmodeswitchhide;
-var nightmodeswitchhidetime = response.nightmodeswitchhidetime;
-if (nightmodeswitchhidetime == null) nightmodeswitchhidetime = '3';
-var atmosfpsauto = response.atmosfpsauto;
-if (atmosfpsauto == null) response.atmosfpsauto = false;
-var atmosfpsmanual = response.atmosfpsmanual;
-if (atmosfpsmanual == null) response.atmosfpsmanual = true;
-});
+<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+<div>
+  <button id="zoom-in-9">Zoom In</button>
+  <button id="zoom-out-9">Zoom Out</button>
+  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
+</div>
 
- karoui ramezi
+<!-- YouTube iframe element for player 2 -->
+<div id="player-9">
+  <div class="video-container">
+    <div id="video-content-9"></div>
+    <canvas id="video-overlay-9"></canvas>
+  </div>
+</div>

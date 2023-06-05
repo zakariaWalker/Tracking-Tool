@@ -17,8 +17,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://starbase-tracking-tool.onrender.com";
-// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
+const url_ngrok = "https://5764-105-99-127-14.ngrok-free.app";
+// const url_ngrok = "https://5764-105-99-127-14.ngrok-free.app/";
 const fetch = require('isomorphic-fetch');
 
 const sessionMiddleware = session({
@@ -64,16 +64,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://starbase-tracking-tool.onrender.com");
+  res.setHeader('Access-Control-Allow-Origin',"https://5764-105-99-127-14.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
 })
-// Session middleware
-const store = new MongoDBStore({
-  uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
-  collection: 'sessions'
-});
+// // Session middleware
+// const store = new MongoDBStore({
+//   uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
+//   collection: 'sessions'
+// });
 
 
 app.set('view engine', 'ejs');
@@ -88,24 +88,38 @@ app.use((err, req, res, next) => {
 });
 
 
-// Catch errors in session store
-store.on('error', (error) => {
-  console.error('Session store error:', error);
+// // Catch errors in session store
+// store.on('error', (error) => {
+//   console.error('Session store error:', error);
+// });
+
+
+
+var MongoClient = require('mongodb').MongoClient;
+
+var uri = "mongodb://zhoudache:alcahyd2023@ac-k2354sp-shard-00-00.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-01.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-02.ughawgz.mongodb.net:27017/?ssl=true&replicaSet=atlas-t1c3id-shard-0&authSource=admin&retryWrites=true&w=majority";
+MongoClient.connect(uri, function(err, client) {
+ 
+    console.log('Connected to MongoDB Atlas');
+ 
+  // const collection = client.db("users").collection("users");
+
+  // perform actions on the collection object
+  client.close();
 });
 
 
 
-
-mongoose.connect('mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net/users?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-  })
-  .catch((error) => {
-    console.error('Failed to connect to MongoDB Atlas:', error);
-  });
+// mongoose.connect('mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net/users?retryWrites=true&w=majority', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+//   .then(() => {
+//     console.log('Connected to MongoDB Atlas');
+//   })
+//   .catch((error) => {
+//     console.error('Failed to connect to MongoDB Atlas:', error);
+//   });
 
   
 app.use(express.urlencoded({ extended: true }));
@@ -395,7 +409,7 @@ app.post('/login', async (req, res) => {
       io.emit('login', username);
       console.log(req.session.user);
       await user.save(); // Save the user with the updated equipment field
-      res.redirect(`/main/tS2PHJmvJzo/${username}`); // Redirect to '/main'
+      res.redirect(`views/home/choice.html`); // Redirect to '/main'views\home\choice.html
     } else {
       // res.redirect(`/main/tS2PHJmvJzo/${username}`)
       return res.status(401).send('Invalid username or password');
@@ -404,13 +418,30 @@ app.post('/login', async (req, res) => {
     console.error(error);
     return res.status(500).send('An error occurred');
   }
+
+
+
+
+
+  try {
+    const r = await axios.get("https://api.chatengine.io/users/me/", {
+      headers: {
+        "Project-ID": CHAT_ENGINE_PROJECT_ID,
+        "User-Name": username,
+        "User-Secret": secret,
+      },
+    });
+    return res.status(r.status).json(r.data);
+  } catch (e) {
+    return res.status(e.response.status).json(e.response.data);
+  }
 });
 
 
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://starbase-tracking-tool.onrender.com/api/getSessionUsername', {
+    const response = await fetch('https://5764-105-99-127-14.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();
@@ -459,6 +490,9 @@ app.post('/register', async (req, res) => {
     console.error(error);
     res.status(500).send('An error occurred during registration');
   }
+
+
+  
 });
 
 
@@ -616,7 +650,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/test', (req, res) => {
+app.get('/streams', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/home/index.html'));
 });
 

@@ -127,13 +127,16 @@ loginForm.addEventListener('submit', async (event) => {
       // Login successful, retrieve the session username
       const sessionUsername = await getSessionUsername();
 
-      if (sessionUsername) {
-        socket.emit('login', sessionUsername); // Pass the username to the server when emitting the login event
-        console.log(username);
-        window.location.href = `/main/tS2PHJmvJzo/${username}`;
-      } else {
-        console.error('Session username not found');
-      }
+if (sessionUsername) {
+  const url = `views/home/choice.html?username=${encodeURIComponent(sessionUsername)}`;
+  window.location.href = url;
+
+  // Emit the login event with the username using socket.io
+  socket.emit('login', sessionUsername);
+} else {
+  console.error('Session username not found');
+}
+
     } else {
       console.error('Invalid username or password');
     }
