@@ -15,8 +15,9 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://starbase-tracking-tool.onrender.com";
+const url_ngrok = "https://83e6-105-102-5-88.ngrok-free.app";
 const fetch = require('isomorphic-fetch');
+// const Message = require('./models/message');
 
 const sessionMiddleware = session({
   secret: 'your-secret-key',
@@ -36,7 +37,7 @@ const server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const io = require('socket.io')(server, {
   cors: {
-    origin: "https://starbase-tracking-tool.onrender.com"
+    origin: "https://83e6-105-102-5-88.ngrok-free.app"
   }
 });
 
@@ -54,7 +55,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://starbase-tracking-tool.onrender.com");
+  res.setHeader('Access-Control-Allow-Origin',"https://83e6-105-102-5-88.ngrok-free.app");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -155,6 +156,7 @@ const userSchema = new Schema({
   CC: [componentCountsSchema]
 });
 
+
 const User = mongoose.model('User', userSchema);
 
 app.post('/save-component-counts', async (req, res) => {
@@ -188,8 +190,10 @@ app.post('/save-component-counts', async (req, res) => {
 // Rest of your code...
 
 
-app.get('/get-component-counts', async (req, res) => {
-  const { username } = req.query;
+app.get('/get-component-counts/:username', async (req, res) => {
+  const username = req.params.username;
+
+  // const { username } = req.query;
 
   try {
     const user = await User.findOne({ username });
@@ -219,6 +223,42 @@ app.get('/api/getSessionUsername', (req, res) => {
     return res.status(401).json({ error: 'Session username not found' });
   }
 });
+
+
+// Endpoint for saving a new message
+app.post('/saveMessage', (req, res) => {
+  const { username, message } = req.body;
+
+  // Find the user by username
+  User.findOne({ username })
+    .then((user) => {
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      // Create a new message
+      const newMessage = {
+        username: username,
+        message: message,
+        timestamp: new Date()
+      };
+
+      // Add the message to the user's chatMessages array
+      user.chatMessages.push(newMessage);
+
+      // Save the updated user document
+      return user.save();
+    })
+    .then((updatedUser) => {
+      res.status(200).json({ message: 'Message saved successfully' });
+    })
+    .catch((error) => {
+      console.error('Error saving message:', error);
+      res.status(500).json({ error: 'An error occurred while saving the message' });
+    });
+});
+
+
 
 
 app.get('/choice/:username', async (req, res)=> {
@@ -260,26 +300,28 @@ io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
 const connectedUsers = new Set();
+
 io.on('connection', (socket) => {
   console.log('user connected ' + socket.id);
-  
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
     connectedUsers.add(username);
   
-    // Retrieve chat history for the specific user from the database
-    User.findOne({ username })
-      .then((user) => {
-        if (user) {
-          const chatHistory = user.chatMessages;
-          console.log('Chat history retrieved:', chatHistory);
+    // Retrieve chat history for all users from the database
+    User.find({})
+      .then((users) => {
+        const chatHistory = users.reduce((history, user) => {
+          const userMessages = user.chatMessages.map((message) => ({
+            sender: user.username,
+            text: message.message,
+          }));
+          return history.concat(userMessages);
+        }, []);
+        console.log('Chat history retrieved:', chatHistory);
   
-          // Send chat history to the newly connected client
-          socket.emit('chat history', chatHistory);
-        } else {
-          console.log('User not found:', username);
-        }
+        // Send chat history to the newly connected client
+        socket.emit('chat history', chatHistory);
       })
       .catch((error) => {
         console.error('Error retrieving chat history:', error);
@@ -291,7 +333,6 @@ io.on('connection', (socket) => {
     });
   });
   
-
   socket.on('disconnect', () => {
     console.log('user disconnected ' + socket.id);
     const username = socket.username;
@@ -309,7 +350,7 @@ io.on('connection', (socket) => {
 
     // Save the message to the database
     if (msg && username) {
-      const newMessage = { username: username, message: msg };
+      const newMessage = { username: username, text: msg };
       User.findOneAndUpdate(
         { username },
         { $push: { chatMessages: newMessage } },
@@ -326,6 +367,7 @@ io.on('connection', (socket) => {
     }
   });
 });
+
 
 
 
@@ -381,7 +423,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://starbase-tracking-tool.onrender.com/api/getSessionUsername', {
+    const response = await fetch('https://83e6-105-102-5-88.ngrok-free.app/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();

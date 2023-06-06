@@ -1,104 +1,29 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="chats_css.css" />
-    <title>User Authentication</title>
-</head>
-<body>
-    <h1>User Authentication</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="chats_css.css" />
+		<title>Welcome</title>
+	</head>
+	<body>
+		<div class="background">
+            <div class="form-card">
+                <div class="form-title">
+                    Welcome 👋 
+                </div>
 
-    <h2>Signup</h2>
-    <form id="signupForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="secret">Secret:</label>
-        <input type="password" id="secret" name="secret" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
-        <br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required>
-        <br>
-        <button type="submit">Signup</button>
-    </form>
+                <div class="form-subtitle">
+                    Select your username to get started
+                </div>
 
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="loginUsername">Username:</label>
-        <input type="text" id="loginUsername" name="username" required>
-        <br>
-        <label for="loginSecret">Secret:</label>
-        <input type="password" id="loginSecret" name="secret" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
-
-    <script>
-        document.getElementById("signupForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const secret = document.getElementById("secret").value;
-            const email = document.getElementById("email").value;
-            const first_name = document.getElementById("first_name").value;
-            const last_name = document.getElementById("last_name").value;
-
-            try {
-                const response = await fetch("/signup", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ username, secret, email, first_name, last_name })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("Signup successful:", data);
-                } else {
-                    const errorData = await response.json();
-                    console.error("Signup failed:", errorData);
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
-
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const username = document.getElementById("loginUsername").value;
-            const secret = document.getElementById("loginSecret").value;
-
-            try {
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ username, secret })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("Login successful:", data);
-                } else {
-                    const errorData = await response.json();
-                    console.error("Login failed:", errorData);
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
-    </script>
-</body>
+                <div class="auth">
+                    <div class="auth-label">Username</div>
+                    <input class="auth-input" name="username" />
+                    <button class="auth-button" type="submit">Authenticate</Button>
+                </div>
+            </div>
+		</div>
+	</body>
 </html>
