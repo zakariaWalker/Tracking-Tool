@@ -648,6 +648,7 @@ function setPlayerState(state) {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/home/login.html'));
 });
+app.use('/views', express.static(path.join(__dirname, '/views')));
 
 
 app.get('/streams', (req, res) => {
