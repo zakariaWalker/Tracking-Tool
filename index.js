@@ -17,8 +17,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://5764-105-99-127-14.ngrok-free.app";
-// const url_ngrok = "https://5764-105-99-127-14.ngrok-free.app/";
+const url_ngrok = "https://starbase-tracking-tool.onrender.com";
+// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
 const fetch = require('isomorphic-fetch');
 
 const sessionMiddleware = session({
@@ -64,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://5764-105-99-127-14.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Origin',"https://starbase-tracking-tool.onrender.com");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -441,7 +441,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://5764-105-99-127-14.ngrok-free.app/api/getSessionUsername', {
+    const response = await fetch('https://starbase-tracking-tool.onrender.com/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();

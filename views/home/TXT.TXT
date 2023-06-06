@@ -1,14 +1,10 @@
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
 <div>
-  <button id="zoom-in-9">Zoom In</button>
-  <button id="zoom-out-9">Zoom Out</button>
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-9">
-  <div class="video-container">
-    <div id="video-content-9"></div>
-    <canvas id="video-overlay-9"></canvas>
-  </div>
+  <button id="zoom-in-3" >  <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+  <button id="zoom-out-3"  > <img src="/views/home/icons/zoom out.svg" alt="Zoom Out" > Zoom Out</button>
+  <button id="move-left-3"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+  <button id="move-right-3"> <img src="/views/home/icons/move right.svg" alt="Msove Right">  Move Right</button>
+    <button id="move-up-3"> <img src="/views/home/icons/move up.svg" alt="Move Up">  Move Up</button>
+    <button id="move-down-3"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+  
+  
 </div>

@@ -1,882 +1,1289 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>YouTube Player</title>
   <script src="https://www.youtube.com/iframe_api"></script>
   <style>
-  .video-container {
-  position: relative;
-  width: 640px;
-  height: 360px;
-  overflow: hidden;
-  border: 1px solid black;
-  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
-}
+    .video-container {
+      position: relative;
+      width: 640px;
+      height: 360px;
+      overflow: hidden;
+      border: 1px solid black;
+      box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
+    }
 
-#video-content-1,
-#video-content-2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+    #video-content-1,
+    #video-content-2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-#video-overlay-1,
-#video-overlay-2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+    #video-overlay-1,
+    #video-overlay-2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-.screenshot-button {
-  margin-top: 10px;
-}
+    .screenshot-button {
+      margin-top: 10px;
+    }
 
-.zoom-controls {
-  margin-top: 10px;
-}
+    .zoom-controls {
+      margin-top: 10px;
+    }
 
-.zoom-controls button {
-  margin-right: 5px;
-}
-.zoom-button {
-  display: inline-block;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #3498db;
-  color: #fff;
-  transition: background-color 0.3s ease;
-}
+    .zoom-controls button {
+      margin-right: 5px;
+    }
 
-.zoom-button:hover {
-  background-color: #2980b9;
-}
+    .zoom-button {
+      display: inline-block;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
 
-.zoom-button:active {
-  background-color: #1c638f;
-}
+    .zoom-button:hover {
+      background-color: #2980b9;
+    }
 
-#zoom-in-1 {
-  margin-right: 10px;
-  color: red;
-}
+    .zoom-button:active {
+      background-color: #1c638f;
+    }
 
-#zoom-out-1 {
-  margin-left: 10px;
-  color: blue;
-}
+    #zoom-in-1 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    #zoom-out-1 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
 
-.player {
-  width: 25%;
-  height: 100%;
-  margin: 10px;
-}
 
-.player .video-container {
+    #zoom-in-2 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-2 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+
+    #zoom-in-3 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-3 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+
+    #zoom-in-4 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-4 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-in-5 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-5 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-in-6 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-6 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-in-7 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-7 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+
+    #zoom-in-8 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-8 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-in-9 {
+      margin-right: 10px;
+      color: red;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #zoom-out-9 {
+      margin-left: 10px;
+      color: blue;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .player {
+      width: 25%;
+      height: 100%;
+      margin: 10px;
+    }
+
+    /* .player .video-container {
   title: "This is a video player";
-}
+} */
 
+
+    #zoom-in-1:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-1:hover {
+      filter: brightness(1.2);
+    }
+
+
+
+
+    #zoom-in-2:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-2:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #zoom-in-3:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-3:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #zoom-in-4:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-4:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #zoom-in-5:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-5:hover {
+      filter: brightness(1.2);
+    }
+
+
+
+    #zoom-in-6:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-6:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #zoom-in-7:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-7:hover {
+      filter: brightness(1.2);
+    }
+
+
+
+    #zoom-in-8:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-8:hover {
+      filter: brightness(1.2);
+    }
+
+
+
+
+    #zoom-in-9:hover {
+      filter: brightness(1.2);
+    }
+
+    #zoom-out-9:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #move-left-1 {
+      margin-right: 10px;
+      /* color: red; */
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-1:hover {
+      filter: brightness(1.2);
+    }
+
+
+    #move-left-2 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-3 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-4 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-5 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-6 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-7 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-8 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #move-left-9 {
+      margin-right: 10px;
+      filter: drop-shadow(2px 4px 6px grey);
+      height: 53px;
+      width: 53px;
+      background-color: transparent;
+      border: none;
+    }
+
+
+
+    #move-left-2:hover {filter: brightness(1.2);}
+#move-left-3:hover {filter: brightness(1.2);}
+#move-left-4:hover {filter: brightness(1.2);}
+#move-left-5:hover {filter: brightness(1.2);}
+#move-left-6:hover {filter: brightness(1.2);}
+#move-left-7:hover {filter: brightness(1.2);}
+#move-left-8:hover {filter: brightness(1.2);}
+#move-left-9:hover {filter: brightness(1.2);}
+
+
+#move-right-1:hover {filter: brightness(1.2);}
+#move-right-2:hover {filter: brightness(1.2);}
+#move-right-3:hover {filter: brightness(1.2);}
+#move-right-4:hover {filter: brightness(1.2);}
+#move-right-5:hover {filter: brightness(1.2);}
+#move-right-6:hover {filter: brightness(1.2);}
+#move-right-7:hover {filter: brightness(1.2);}
+#move-right-8:hover {filter: brightness(1.2);}
+#move-right-9:hover {filter: brightness(1.2);}
+
+#move-right-1 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-2 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-3 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-4 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-5 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-6 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-7 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-8 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right-9 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right- {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right- {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+#move-right- {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}
+
+
+#move-up-1 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-1:hover {filter: brightness(1.2);}
+#move-up-2 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-2:hover {filter: brightness(1.2);}
+#move-up-3 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-3:hover {filter: brightness(1.2);}
+#move-up-4 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-4:hover {filter: brightness(1.2);}
+#move-up-5 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-5:hover {filter: brightness(1.2);}
+#move-up-6 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-6:hover {filter: brightness(1.2);}
+#move-up-7 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-7:hover {filter: brightness(1.2);}
+#move-up-8 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-8:hover {filter: brightness(1.2);}
+#move-up-9 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-up-9:hover {filter: brightness(1.2);}
+
+
+#move-down-1 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-1:hover {filter: brightness(1.2);}
+#move-down-2 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-2:hover {filter: brightness(1.2);}
+#move-down-3 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-3:hover {filter: brightness(1.2);}
+#move-down-4 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-4:hover {filter: brightness(1.2);}
+#move-down-5 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-5:hover {filter: brightness(1.2);}
+#move-down-6 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-6:hover {filter: brightness(1.2);}
+#move-down-7 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-7:hover {filter: brightness(1.2);}
+#move-down-8 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-8:hover {filter: brightness(1.2);}
+#move-down-9 {margin-right: 10px;filter: drop-shadow(2px 4px 6px grey);height: 53px;width: 53px;background-color: transparent;border: none;}	#move-down-9:hover {filter: brightness(1.2);}
 
 
   </style>
 </head>
+
 <body>
-<!-- HTML markup for the zoom controls and screenshot button -->
-<div>
-  <button id="zoom-in-1">Zoom In</button>
-  <button id="zoom-out-1">Zoom Out</button>
-  <button id="move-left-1">Move Left</button>
-  <button id="move-right-1">Move Right</button>
-    <button id="move-up-1">Move Up</button>
-    <button id="move-down-1">Move Down</button>
-  
-  
-  <!-- <button id="take-screenshot-1" class="screenshot-button">Take Screenshot</button> -->
-</div>
+  <!-- HTML markup for the zoom controls and screenshot button -->
+  <div>
+    <button id="zoom-in-1"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-1"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-1"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-1"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-1"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-1"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
 
-<!-- YouTube iframe element for player 1 -->
-<div id="player-1">
-  <div class="video-container">
-    <div id="video-content-1"></div>
-    <canvas id="video-overlay-1"></canvas>
+
   </div>
-</div>
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
-  <button id="zoom-in-2">Zoom In</button>
-  <button id="zoom-out-2">Zoom Out</button>
-  <button id="move-left-2">Move Left</button>
-  <button id="move-right-2">Move Right</button>
-  <button id="move-up-2">Move Up</button>
-  <button id="move-down-2">Move Down</button>
-    
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-2">
-  <div class="video-container">
-    <div id="video-content-2"></div>
-    <canvas id="video-overlay-2"></canvas>
+  <!-- YouTube iframe element for player 1 -->
+  <div id="player-1">
+    <div class="video-container">
+      <div id="video-content-1"></div>
+      <canvas id="video-overlay-1"></canvas>
+    </div>
   </div>
-</div>
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-2" > <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-2"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-2"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-2" > <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-2"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-2"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
 
-  <button id="zoom-in-3">Zoom In</button>
-  <button id="zoom-out-3">Zoom Out</button>
-  <button id="move-left-3">Move Left</button>
-  <button id="move-right-3">Move Right</button>
-  <button id="move-up-3">Move Up</button>
-  <button id="move-down-3">Move Down</button>
-  
-  <!-- Repeat the above pattern for player 4 to player 9 -->
 
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-3">
-  <div class="video-container">
-    <div id="video-content-3"></div>
-    <canvas id="video-overlay-3"></canvas>
   </div>
-</div>
 
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
-  <button id="zoom-in-4">Zoom In</button>
-<button id="zoom-out-4">Zoom Out</button>
-<button id="move-left-4">Move Left</button>
-<button id="move-right-4">Move Right</button>
-<button id="move-up-4">Move Up</button>
-<button id="move-down-4">Move Down</button>
-
-
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-4">
-  <div class="video-container">
-    <div id="video-content-4"></div>
-    <canvas id="video-overlay-4"></canvas>
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-2">
+    <div class="video-container">
+      <div id="video-content-2"></div>
+      <canvas id="video-overlay-2"></canvas>
+    </div>
   </div>
-</div>
+
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-3"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-3"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-3"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-3"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-3"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-3"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
 
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
- 
-<button id="zoom-in-5">Zoom In</button>
-<button id="zoom-out-5">Zoom Out</button>
-<button id="move-left-5">Move Left</button>
-<button id="move-right-5">Move Right</button>
-<button id="move-up-5">Move Up</button>
-<button id="move-down-5">Move Down</button>
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-5">
-  <div class="video-container">
-    <div id="video-content-5"></div>
-    <canvas id="video-overlay-5"></canvas>
   </div>
-</div>
 
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
-  
-<button id="zoom-in-6">Zoom In</button>
-<button id="zoom-out-6">Zoom Out</button>
-<button id="move-left-6">Move Left</button>
-<button id="move-right-6">Move Right</button>
-<button id="move-up-6">Move Up</button>
-<button id="move-down-6">Move Down</button>
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-6">
-  <div class="video-container">
-    <div id="video-content-6"></div>
-    <canvas id="video-overlay-6"></canvas>
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-3">
+    <div class="video-container">
+      <div id="video-content-3"></div>
+      <canvas id="video-overlay-3"></canvas>
+    </div>
   </div>
-</div>
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
-  
 
-<button id="zoom-in-7">Zoom In</button>
-<button id="zoom-out-7">Zoom Out</button>
-<button id="move-left-7">Move Left</button>
-<button id="move-right-7">Move Right</button>
-<button id="move-up-7">Move Up</button>
-<button id="move-down-7">Move Down</button>
-<!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-4"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-4"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-4"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-4"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-4"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-4"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
 
-<!-- YouTube iframe element for player 2 -->
-<div id="player-7">
-  <div class="video-container">
-    <div id="video-content-7"></div>
-    <canvas id="video-overlay-7"></canvas>
+
   </div>
-</div>
 
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
-  <button id="zoom-in-8">Zoom In</button>
-  <button id="zoom-out-8">Zoom Out</button>
-  <button id="move-left-8">Move Left</button>
-  <button id="move-right-8">Move Right</button>
-  <button id="move-up-8">Move Up</button>
-  <button id="move-down-8">Move Down</button>
-  
-</div>
-
-<!-- YouTube iframe element for player 2 -->
-<div id="player-8">
-  <div class="video-container">
-    <div id="video-content-8"></div>
-    <canvas id="video-overlay-8"></canvas>
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-4">
+    <div class="video-container">
+      <div id="video-content-4"></div>
+      <canvas id="video-overlay-4"></canvas>
+    </div>
   </div>
-</div>
-
-<!-- HTML markup for the zoom controls and screenshot button for player 2 -->
-<div>
- 
-  <button id="zoom-in-9">Zoom In</button>
-  <button id="zoom-out-9">Zoom Out</button>
-  <button id="move-left-9">Move Left</button>
-  <button id="move-right-9">Move Right</button>
-  <button id="move-up-9">Move Up</button>
-  <button id="move-down-9">Move Down</button>
-  
-  <!-- <button id="take-screenshot-2" class="screenshot-button">Take Screenshot</button> -->
-</div>
 
 
-<!-- YouTube iframe element for player 2 -->
-<div id="player-9">
-  <div class="video-container">
-    <div id="video-content-9"></div>
-    <canvas id="video-overlay-9"></canvas>
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-5"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-5"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-5"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-5"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-5"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-5"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+
+
   </div>
-</div>
+
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-5">
+    <div class="video-container">
+      <div id="video-content-5"></div>
+      <canvas id="video-overlay-5"></canvas>
+    </div>
+  </div>
+
+
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-6"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-6"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-6"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-6"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-6"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-6"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+
+
+  </div>
+
+
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-6">
+    <div class="video-container">
+      <div id="video-content-6"></div>
+      <canvas id="video-overlay-6"></canvas>
+    </div>
+  </div>
+
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-7"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-7"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-7"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-7"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-7"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-7"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+
+
+  </div>
+
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-7">
+    <div class="video-container">
+      <div id="video-content-7"></div>
+      <canvas id="video-overlay-7"></canvas>
+    </div>
+  </div>
+
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+
+  <div>
+    <button id="zoom-in-8"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-8"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-8"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-8"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-8"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-8"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+
+
+  </div>
+
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-8">
+    <div class="video-container">
+      <div id="video-content-8"></div>
+      <canvas id="video-overlay-8"></canvas>
+    </div>
+  </div>
+
+  <!-- HTML markup for the zoom controls and screenshot button for player 2 -->
+  <div>
+    <button id="zoom-in-9"> <img src="/views/home/icons/zoom in.svg" alt="Zoom In"> Zoom In</button>
+    <button id="zoom-out-9"> <img src="/views/home/icons/zoom out.svg" alt="Zoom Out"> Zoom Out</button>
+    <button id="move-left-9"> <img src="/views/home/icons/move left.svg" alt="Move Left"> Move Left</button>
+    <button id="move-right-9"> <img src="/views/home/icons/move right.svg" alt="Msove Right"> Move Right</button>
+    <button id="move-up-9"> <img src="/views/home/icons/move up.svg" alt="Move Up"> Move Up</button>
+    <button id="move-down-9"> <img src="/views/home/icons/move down.svg" alt="Move Down"> Move Down</button>
+
+
+  </div>
+
+
+  <!-- YouTube iframe element for player 2 -->
+  <div id="player-9">
+    <div class="video-container">
+      <div id="video-content-9"></div>
+      <canvas id="video-overlay-9"></canvas>
+    </div>
+  </div>
 
 
 
-<!-- JavaScript code -->
-<script>
+  <!-- JavaScript code -->
+  <script>
 
-const players = {};
+    const players = {};
 
-const zoomStep = 0.1;
-const moveStep = zoomStep;
+    const zoomStep = 0.1;
+    const moveStep = zoomStep;
 
-function zoomIn(playerNum) {
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const currentTop = parseInt(videoContainer.style.top) || 0;
-  const currentLeft = parseInt(videoContainer.style.left) || 0;
-console.log("Current left is : ",currentLeft,"Current Tp is : ",currentTop);
-  const player = getPlayer(playerNum);
-  const newScale = player.scale + zoomStep;
-  if (newScale <= 4) {
-    setZoom(playerNum, newScale);
-    toggleZoomButtons(playerNum);
-    toggleMoveButtons(playerNum);
-  }
-}
+    function zoomIn(playerNum) {
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const currentTop = parseInt(videoContainer.style.top) || 0;
+      const currentLeft = parseInt(videoContainer.style.left) || 0;
+      console.log("Current left is : ", currentLeft, "Current Tp is : ", currentTop);
+      const player = getPlayer(playerNum);
+      const newScale = player.scale + zoomStep;
+      if (newScale <= 4) {
+        setZoom(playerNum, newScale);
+        toggleZoomButtons(playerNum);
+        toggleMoveButtons(playerNum);
+      }
+    }
 
-function zoomOut(playerNum) {
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const currentTop = parseInt(videoContainer.style.top) || 0;
-  const currentLeft = parseInt(videoContainer.style.left) || 0;
-  console.log("Current left is : ",currentLeft,"Current Tp is : ",currentTop);
-  const player = getPlayer(playerNum);
-  const newScale = player.scale - zoomStep;
-  if (newScale >= 1) {
-    setZoom(playerNum, newScale);
-    toggleZoomButtons(playerNum);
-    toggleMoveButtons(playerNum);
-  }
-}
+    function zoomOut(playerNum) {
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const currentTop = parseInt(videoContainer.style.top) || 0;
+      const currentLeft = parseInt(videoContainer.style.left) || 0;
+      console.log("Current left is : ", currentLeft, "Current Tp is : ", currentTop);
+      const player = getPlayer(playerNum);
+      const newScale = player.scale - zoomStep;
+      if (newScale >= 1) {
+        setZoom(playerNum, newScale);
+        toggleZoomButtons(playerNum);
+        toggleMoveButtons(playerNum);
+      }
+    }
 
-function moveUp(playerNum) {
-  const player = getPlayer(playerNum);
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const containerHeight = videoContainer.offsetHeight;
-  const currentTop = parseInt(videoContainer.style.top) || 0;
-  const newTop = currentTop - player.moveStep;
+    function moveUp(playerNum) {
+      const player = getPlayer(playerNum);
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const containerHeight = videoContainer.offsetHeight;
+      const currentTop = parseInt(videoContainer.style.top) || 0;
+      const newTop = currentTop - player.moveStep;
 
-  if (newTop <= 0) {
-    videoContainer.style.top = `${newTop}px`;
-    document.getElementById(`move-down-${playerNum}`).disabled = false;
-  }
+      if (newTop <= 0) {
+        videoContainer.style.top = `${newTop}px`;
+        document.getElementById(`move-down-${playerNum}`).disabled = false;
+      }
 
-  if (newTop <= -10) {
-    document.getElementById(`move-up-${playerNum}`).disabled = true;
-  }
-  console.log(currentTop,newTop,containerHeight);
+      if (newTop <= -10) {
+        document.getElementById(`move-up-${playerNum}`).disabled = true;
+      }
+      console.log(currentTop, newTop, containerHeight);
 
-}
+    }
 
-function moveDown(playerNum) {
-  const player = getPlayer(playerNum);
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const containerHeight = videoContainer.offsetHeight;
-  const currentTop = parseInt(videoContainer.style.top) || 0;
-  const newTop = currentTop + player.moveStep;
+    function moveDown(playerNum) {
+      const player = getPlayer(playerNum);
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const containerHeight = videoContainer.offsetHeight;
+      const currentTop = parseInt(videoContainer.style.top) || 0;
+      const newTop = currentTop + player.moveStep;
 
-  if (newTop >= -containerHeight) {
-    videoContainer.style.top = `${newTop}px`;
-    document.getElementById(`move-up-${playerNum}`).disabled = false;
-  }
+      if (newTop >= -containerHeight) {
+        videoContainer.style.top = `${newTop}px`;
+        document.getElementById(`move-up-${playerNum}`).disabled = false;
+      }
 
-  if (newTop >= 0) {
-    document.getElementById(`move-down-${playerNum}`).disabled = true;
-  }
-  console.log(currentTop,newTop,containerHeight);
+      if (newTop >= 0) {
+        document.getElementById(`move-down-${playerNum}`).disabled = true;
+      }
+      console.log(currentTop, newTop, containerHeight);
 
-}
+    }
 
-function moveLeft(playerNum) {
-  const player = getPlayer(playerNum);
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const containerWidth = videoContainer.offsetWidth;
-  const currentLeft = parseInt(videoContainer.style.left) || 0;
-  const scaledMoveStep = player.moveStep * getPlayerCurrentScale(playerNum);
-  const newLeft = currentLeft - scaledMoveStep;
-  videoContainer.style.left = `${newLeft}px`;
+    function moveLeft(playerNum) {
+      const player = getPlayer(playerNum);
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const containerWidth = videoContainer.offsetWidth;
+      const currentLeft = parseInt(videoContainer.style.left) || 0;
+      const scaledMoveStep = player.moveStep * getPlayerCurrentScale(playerNum);
+      const newLeft = currentLeft - scaledMoveStep;
+      videoContainer.style.left = `${newLeft}px`;
 
-  if (newLeft <= 0) {
-    document.getElementById(`move-right-${playerNum}`).disabled = false;
-  }
-  if (newLeft <= -Math.floor((getPlayerCurrentScale(playerNum) - 1) * 100) * Math.floor((getPlayerCurrentScale(playerNum) - 1) * 10)) {
-    document.getElementById(`move-left-${playerNum}`).disabled = true;
-  }
-}
-function moveRight(playerNum) {
-  const player = getPlayer(playerNum);
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const containerWidth = videoContainer.offsetWidth;
-  const currentLeft = parseInt(videoContainer.style.left) || 0;
-  const scaledMoveStep = player.moveStep * getPlayerCurrentScale(playerNum);
-  const newLeft = currentLeft + scaledMoveStep;
-  videoContainer.style.left = `${newLeft}px`;
+      if (newLeft <= 0) {
+        document.getElementById(`move-right-${playerNum}`).disabled = false;
+      }
+      if (newLeft <= -Math.floor((getPlayerCurrentScale(playerNum) - 1) * 100) * Math.floor((getPlayerCurrentScale(playerNum) - 1) * 10)) {
+        document.getElementById(`move-left-${playerNum}`).disabled = true;
+      }
+    }
+    function moveRight(playerNum) {
+      const player = getPlayer(playerNum);
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const containerWidth = videoContainer.offsetWidth;
+      const currentLeft = parseInt(videoContainer.style.left) || 0;
+      const scaledMoveStep = player.moveStep * getPlayerCurrentScale(playerNum);
+      const newLeft = currentLeft + scaledMoveStep;
+      videoContainer.style.left = `${newLeft}px`;
 
-  if (newLeft >= 0) {
-    document.getElementById(`move-left-${playerNum}`).disabled = false;
-  }
-  if (newLeft >= Math.floor((getPlayerCurrentScale(playerNum) - 1) * 100) * Math.floor((getPlayerCurrentScale(playerNum) - 1) * 10)) {
-    document.getElementById(`move-right-${playerNum}`).disabled = true;
-  }
-}
-
-
-function setZoom(playerNum, scale) {
-  const player = getPlayer(playerNum);
-  player.scale = scale;
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  videoContainer.style.transform = `scale(${scale})`;
-  console.log(scale);
-}
-
-function toggleZoomButtons(playerNum) {
-  const player = getPlayer(playerNum);
-  const zoomInButton = document.getElementById(`zoom-in-${playerNum}`);
-  const zoomOutButton = document.getElementById(`zoom-out-${playerNum}`);
-
-  zoomInButton.disabled = player.scale >= 4;
-  zoomOutButton.disabled = player.scale <= 1;
-}
-
-function toggleMoveButtons(playerNum) {
-  const player = getPlayer(playerNum);
-  const moveUpButton = document.getElementById(`move-up-${playerNum}`);
-  const moveDownButton = document.getElementById(`move-down-${playerNum}`);
-  const moveLeftButton = document.getElementById(`move-left-${playerNum}`);
-  const moveRightButton = document.getElementById(`move-right-${playerNum}`);
-
-  const videoContainer = document.getElementById(`video-content-${playerNum}`);
-  const containerHeight = videoContainer.offsetHeight;
-  const containerWidth = videoContainer.offsetWidth;
-  const currentTop = parseInt(videoContainer.style.top) || 0;
-  const currentLeft = parseInt(videoContainer.style.left) || 0;
-  const zoomScale = getPlayerCurrentScale(playerNum);
-
-  const defaultMoveStep = getMoveStep();
-  const moveStepLimitX = (containerWidth - window.innerWidth) / (zoomScale * defaultMoveStep);
-  const moveStepLimitY = (containerHeight - window.innerHeight) / (zoomScale * defaultMoveStep);
-
-  // Disable move buttons if at move step limits
-  moveUpButton.disabled = currentTop >= 0 || currentTop <= -moveStepLimitY || player.scale <= 1;
-  moveDownButton.disabled = currentTop >= 0 || currentTop >= moveStepLimitY || player.scale <= 1;
-  moveLeftButton.disabled = currentLeft >= 0 || currentLeft <= -moveStepLimitX || player.scale <= 1;
-  moveRightButton.disabled = currentLeft >= 0 || currentLeft >= moveStepLimitX || player.scale <= 1;
-
-  // Enable move buttons if zoomed in
-  if (player.scale > 1) {
-    moveUpButton.disabled = false;
-    moveDownButton.disabled = false;
-    moveLeftButton.disabled = false;
-    moveRightButton.disabled = false;
-  }
-}
+      if (newLeft >= 0) {
+        document.getElementById(`move-left-${playerNum}`).disabled = false;
+      }
+      if (newLeft >= Math.floor((getPlayerCurrentScale(playerNum) - 1) * 100) * Math.floor((getPlayerCurrentScale(playerNum) - 1) * 10)) {
+        document.getElementById(`move-right-${playerNum}`).disabled = true;
+      }
+    }
 
 
+    function setZoom(playerNum, scale) {
+      const player = getPlayer(playerNum);
+      player.scale = scale;
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      videoContainer.style.transform = `scale(${scale})`;
+      console.log(scale);
+    }
+
+    function toggleZoomButtons(playerNum) {
+      const player = getPlayer(playerNum);
+      const zoomInButton = document.getElementById(`zoom-in-${playerNum}`);
+      const zoomOutButton = document.getElementById(`zoom-out-${playerNum}`);
+
+      zoomInButton.disabled = player.scale >= 4;
+      zoomOutButton.disabled = player.scale <= 1;
+    }
+
+    function toggleMoveButtons(playerNum) {
+      const player = getPlayer(playerNum);
+      const moveUpButton = document.getElementById(`move-up-${playerNum}`);
+      const moveDownButton = document.getElementById(`move-down-${playerNum}`);
+      const moveLeftButton = document.getElementById(`move-left-${playerNum}`);
+      const moveRightButton = document.getElementById(`move-right-${playerNum}`);
+
+      const videoContainer = document.getElementById(`video-content-${playerNum}`);
+      const containerHeight = videoContainer.offsetHeight;
+      const containerWidth = videoContainer.offsetWidth;
+      const currentTop = parseInt(videoContainer.style.top) || 0;
+      const currentLeft = parseInt(videoContainer.style.left) || 0;
+      const zoomScale = getPlayerCurrentScale(playerNum);
+
+      const defaultMoveStep = getMoveStep();
+      const moveStepLimitX = (containerWidth - window.innerWidth) / (zoomScale * defaultMoveStep);
+      const moveStepLimitY = (containerHeight - window.innerHeight) / (zoomScale * defaultMoveStep);
+
+      // Disable move buttons if at move step limits
+      moveUpButton.disabled = currentTop >= 0 || currentTop <= -moveStepLimitY || player.scale <= 1;
+      moveDownButton.disabled = currentTop >= 0 || currentTop >= moveStepLimitY || player.scale <= 1;
+      moveLeftButton.disabled = currentLeft >= 0 || currentLeft <= -moveStepLimitX || player.scale <= 1;
+      moveRightButton.disabled = currentLeft >= 0 || currentLeft >= moveStepLimitX || player.scale <= 1;
+
+      // Enable move buttons if zoomed in
+      if (player.scale > 1) {
+        moveUpButton.disabled = false;
+        moveDownButton.disabled = false;
+        moveLeftButton.disabled = false;
+        moveRightButton.disabled = false;
+      }
+    }
 
 
 
 
-function getPlayer(playerNum) {
-  if (!players[playerNum]) {
-    players[playerNum] = {
-      scale: 1,
-      moveStep: moveStep,
+
+
+    function getPlayer(playerNum) {
+      if (!players[playerNum]) {
+        players[playerNum] = {
+          scale: 1,
+          moveStep: moveStep,
+        };
+      }
+      return players[playerNum];
+    }
+
+
+
+    function getPlayerCurrentScale(playerNum) {
+      const player = getPlayer(playerNum);
+      return player.scale;
+    }
+
+    function setMoveStep(playerNum, step) {
+      const player = getPlayer(playerNum);
+      player.moveStep = step;
+    }
+
+    function getMoveStep(playerNum) {
+      const player = getPlayer(playerNum);
+      return player.moveStep;
+    }
+
+
+    function setCurrentScale(playerNum, scale) {
+      const player = getPlayer(playerNum);
+      player.currentScale = scale;
+    }
+
+
+    // Initialize the players and their scales
+    let player1, player2, player3, player4, player5, player6, player7, player8, player9;
+    setCurrentScale(1, 1);
+    setCurrentScale(2, 1);
+    setCurrentScale(3, 1);
+    setCurrentScale(4, 1);
+    setCurrentScale(5, 1);
+    setCurrentScale(6, 1);
+    setCurrentScale(7, 1);
+    setCurrentScale(8, 1);
+    setCurrentScale(9, 1);
+
+    setMoveStep(1, 1);
+    setMoveStep(2, 1);
+    setMoveStep(3, 1);
+    setMoveStep(4, 1);
+    setMoveStep(5, 1);
+    setMoveStep(6, 1);
+    setMoveStep(7, 1);
+    setMoveStep(8, 1);
+    setMoveStep(9, 1);
+
+
+
+    let defaultScale1, defaultScale2, defaultScale3, defaultScale4, defaultScale5, defaultScale6, defaultScale7, defaultScale8, defaultScale9;
+
+    window.onYouTubeIframeAPIReady = () => {
+      player1 = new YT.Player('video-content-1', {
+        height: '360',
+        width: '640',
+        videoId: 'tS2PHJmvJzo',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-1').addEventListener('click', () => zoomIn(1));
+            document.getElementById('zoom-out-1').addEventListener('click', () => zoomOut(1));
+            document.getElementById('move-left-1').addEventListener('click', () => moveLeft(1));
+            document.getElementById('move-right-1').addEventListener('click', () => moveRight(1));
+            document.getElementById('move-up-1').addEventListener('click', () => moveUp(1));
+            document.getElementById('move-down-1').addEventListener('click', () => moveDown(1));
+
+            defaultScale1 = player1.getIframe().offsetWidth / player1.getIframe().offsetHeight;
+
+            if (getPlayerCurrentScale(1) <= defaultScale1) {
+              document.getElementById('zoom-out-1').disabled = true;
+              document.getElementById('move-right-1').disabled = true;
+              document.getElementById('move-left-1').disabled = true;
+              document.getElementById('move-up-1').disabled = true;
+              document.getElementById('move-down-1').disabled = true;
+            }
+          },
+        },
+      });
+
+      player2 = new YT.Player('video-content-2', {
+        height: '360',
+        width: '640',
+        videoId: 'A8QLrVAOE1k',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-2').addEventListener('click', () => zoomIn(2));
+            document.getElementById('zoom-out-2').addEventListener('click', () => zoomOut(2));
+            document.getElementById('move-left-2').addEventListener('click', () => moveLeft(2));
+            document.getElementById('move-right-2').addEventListener('click', () => moveRight(2));
+            document.getElementById('move-up-2').addEventListener('click', () => moveUp(2));
+            document.getElementById('move-down-2').addEventListener('click', () => moveDown(2));
+
+            defaultScale2 = player2.getIframe().offsetWidth / player2.getIframe().offsetHeight;
+
+            if (getPlayerCurrentScale(2) <= defaultScale2) {
+              document.getElementById('zoom-out-2').disabled = true;
+              document.getElementById('move-right-2').disabled = true;
+              document.getElementById('move-left-2').disabled = true;
+              document.getElementById('move-up-2').disabled = true;
+              document.getElementById('move-down-2').disabled = true;
+            }
+          },
+        },
+      });
+
+      player3 = new YT.Player('video-content-3', {
+        height: '360',
+        width: '640',
+        videoId: 'Rg7kw-KLDL8',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-3').addEventListener('click', () => zoomIn(3));
+            document.getElementById('zoom-out-3').addEventListener('click', () => zoomOut(3));
+            document.getElementById('move-left-3').addEventListener('click', () => moveLeft(3));
+            document.getElementById('move-right-3').addEventListener('click', () => moveRight(3));
+            document.getElementById('move-up-3').addEventListener('click', () => moveUp(3));
+            document.getElementById('move-down-3').addEventListener('click', () => moveDown(3));
+
+            defaultScale3 = player3.getIframe().offsetWidth / player3.getIframe().offsetHeight;
+
+            if (getPlayerCurrentScale(3) <= defaultScale3) {
+              document.getElementById('zoom-out-3').disabled = true;
+              document.getElementById('move-right-3').disabled = true;
+              document.getElementById('move-left-3').disabled = true;
+              document.getElementById('move-up-3').disabled = true;
+              document.getElementById('move-down-3').disabled = true;
+            }
+          },
+        },
+      });
+
+      // Rest of the player initialization code goes here...
     };
-  }
-  return players[playerNum];
-}
+    window.onYouTubeIframeAPIReady = () => {
+      player1 = new YT.Player('video-content-1', {
+        height: '360',
+        width: '640',
+        videoId: 'tS2PHJmvJzo',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-1').addEventListener('click', () => zoomIn(1));
+            document.getElementById('zoom-out-1').addEventListener('click', () => zoomOut(1));
+            document.getElementById('move-left-1').addEventListener('click', () => moveLeft(1));
+            document.getElementById('move-right-1').addEventListener('click', () => moveRight(1));
+            document.getElementById('move-up-1').addEventListener('click', () => moveUp(1));
+            document.getElementById('move-down-1').addEventListener('click', () => moveDown(1));
 
+            defaultScale1 = player1.getIframe().offsetWidth / player1.getIframe().offsetHeight;
 
+            if (getPlayerCurrentScale(1) <= defaultScale1) {
+              document.getElementById('zoom-out-1').disabled = true;
+              document.getElementById('move-right-1').disabled = true;
+              document.getElementById('move-left-1').disabled = true;
+              document.getElementById('move-up-1').disabled = true;
+              document.getElementById('move-down-1').disabled = true;
+            }
+          },
+        },
+      });
 
-function getPlayerCurrentScale(playerNum) {
-  const player = getPlayer(playerNum);
-  return player.scale;
-}
+      player2 = new YT.Player('video-content-2', {
+        height: '360',
+        width: '640',
+        videoId: 'A8QLrVAOE1k',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-2').addEventListener('click', () => zoomIn(2));
+            document.getElementById('zoom-out-2').addEventListener('click', () => zoomOut(2));
+            document.getElementById('move-left-2').addEventListener('click', () => moveLeft(2));
+            document.getElementById('move-right-2').addEventListener('click', () => moveRight(2));
+            document.getElementById('move-up-2').addEventListener('click', () => moveUp(2));
+            document.getElementById('move-down-2').addEventListener('click', () => moveDown(2));
 
-function setMoveStep(playerNum, step) {
-  const player = getPlayer(playerNum);
-  player.moveStep = step;
-}
+            defaultScale2 = player2.getIframe().offsetWidth / player2.getIframe().offsetHeight;
 
-function getMoveStep(playerNum) {
-  const player = getPlayer(playerNum);
-  return player.moveStep;
-}
+            if (getPlayerCurrentScale(2) <= defaultScale2) {
+              document.getElementById('zoom-out-2').disabled = true;
+              document.getElementById('move-right-2').disabled = true;
+              document.getElementById('move-left-2').disabled = true;
+              document.getElementById('move-up-2').disabled = true;
+              document.getElementById('move-down-2').disabled = true;
+            }
+          },
+        },
+      });
 
+      player3 = new YT.Player('video-content-3', {
+        height: '360',
+        width: '640',
+        videoId: 'Rg7kw-KLDL8',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-3').addEventListener('click', () => zoomIn(3));
+            document.getElementById('zoom-out-3').addEventListener('click', () => zoomOut(3));
+            document.getElementById('move-left-3').addEventListener('click', () => moveLeft(3));
+            document.getElementById('move-right-3').addEventListener('click', () => moveRight(3));
+            document.getElementById('move-up-3').addEventListener('click', () => moveUp(3));
+            document.getElementById('move-down-3').addEventListener('click', () => moveDown(3));
 
-function setCurrentScale(playerNum, scale) {
-  const player = getPlayer(playerNum);
-  player.currentScale = scale;
-}
+            defaultScale3 = player3.getIframe().offsetWidth / player3.getIframe().offsetHeight;
 
+            if (getPlayerCurrentScale(3) <= defaultScale3) {
+              document.getElementById('zoom-out-3').disabled = true;
+              document.getElementById('move-right-3').disabled = true;
+              document.getElementById('move-left-3').disabled = true;
+              document.getElementById('move-up-3').disabled = true;
+              document.getElementById('move-down-3').disabled = true;
+            }
+          },
+        },
+      });
 
-// Initialize the players and their scales
-let player1, player2, player3, player4, player5, player6, player7, player8, player9;
-setCurrentScale(1, 1);
-setCurrentScale(2, 1);
-setCurrentScale(3, 1);
-setCurrentScale(4, 1);
-setCurrentScale(5, 1);
-setCurrentScale(6, 1);
-setCurrentScale(7, 1);
-setCurrentScale(8, 1);
-setCurrentScale(9, 1);
+      // Rest of the player initialization code goes here...
+      player4 = new YT.Player('video-content-4', {
+        height: '360',
+        width: '640',
+        videoId: 'IQV0DlS1Ew0',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-4').addEventListener('click', () => zoomIn(4));
+            document.getElementById('zoom-out-4').addEventListener('click', () => zoomOut(4));
+            document.getElementById('move-left-4').addEventListener('click', () => moveLeft(4));
+            document.getElementById('move-right-4').addEventListener('click', () => moveRight(4));
+            document.getElementById('move-up-4').addEventListener('click', () => moveUp(4));
+            document.getElementById('move-down-4').addEventListener('click', () => moveDown(4));
 
-setMoveStep(1, 1);
-setMoveStep(2, 1);
-setMoveStep(3, 1);
-setMoveStep(4, 1);
-setMoveStep(5, 1);
-setMoveStep(6, 1);
-setMoveStep(7, 1);
-setMoveStep(8, 1);
-setMoveStep(9, 1);
+            defaultScale4 = player4.getIframe().offsetWidth / player4.getIframe().offsetHeight;
 
+            if (getPlayerCurrentScale(4) <= defaultScale4) {
+              document.getElementById('zoom-out-4').disabled = true;
+              document.getElementById('move-right-4').disabled = true;
+              document.getElementById('move-left-4').disabled = true;
+              document.getElementById('move-up-4').disabled = true;
+              document.getElementById('move-down-4').disabled = true;
+            }
+          },
+        },
+      });
 
+      player5 = new YT.Player('video-content-5', {
+        height: '360',
+        width: '640',
+        videoId: '7SOJCiT42H0',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-5').addEventListener('click', () => zoomIn(5));
+            document.getElementById('zoom-out-5').addEventListener('click', () => zoomOut(5));
+            document.getElementById('move-left-5').addEventListener('click', () => moveLeft(5));
+            document.getElementById('move-right-5').addEventListener('click', () => moveRight(5));
+            document.getElementById('move-up-5').addEventListener('click', () => moveUp(5));
+            document.getElementById('move-down-5').addEventListener('click', () => moveDown(5));
 
-let defaultScale1 , defaultScale2 , defaultScale3 , defaultScale4 , defaultScale5, defaultScale6 , defaultScale7 , defaultScale8 , defaultScale9 ;
+            defaultScale5 = player5.getIframe().offsetWidth / player5.getIframe().offsetHeight;
 
-window.onYouTubeIframeAPIReady = () => {
-  player1 = new YT.Player('video-content-1', {
-    height: '360',
-    width: '640',
-    videoId: 'tS2PHJmvJzo',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-1').addEventListener('click', () => zoomIn(1));
-        document.getElementById('zoom-out-1').addEventListener('click', () => zoomOut(1));
-        document.getElementById('move-left-1').addEventListener('click', () => moveLeft(1));
-        document.getElementById('move-right-1').addEventListener('click', () => moveRight(1));
-        document.getElementById('move-up-1').addEventListener('click', () => moveUp(1));
-        document.getElementById('move-down-1').addEventListener('click', () => moveDown(1));
+            if (getPlayerCurrentScale(5) <= defaultScale5) {
+              document.getElementById('zoom-out-5').disabled = true;
+              document.getElementById('move-right-5').disabled = true;
+              document.getElementById('move-left-5').disabled = true;
+              document.getElementById('move-up-5').disabled = true;
+              document.getElementById('move-down-5').disabled = true;
+            }
+          },
+        },
+      });
 
-        defaultScale1 = player1.getIframe().offsetWidth / player1.getIframe().offsetHeight;
+      player6 = new YT.Player('video-content-6', {
+        height: '360',
+        width: '640',
+        videoId: 'SXM0DgLbC1U',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-6').addEventListener('click', () => zoomIn(6));
+            document.getElementById('zoom-out-6').addEventListener('click', () => zoomOut(6));
+            document.getElementById('move-left-6').addEventListener('click', () => moveLeft(6));
+            document.getElementById('move-right-6').addEventListener('click', () => moveRight(6));
+            document.getElementById('move-up-6').addEventListener('click', () => moveUp(6));
+            document.getElementById('move-down-6').addEventListener('click', () => moveDown(6));
 
-        if (getPlayerCurrentScale(1) <= defaultScale1) {
-          document.getElementById('zoom-out-1').disabled = true;
-          document.getElementById('move-right-1').disabled = true;
-          document.getElementById('move-left-1').disabled = true;
-          document.getElementById('move-up-1').disabled = true;
-          document.getElementById('move-down-1').disabled = true;
-        }
-      },
-    },
-  });
+            defaultScale6 = player6.getIframe().offsetWidth / player6.getIframe().offsetHeight;
 
-  player2 = new YT.Player('video-content-2', {
-    height: '360',
-    width: '640',
-    videoId: 'A8QLrVAOE1k',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-2').addEventListener('click', () => zoomIn(2));
-        document.getElementById('zoom-out-2').addEventListener('click', () => zoomOut(2));
-        document.getElementById('move-left-2').addEventListener('click', () => moveLeft(2));
-        document.getElementById('move-right-2').addEventListener('click', () => moveRight(2));
-        document.getElementById('move-up-2').addEventListener('click', () => moveUp(2));
-        document.getElementById('move-down-2').addEventListener('click', () => moveDown(2));
+            if (getPlayerCurrentScale(6) <= defaultScale6) {
+              document.getElementById('zoom-out-6').disabled = true;
+              document.getElementById('move-right-6').disabled = true;
+              document.getElementById('move-left-6').disabled = true;
+              document.getElementById('move-up-6').disabled = true;
+              document.getElementById('move-down-6').disabled = true;
+            }
+          },
+        },
+      });
 
-        defaultScale2 = player2.getIframe().offsetWidth / player2.getIframe().offsetHeight;
+      player7 = new YT.Player('video-content-7', {
+        height: '360',
+        width: '640',
+        videoId: 'iJ0ntGBjsPk',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-7').addEventListener('click', () => zoomIn(7));
+            document.getElementById('zoom-out-7').addEventListener('click', () => zoomOut(7));
+            document.getElementById('move-left-7').addEventListener('click', () => moveLeft(7));
+            document.getElementById('move-right-7').addEventListener('click', () => moveRight(7));
+            document.getElementById('move-up-7').addEventListener('click', () => moveUp(7));
+            document.getElementById('move-down-7').addEventListener('click', () => moveDown(7));
 
-        if (getPlayerCurrentScale(2) <= defaultScale2) {
-          document.getElementById('zoom-out-2').disabled = true;
-          document.getElementById('move-right-2').disabled = true;
-          document.getElementById('move-left-2').disabled = true;
-          document.getElementById('move-up-2').disabled = true;
-          document.getElementById('move-down-2').disabled = true;
-        }
-      },
-    },
-  });
+            defaultScale7 = player7.getIframe().offsetWidth / player7.getIframe().offsetHeight;
 
-  player3 = new YT.Player('video-content-3', {
-    height: '360',
-    width: '640',
-    videoId: 'Rg7kw-KLDL8',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-3').addEventListener('click', () => zoomIn(3));
-        document.getElementById('zoom-out-3').addEventListener('click', () => zoomOut(3));
-        document.getElementById('move-left-3').addEventListener('click', () => moveLeft(3));
-        document.getElementById('move-right-3').addEventListener('click', () => moveRight(3));
-        document.getElementById('move-up-3').addEventListener('click', () => moveUp(3));
-        document.getElementById('move-down-3').addEventListener('click', () => moveDown(3));
+            if (getPlayerCurrentScale(7) <= defaultScale7) {
+              document.getElementById('zoom-out-7').disabled = true;
+              document.getElementById('move-right-7').disabled = true;
+              document.getElementById('move-left-7').disabled = true;
+              document.getElementById('move-up-7').disabled = true;
+              document.getElementById('move-down-7').disabled = true;
+            }
+          },
+        },
+      });
 
-        defaultScale3 = player3.getIframe().offsetWidth / player3.getIframe().offsetHeight;
+      player8 = new YT.Player('video-content-8', {
+        height: '360',
+        width: '640',
+        videoId: 'mhJRzQsLZGg',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-8').addEventListener('click', () => zoomIn(8));
+            document.getElementById('zoom-out-8').addEventListener('click', () => zoomOut(8));
+            document.getElementById('move-left-8').addEventListener('click', () => moveLeft(8));
+            document.getElementById('move-right-8').addEventListener('click', () => moveRight(8));
+            document.getElementById('move-up-8').addEventListener('click', () => moveUp(8));
+            document.getElementById('move-down-8').addEventListener('click', () => moveDown(8));
 
-        if (getPlayerCurrentScale(3) <= defaultScale3) {
-          document.getElementById('zoom-out-3').disabled = true;
-          document.getElementById('move-right-3').disabled = true;
-          document.getElementById('move-left-3').disabled = true;
-          document.getElementById('move-up-3').disabled = true;
-          document.getElementById('move-down-3').disabled = true;
-        }
-      },
-    },
-  });
+            defaultScale8 = player8.getIframe().offsetWidth / player8.getIframe().offsetHeight;
 
-  // Rest of the player initialization code goes here...
-};
-window.onYouTubeIframeAPIReady = () => {
-  player1 = new YT.Player('video-content-1', {
-    height: '360',
-    width: '640',
-    videoId: 'tS2PHJmvJzo',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-1').addEventListener('click', () => zoomIn(1));
-        document.getElementById('zoom-out-1').addEventListener('click', () => zoomOut(1));
-        document.getElementById('move-left-1').addEventListener('click', () => moveLeft(1));
-        document.getElementById('move-right-1').addEventListener('click', () => moveRight(1));
-        document.getElementById('move-up-1').addEventListener('click', () => moveUp(1));
-        document.getElementById('move-down-1').addEventListener('click', () => moveDown(1));
+            if (getPlayerCurrentScale(8) <= defaultScale8) {
+              document.getElementById('zoom-out-8').disabled = true;
+              document.getElementById('move-right-8').disabled = true;
+              document.getElementById('move-left-8').disabled = true;
+              document.getElementById('move-up-8').disabled = true;
+              document.getElementById('move-down-8').disabled = true;
+            }
+          },
+        },
+      });
 
-        defaultScale1 = player1.getIframe().offsetWidth / player1.getIframe().offsetHeight;
+      player9 = new YT.Player('video-content-9', {
+        height: '360',
+        width: '640',
+        videoId: '8D5N4NaaoIE',
+        playerVars: {
+          controls: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: () => {
+            document.getElementById('zoom-in-9').addEventListener('click', () => zoomIn(9));
+            document.getElementById('zoom-out-9').addEventListener('click', () => zoomOut(9));
+            document.getElementById('move-left-9').addEventListener('click', () => moveLeft(9));
+            document.getElementById('move-right-9').addEventListener('click', () => moveRight(9));
+            document.getElementById('move-up-9').addEventListener('click', () => moveUp(9));
+            document.getElementById('move-down-9').addEventListener('click', () => moveDown(9));
 
-        if (getPlayerCurrentScale(1) <= defaultScale1) {
-          document.getElementById('zoom-out-1').disabled = true;
-          document.getElementById('move-right-1').disabled = true;
-          document.getElementById('move-left-1').disabled = true;
-          document.getElementById('move-up-1').disabled = true;
-          document.getElementById('move-down-1').disabled = true;
-        }
-      },
-    },
-  });
+            defaultScale9 = player9.getIframe().offsetWidth / player9.getIframe().offsetHeight;
 
-  player2 = new YT.Player('video-content-2', {
-    height: '360',
-    width: '640',
-    videoId: 'A8QLrVAOE1k',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-2').addEventListener('click', () => zoomIn(2));
-        document.getElementById('zoom-out-2').addEventListener('click', () => zoomOut(2));
-        document.getElementById('move-left-2').addEventListener('click', () => moveLeft(2));
-        document.getElementById('move-right-2').addEventListener('click', () => moveRight(2));
-        document.getElementById('move-up-2').addEventListener('click', () => moveUp(2));
-        document.getElementById('move-down-2').addEventListener('click', () => moveDown(2));
+            if (getPlayerCurrentScale(9) <= defaultScale9) {
+              document.getElementById('zoom-out-9').disabled = true;
+              document.getElementById('move-right-9').disabled = true;
+              document.getElementById('move-left-9').disabled = true;
+              document.getElementById('move-up-9').disabled = true;
+              document.getElementById('move-down-9').disabled = true;
+            }
+          },
+        },
+      });
 
-        defaultScale2 = player2.getIframe().offsetWidth / player2.getIframe().offsetHeight;
-
-        if (getPlayerCurrentScale(2) <= defaultScale2) {
-          document.getElementById('zoom-out-2').disabled = true;
-          document.getElementById('move-right-2').disabled = true;
-          document.getElementById('move-left-2').disabled = true;
-          document.getElementById('move-up-2').disabled = true;
-          document.getElementById('move-down-2').disabled = true;
-        }
-      },
-    },
-  });
-
-  player3 = new YT.Player('video-content-3', {
-    height: '360',
-    width: '640',
-    videoId: 'Rg7kw-KLDL8',
-    playerVars: {
-      controls: 0,
-      disablekb: 1,
-    },
-    events: {
-      onReady: () => {
-        document.getElementById('zoom-in-3').addEventListener('click', () => zoomIn(3));
-        document.getElementById('zoom-out-3').addEventListener('click', () => zoomOut(3));
-        document.getElementById('move-left-3').addEventListener('click', () => moveLeft(3));
-        document.getElementById('move-right-3').addEventListener('click', () => moveRight(3));
-        document.getElementById('move-up-3').addEventListener('click', () => moveUp(3));
-        document.getElementById('move-down-3').addEventListener('click', () => moveDown(3));
-
-        defaultScale3 = player3.getIframe().offsetWidth / player3.getIframe().offsetHeight;
-
-        if (getPlayerCurrentScale(3) <= defaultScale3) {
-          document.getElementById('zoom-out-3').disabled = true;
-          document.getElementById('move-right-3').disabled = true;
-          document.getElementById('move-left-3').disabled = true;
-          document.getElementById('move-up-3').disabled = true;
-          document.getElementById('move-down-3').disabled = true;
-        }
-      },
-    },
-  });
-
-  // Rest of the player initialization code goes here...
-  player4 = new YT.Player('video-content-4', {
-  height: '360',
-  width: '640',
-  videoId: 'IQV0DlS1Ew0',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-4').addEventListener('click', () => zoomIn(4));
-      document.getElementById('zoom-out-4').addEventListener('click', () => zoomOut(4));
-      document.getElementById('move-left-4').addEventListener('click', () => moveLeft(4));
-      document.getElementById('move-right-4').addEventListener('click', () => moveRight(4));
-      document.getElementById('move-up-4').addEventListener('click', () => moveUp(4));
-      document.getElementById('move-down-4').addEventListener('click', () => moveDown(4));
-
-      defaultScale4 = player4.getIframe().offsetWidth / player4.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(4) <= defaultScale4) {
-        document.getElementById('zoom-out-4').disabled = true;
-        document.getElementById('move-right-4').disabled = true;
-        document.getElementById('move-left-4').disabled = true;
-        document.getElementById('move-up-4').disabled = true;
-        document.getElementById('move-down-4').disabled = true;
-      }
-    },
-  },
-});
-
-player5 = new YT.Player('video-content-5', {
-  height: '360',
-  width: '640',
-  videoId: '7SOJCiT42H0',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-5').addEventListener('click', () => zoomIn(5));
-      document.getElementById('zoom-out-5').addEventListener('click', () => zoomOut(5));
-      document.getElementById('move-left-5').addEventListener('click', () => moveLeft(5));
-      document.getElementById('move-right-5').addEventListener('click', () => moveRight(5));
-      document.getElementById('move-up-5').addEventListener('click', () => moveUp(5));
-      document.getElementById('move-down-5').addEventListener('click', () => moveDown(5));
-
-      defaultScale5 = player5.getIframe().offsetWidth / player5.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(5) <= defaultScale5) {
-        document.getElementById('zoom-out-5').disabled = true;
-        document.getElementById('move-right-5').disabled = true;
-        document.getElementById('move-left-5').disabled = true;
-        document.getElementById('move-up-5').disabled = true;
-        document.getElementById('move-down-5').disabled = true;
-      }
-    },
-  },
-});
-
-player6 = new YT.Player('video-content-6', {
-  height: '360',
-  width: '640',
-  videoId: 'SXM0DgLbC1U',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-6').addEventListener('click', () => zoomIn(6));
-      document.getElementById('zoom-out-6').addEventListener('click', () => zoomOut(6));
-      document.getElementById('move-left-6').addEventListener('click', () => moveLeft(6));
-      document.getElementById('move-right-6').addEventListener('click', () => moveRight(6));
-      document.getElementById('move-up-6').addEventListener('click', () => moveUp(6));
-      document.getElementById('move-down-6').addEventListener('click', () => moveDown(6));
-
-      defaultScale6 = player6.getIframe().offsetWidth / player6.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(6) <= defaultScale6) {
-        document.getElementById('zoom-out-6').disabled = true;
-        document.getElementById('move-right-6').disabled = true;
-        document.getElementById('move-left-6').disabled = true;
-        document.getElementById('move-up-6').disabled = true;
-        document.getElementById('move-down-6').disabled = true;
-      }
-    },
-  },
-});
-
-player7 = new YT.Player('video-content-7', {
-  height: '360',
-  width: '640',
-  videoId: 'iJ0ntGBjsPk',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-7').addEventListener('click', () => zoomIn(7));
-      document.getElementById('zoom-out-7').addEventListener('click', () => zoomOut(7));
-      document.getElementById('move-left-7').addEventListener('click', () => moveLeft(7));
-      document.getElementById('move-right-7').addEventListener('click', () => moveRight(7));
-      document.getElementById('move-up-7').addEventListener('click', () => moveUp(7));
-      document.getElementById('move-down-7').addEventListener('click', () => moveDown(7));
-
-      defaultScale7 = player7.getIframe().offsetWidth / player7.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(7) <= defaultScale7) {
-        document.getElementById('zoom-out-7').disabled = true;
-        document.getElementById('move-right-7').disabled = true;
-        document.getElementById('move-left-7').disabled = true;
-        document.getElementById('move-up-7').disabled = true;
-        document.getElementById('move-down-7').disabled = true;
-      }
-    },
-  },
-});
-
-player8 = new YT.Player('video-content-8', {
-  height: '360',
-  width: '640',
-  videoId: 'mhJRzQsLZGg',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-8').addEventListener('click', () => zoomIn(8));
-      document.getElementById('zoom-out-8').addEventListener('click', () => zoomOut(8));
-      document.getElementById('move-left-8').addEventListener('click', () => moveLeft(8));
-      document.getElementById('move-right-8').addEventListener('click', () => moveRight(8));
-      document.getElementById('move-up-8').addEventListener('click', () => moveUp(8));
-      document.getElementById('move-down-8').addEventListener('click', () => moveDown(8));
-
-      defaultScale8 = player8.getIframe().offsetWidth / player8.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(8) <= defaultScale8) {
-        document.getElementById('zoom-out-8').disabled = true;
-        document.getElementById('move-right-8').disabled = true;
-        document.getElementById('move-left-8').disabled = true;
-        document.getElementById('move-up-8').disabled = true;
-        document.getElementById('move-down-8').disabled = true;
-      }
-    },
-  },
-});
-
-player9 = new YT.Player('video-content-9', {
-  height: '360',
-  width: '640',
-  videoId: '8D5N4NaaoIE',
-  playerVars: {
-    controls: 0,
-    disablekb: 1,
-  },
-  events: {
-    onReady: () => {
-      document.getElementById('zoom-in-9').addEventListener('click', () => zoomIn(9));
-      document.getElementById('zoom-out-9').addEventListener('click', () => zoomOut(9));
-      document.getElementById('move-left-9').addEventListener('click', () => moveLeft(9));
-      document.getElementById('move-right-9').addEventListener('click', () => moveRight(9));
-      document.getElementById('move-up-9').addEventListener('click', () => moveUp(9));
-      document.getElementById('move-down-9').addEventListener('click', () => moveDown(9));
-
-      defaultScale9 = player9.getIframe().offsetWidth / player9.getIframe().offsetHeight;
-
-      if (getPlayerCurrentScale(9) <= defaultScale9) {
-        document.getElementById('zoom-out-9').disabled = true;
-        document.getElementById('move-right-9').disabled = true;
-        document.getElementById('move-left-9').disabled = true;
-        document.getElementById('move-up-9').disabled = true;
-        document.getElementById('move-down-9').disabled = true;
-      }
-    },
-  },
-});
-
-};
-</script>
+    };
+  </script>
 
   </script>
 </body>
+
 </html>
