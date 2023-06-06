@@ -126,9 +126,10 @@ loginForm.addEventListener('submit', async (event) => {
       console.log(response);
       // Login successful, retrieve the session username
       const sessionUsername = await getSessionUsername();
-
+alert(sessionUsername);
 if (sessionUsername) {
-  const url = `views/home/choice.html?username=${encodeURIComponent(sessionUsername)}`;
+  console.log(sessionUsername);
+  const url = `/choice/username=${encodeURIComponent(username)}`;
   window.location.href = url;
 
   // Emit the login event with the username using socket.io

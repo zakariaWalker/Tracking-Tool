@@ -5,8 +5,6 @@ const forms = require(formsFilePath);
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const session = require('express-session');
-// const content = require('D:\\knbase characters\\views\\home\\content.js'); // Import your module here
-
 const app = express();
 const { google } = require('googleapis');
 const fs = require('fs');
@@ -18,7 +16,6 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
 const url_ngrok = "https://starbase-tracking-tool.onrender.com";
-// const url_ngrok = "https://starbase-tracking-tool.onrender.com/";
 const fetch = require('isomorphic-fetch');
 
 const sessionMiddleware = session({
@@ -30,23 +27,16 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Rest of your code...
-
 // Define your routes and handlers below the session middleware
-
 
 // Socket.io event handling
 
-// app.use(sessionMiddleware);
-
 const MongoDBStore = require('connect-mongodb-session')(session);
-
 const server = require('http').createServer(app);
 const mongoose = require('mongoose');
-
 const io = require('socket.io')(server, {
   cors: {
-    origin: ""
+    origin: "https://starbase-tracking-tool.onrender.com"
   }
 });
 
@@ -69,12 +59,6 @@ app.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
 })
-// // Session middleware
-// const store = new MongoDBStore({
-//   uri: 'mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net',
-//   collection: 'sessions'
-// });
-
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -87,92 +71,37 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
+// var MongoClient = require('mongodb').MongoClient;
 
-// // Catch errors in session store
-// store.on('error', (error) => {
-//   console.error('Session store error:', error);
+// var uri = "mongodb://zhoudache:alcahyd2023@ac-k2354sp-shard-00-00.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-01.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-02.ughawgz.mongodb.net:27017/?ssl=true&replicaSet=atlas-t1c3id-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+// MongoClient.connect(uri, function(err, client) {
+//   const collection = client.db("users");
+//   console.log("cnctd");
+//   // perform actions on the collection object
+//   client.close();
 // });
 
 
+// Configure mongoose and connect to the database
+const connectionString ='mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net/users?retryWrites=true&w=majority'
 
-var MongoClient = require('mongodb').MongoClient;
-
-var uri = "mongodb://zhoudache:alcahyd2023@ac-k2354sp-shard-00-00.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-01.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-02.ughawgz.mongodb.net:27017/?ssl=true&replicaSet=atlas-t1c3id-shard-0&authSource=admin&retryWrites=true&w=majority";
-MongoClient.connect(uri, function(err, client) {
- 
-    console.log('Connected to MongoDB Atlas');
- 
-  // const collection = client.db("users").collection("users");
-
-  // perform actions on the collection object
-  client.close();
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // useCreateIndex: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.error('Error connecting to MongoDB:', error);
 });
 
-
-
-// mongoose.connect('mongodb+srv://zhoudache:alcahyd2023@cluster0.ughawgz.mongodb.net/users?retryWrites=true&w=majority', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })
-//   .then(() => {
-//     console.log('Connected to MongoDB Atlas');
-//   })
-//   .catch((error) => {
-//     console.error('Failed to connect to MongoDB Atlas:', error);
-//   });
-
-  
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const { Schema } = mongoose;
 
-
-// const componentCountsSchema = new mongoose.Schema({
-//   username: String,
-//   structuralColumns: { type: Number, default: 0 },
-//   beams: { type: Number, default: 0 },
-//   exteriorRidges: { type: Number, default: 0 },
-//   claddingSupports: { type: Number, default: 0 },
-//   claddingPanels: { type: Number, default: 0 },
-//   flooringSystems: { type: Number, default: 0 },
-//   roofingSystem: { type: Number, default: 0 },
-//   hvacSystems: { type: Number, default: 0 },
-//   electricalSystems: { type: Number, default: 0 },
-//   plumbingSystems: { type: Number, default: 0 },
-//   fireProtectionSystems: { type: Number, default: 0 },
-//   elevatorsEscalators: { type: Number, default: 0 }
-// });
-
-// const ComponentCounts = mongoose.model('ComponentCounts', componentCountsSchema);
-
-// Save component counts to MongoDB
-
-// app.post('/save-component-counts', async (req, res) => {
-//   const { username, componentCounts } = req.body;
-// console.log(username);
-//   try {
-//     // Find the user by username
-//     const user = await User.findOne({ username }).maxTimeMS(20000); // Increase the timeout to 20 seconds (20000ms)
-
-//     if (user) {
-//       // Set the componentCounts field of the user with the received component counts
-//       user.componentCounts = componentCounts || {};
-
-//       // Save the user with the updated componentCounts field
-//       await user.save();
-//       console.log('Component counts saved to user account successfully');
-//       res.sendStatus(200);
-//     } else {
-//       return res.status(404).send('User not found');
-//     }
-//   } catch (error) {
-//     console.error('Failed to save component counts to user account:', error);
-//     res.status(500).send('An error occurred while saving component counts');
-//   }
-// });
-
-
-const messageSchema = new mongoose.Schema({
+const messageSchema = new Schema({
   username: {
     type: String,
     required: true
@@ -187,7 +116,7 @@ const messageSchema = new mongoose.Schema({
   }
 });
 
-const componentCountsSchema = new mongoose.Schema({
+const componentCountsSchema = new Schema({
   structuralColumns: { type: Number, default: 0 },
   beams: { type: Number, default: 0 },
   exteriorRidges: { type: Number, default: 0 },
@@ -202,7 +131,7 @@ const componentCountsSchema = new mongoose.Schema({
   elevatorsEscalators: { type: Number, default: 0 }
 });
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   username: {
     type: String,
     required: true
@@ -216,7 +145,7 @@ const userSchema = new mongoose.Schema({
     required: false
   },
   dynamicFields: {
-    type: mongoose.Schema.Types.Mixed
+    type: Schema.Types.Mixed
   },
   componentCounts: {
     type: componentCountsSchema,
@@ -225,10 +154,6 @@ const userSchema = new mongoose.Schema({
   chatMessages: [messageSchema],
   CC: [componentCountsSchema]
 });
-
-// const User = mongoose.model('User', userSchema);
-
-// Rest of the code remains the same...
 
 const User = mongoose.model('User', userSchema);
 
@@ -259,6 +184,9 @@ app.post('/save-component-counts', async (req, res) => {
     res.status(500).send('Failed to save component counts');
   }
 });
+
+// Rest of your code...
+
 
 app.get('/get-component-counts', async (req, res) => {
   const { username } = req.query;
@@ -292,6 +220,16 @@ app.get('/api/getSessionUsername', (req, res) => {
   }
 });
 
+
+app.get('/choice/:username', async (req, res)=> {
+  const username = req.params.username;
+  res.render('home/choice', { username }); // Pass the username to the template
+
+
+})
+
+
+
 app.get('/main/:videoId/:username', async (req, res) => {
   const videoId = req.params.videoId || 'Rg7kw-KLDL8';
   const username = req.params.username || 'zhoudache';
@@ -306,6 +244,7 @@ app.get('/main/:videoId/:username', async (req, res) => {
       const video = data.items[0];
       const title = video.snippet.title;
       const thumbnailUrl = video.snippet.thumbnails.default.url;
+      // res.render('home/choice', { username }); // Pass the username to the template
 
       res.render('home/index', { videoId, title, thumbnailUrl, username }); // Pass the username to the template
     } else {
@@ -391,6 +330,7 @@ io.on('connection', (socket) => {
 
 
 
+// app.set('views', path.join(__dirname, 'views'));
 
 app.post('/login', async (req, res) => {
 
@@ -409,7 +349,7 @@ app.post('/login', async (req, res) => {
       io.emit('login', username);
       console.log(req.session.user);
       await user.save(); // Save the user with the updated equipment field
-      res.redirect(`views/home/choice.html`); // Redirect to '/main'views\home\choice.html
+      res.render(`home/choice`, { username }); // Redirect to '/main'views\home\choice.html
     } else {
       // res.redirect(`/main/tS2PHJmvJzo/${username}`)
       return res.status(401).send('Invalid username or password');
@@ -423,18 +363,18 @@ app.post('/login', async (req, res) => {
 
 
 
-  try {
-    const r = await axios.get("https://api.chatengine.io/users/me/", {
-      headers: {
-        "Project-ID": CHAT_ENGINE_PROJECT_ID,
-        "User-Name": username,
-        "User-Secret": secret,
-      },
-    });
-    return res.status(r.status).json(r.data);
-  } catch (e) {
-    return res.status(e.response.status).json(e.response.data);
-  }
+  // try {
+  //   const r = await axios.get("https://api.chatengine.io/users/me/", {
+  //     headers: {
+  //       "Project-ID": CHAT_ENGINE_PROJECT_ID,
+  //       "User-Name": username,
+  //       "User-Secret": secret,
+  //     },
+  //   });
+  //   return res.status(r.status).json(r.data);
+  // } catch (e) {
+  //   return res.status(e.response.status).json(e.response.data);
+  // }
 });
 
 

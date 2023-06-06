@@ -2,12 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 
+// const { MongoClient } = require('mongodb');
+
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
 
 const CHAT_ENGINE_PROJECT_ID = "995972d3-5799-4d23-b450-2c41a9e223ed";
 const CHAT_ENGINE_PRIVATE_KEY = "115f2f59-1678-4c53-b7d3-d2b2ee44a758";
+
+// Connection URI
+var MongoClient = require('mongodb').MongoClient;
+
+var uri = "mongodb://zhoudache:alcahyd2023@ac-k2354sp-shard-00-00.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-01.ughawgz.mongodb.net:27017,ac-k2354sp-shard-00-02.ughawgz.mongodb.net:27017/?ssl=true&replicaSet=atlas-t1c3id-shard-0&authSource=admin&retryWrites=true&w=majority";
+MongoClient.connect(uri, function(err, client) {
+  const collection = client.db("test");
+  console.log("eeeeeeeeeeee")
+  // perform actions on the collection object
+  client.close();
+});
+
 
 app.post("/signup", async (req, res) => {
   const { username, secret, email, first_name, last_name } = req.body;
@@ -45,8 +59,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// vvv On port 3001!
-app.listen(3001, () => {
-    console.log('Server listening on port 3001');
-  
-})
+const port = 3001;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
