@@ -5942,7 +5942,6 @@ Megabay 2
 <!-- </form> -->
 
 <script>
-
 var messages = [];
 
 async function getSessionUsername() {
@@ -5993,14 +5992,14 @@ getSessionUsername().then((username) => {
       if (!username) {
         console.warn('Username not available. Skipping saving message to the database.');
         return;
-      }else{
+      } else {
         console.log("message")
       }
 
       const messageWithUsername = {
-        message:message,
-        ...message,
-        username: username
+        sender: username,
+        text: message,
+        timestamp: new Date()
       };
 
       const response = await fetch('/saveMessage', {
@@ -6020,39 +6019,36 @@ getSessionUsername().then((username) => {
     }
   }
 
-
-  
   function displayMessages(messages) {
-  $('#messages').empty();
+    $('#messages').empty();
 
-  // Sort the messages in chronological order
-  messages.sort((a, b) => {
-    const dateA = new Date(a.timestamp);
-    const dateB = new Date(b.timestamp);
-    return dateA - dateB;
-  });
-
-  const groupedMessages = {};
-
-  // Group messages by sender
-  messages.forEach((message) => {
-    const sender = message.sender;
-
-    if (!groupedMessages[sender]) {
-      groupedMessages[sender] = [];
-    }
-
-    groupedMessages[sender].push(message);
-  });
-
-  // Display messages for each sender in order
-  Object.values(groupedMessages).forEach((senderMessages) => {
-    senderMessages.forEach((message) => {
-      displayMessage(message);
+    // Sort the messages in chronological order
+    messages.sort((a, b) => {
+      const dateA = new Date(a.timestamp);
+      const dateB = new Date(b.timestamp);
+      return dateA - dateB;
     });
-  });
-}
 
+    const groupedMessages = {};
+
+    // Group messages by sender
+    messages.forEach((message) => {
+      const sender = message.sender;
+
+      if (!groupedMessages[sender]) {
+        groupedMessages[sender] = [];
+      }
+
+      groupedMessages[sender].push(message);
+    });
+
+    // Display messages for each sender in order
+    Object.values(groupedMessages).forEach((senderMessages) => {
+      senderMessages.forEach((message) => {
+        displayMessage(message);
+      });
+    });
+  }
 
   function displayMessage(message) {
     const sender = message.sender;
@@ -6077,7 +6073,7 @@ getSessionUsername().then((username) => {
       event.preventDefault();
       const msg = $(this).val().trim();
       if (msg !== '') {
-        socket.emit('chat message', msg);
+        saveMessageToDatabase(msg);
         $(this).val('');
       }
     }
@@ -6087,7 +6083,7 @@ getSessionUsername().then((username) => {
     e.preventDefault();
     const msg = $('#m').val().trim();
     if (msg !== '') {
-      socket.emit('chat message', msg);
+      saveMessageToDatabase(msg);
       $('#m').val('');
     }
   });

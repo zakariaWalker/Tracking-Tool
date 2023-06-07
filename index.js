@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const ngrok = require('ngrok');
-const url_ngrok = "https://83e6-105-102-5-88.ngrok-free.app";
+const url_ngrok = "https://starbase-tracking-tool.onrender.com";
 const fetch = require('isomorphic-fetch');
 // const Message = require('./models/message');
 
@@ -37,7 +37,7 @@ const server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const io = require('socket.io')(server, {
   cors: {
-    origin: "https://83e6-105-102-5-88.ngrok-free.app"
+    origin: "https://starbase-tracking-tool.onrender.com"
   }
 });
 
@@ -55,7 +55,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin',"https://83e6-105-102-5-88.ngrok-free.app");
+  res.setHeader('Access-Control-Allow-Origin',"https://starbase-tracking-tool.onrender.com");
   res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   next(); 
@@ -152,9 +152,11 @@ const userSchema = new Schema({
     type: componentCountsSchema,
     default: {}
   },
-  chatMessages: [messageSchema],
   CC: [componentCountsSchema]
 });
+
+
+const Message = mongoose.model('Message', messageSchema);
 
 
 const User = mongoose.model('User', userSchema);
@@ -224,40 +226,27 @@ app.get('/api/getSessionUsername', (req, res) => {
   }
 });
 
-
 // Endpoint for saving a new message
 app.post('/saveMessage', (req, res) => {
   const { username, message } = req.body;
 
-  // Find the user by username
-  User.findOne({ username })
-    .then((user) => {
-      if (!user) {
-        throw new Error('User not found');
-      }
+  // Create a new message
+  const newMessage = {
+    username: username,
+    message: message,
+    timestamp: new Date()
+  };
 
-      // Create a new message
-      const newMessage = {
-        username: username,
-        message: message,
-        timestamp: new Date()
-      };
-
-      // Add the message to the user's chatMessages array
-      user.chatMessages.push(newMessage);
-
-      // Save the updated user document
-      return user.save();
-    })
-    .then((updatedUser) => {
-      res.status(200).json({ message: 'Message saved successfully' });
+  // Save the new message to the database
+  Message.create(newMessage)
+    .then((createdMessage) => {
+      res.status(200).json({ message: 'Message saved successfully', data: createdMessage });
     })
     .catch((error) => {
       console.error('Error saving message:', error);
       res.status(500).json({ error: 'An error occurred while saving the message' });
     });
 });
-
 
 
 
@@ -423,7 +412,7 @@ app.post('/login', async (req, res) => {
 async function getSessionUsername(req) {
   const sessionId = req.session.user;
   try {
-    const response = await fetch('https://83e6-105-102-5-88.ngrok-free.app/api/getSessionUsername', {
+    const response = await fetch('https://starbase-tracking-tool.onrender.com/api/getSessionUsername', {
       credentials: 'include' // Include the session cookie in the request
     });
     const data = await response.json();
