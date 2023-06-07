@@ -230,17 +230,16 @@ app.get('/api/getSessionUsername', (req, res) => {
 app.post('/saveMessage', (req, res) => {
   const { username, message } = req.body;
 
-  // Create a new message
-  const newMessage = {
+  const newMessage = new Message({
     username: username,
     message: message,
     timestamp: new Date()
-  };
+  });
 
-  // Save the new message to the database
-  Message.create(newMessage)
-    .then((createdMessage) => {
-      res.status(200).json({ message: 'Message saved successfully', data: createdMessage });
+  newMessage.save()
+    .then(() => {
+      res.status(200).json({ message: 'Message saved successfully' });
+      io.emit('chat message', { sender: username, text: message });
     })
     .catch((error) => {
       console.error('Error saving message:', error);
@@ -292,36 +291,35 @@ const connectedUsers = new Set();
 
 io.on('connection', (socket) => {
   console.log('user connected ' + socket.id);
+
   socket.on('joining msg', (username) => {
     console.log('--- ' + username + ' joined the chat ---');
     socket.username = username;
     connectedUsers.add(username);
-  
-    // Retrieve chat history for all users from the database
-    User.find({})
-      .then((users) => {
-        const chatHistory = users.reduce((history, user) => {
-          const userMessages = user.chatMessages.map((message) => ({
-            sender: user.username,
-            text: message.message,
-          }));
-          return history.concat(userMessages);
-        }, []);
+
+    // Retrieve chat history from the database
+    Message.find({})
+      .then((messages) => {
+        const chatHistory = messages.map((message) => ({
+          sender: message.username,
+          text: message.message,
+          timestamp: message.timestamp
+        }));
         console.log('Chat history retrieved:', chatHistory);
-  
+
         // Send chat history to the newly connected client
         socket.emit('chat history', chatHistory);
       })
       .catch((error) => {
         console.error('Error retrieving chat history:', error);
       });
-  
+
     io.emit('chat message', {
       sender: 'Server',
       text: `--- ${username} joined the chat ---`,
     });
   });
-  
+
   socket.on('disconnect', () => {
     console.log('user disconnected ' + socket.id);
     const username = socket.username;
@@ -339,12 +337,13 @@ io.on('connection', (socket) => {
 
     // Save the message to the database
     if (msg && username) {
-      const newMessage = { username: username, text: msg };
-      User.findOneAndUpdate(
-        { username },
-        { $push: { chatMessages: newMessage } },
-        { new: true, runValidators: true }
-      )
+      const newMessage = new Message({
+        username: username,
+        message: msg,
+        timestamp: new Date()
+      });
+
+      newMessage.save()
         .then(() => {
           io.emit('chat message', { sender: username, text: msg });
         })
@@ -356,7 +355,6 @@ io.on('connection', (socket) => {
     }
   });
 });
-
 
 
 
